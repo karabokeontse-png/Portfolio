@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qualifications — Tetelo Karabo Keontse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #10141c;
+    --bg-2: #171c26;
+    --bg-3: #1d2330;
+    --ink: #e8e6df;
+    --ink-dim: #8891a0;
+    --border: #232938;
+    --bronze: #b08d57;
+    --bronze-soft: rgba(176,141,87,0.35);
+    --steel: #7fa9c9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-weight:300;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--bronze-soft); color:var(--ink);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--bronze);
+  }
+
+  a{color:inherit;}
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1.6rem 4vw;
+    backdrop-filter:blur(10px);
+    background:linear-gradient(to bottom, rgba(16,20,28,0.85), transparent);
+  }
+  .nav-mark{
+    font-family:'Fraunces', serif; font-size:1.05rem; letter-spacing:0.02em;
+  }
+  .nav-mark a{text-decoration:none;}
+  .nav-links{display:flex; gap:2.2rem; font-size:0.82rem; letter-spacing:0.03em;}
+  .nav-links a{text-decoration:none; color:var(--ink-dim); transition:color .25s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a.active{color:var(--ink); border-bottom:1px solid var(--bronze); padding-bottom:0.2rem;}
+  @media (max-width:720px){ .nav-links{display:none;} }
+
+  /* ---------- Section base ---------- */
+  section{padding:7rem 6vw;}
+  .section-inner{max-width:1120px; margin:0 auto;}
+  .page-head{
+    min-height:48vh;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:10rem 6vw 4rem;
+  }
+  .page-head .eyebrow{margin-bottom:1rem;}
+  .page-head h1{
+    font-family:'Fraunces', serif; font-weight:400;
+    font-size:clamp(2.4rem, 6vw, 4.4rem);
+    line-height:1.05; letter-spacing:-0.01em; max-width:16ch;
+  }
+  .page-head p{margin-top:1.4rem; color:var(--ink-dim); font-size:1.05rem; max-width:46ch;}
+
+  .section-head{margin-bottom:3rem;}
+  .section-head h2{
+    font-family:'Fraunces', serif; font-weight:400;
+    font-size:clamp(1.8rem, 3.4vw, 2.6rem);
+    margin-top:0.6rem;
+  }
+
+  /* ---------- Certificates ---------- */
+  .cert-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:1.4rem;
+  }
+  @media (max-width:960px){ .cert-grid{grid-template-columns:repeat(2, 1fr);} }
+  @media (max-width:640px){ .cert-grid{grid-template-columns:1fr;} }
+
+  .cert-item{
+    display:flex; flex-direction:column;
+    border:1px solid var(--border);
+    background:linear-gradient(160deg, var(--bg-2), var(--bg));
+    transition:border-color .25s, transform .25s;
+  }
+  .cert-item:hover{border-color:var(--bronze); transform:translateY(-3px);}
+  .cert-thumb{
+    display:block; overflow:hidden;
+    border-bottom:1px solid var(--border);
+    background:var(--bg-3);
+  }
+  .cert-thumb img{
+    width:100%; height:200px; object-fit:cover; object-position:top;
+    display:block; transition:transform .4s;
+  }
+  .cert-item:hover .cert-thumb img{transform:scale(1.04);}
+  .cert-body{display:flex; flex-direction:column; flex:1; padding:1.4rem 1.5rem 1.6rem;}
+  .cert-body .eyebrow{display:block; margin-bottom:0.6rem;}
+  .cert-body h3{
+    font-family:'Fraunces', serif; font-weight:500;
+    font-size:1.1rem; line-height:1.35;
+  }
+  .cert-body p.issuer{color:var(--ink-dim); font-size:0.85rem; margin-top:0.45rem;}
+  .cert-body p.date{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem;
+    color:var(--bronze-soft); margin-top:0.6rem; letter-spacing:0.05em;
+  }
+  .cert-link{
+    margin-top:1.2rem;
+    align-self:flex-start;
+    font-family:'IBM Plex Mono', monospace; font-size:0.74rem; letter-spacing:0.06em;
+    text-transform:uppercase; text-decoration:none;
+    color:var(--ink); border-bottom:1px solid var(--bronze);
+    transition:color .25s, border-color .25s;
+  }
+  .cert-link:hover{color:var(--bronze); border-color:var(--bronze);}
+
+  .note{font-size:0.78rem; color:var(--ink-dim); margin-top:2rem; font-style:italic;}
+
+  /* ---------- Badges ---------- */
+  .badge-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:1.2rem;
+  }
+  @media (max-width:960px){ .badge-grid{grid-template-columns:repeat(3, 1fr);} }
+  @media (max-width:680px){ .badge-grid{grid-template-columns:repeat(2, 1fr);} }
+  .badge-card{
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    border:1px solid var(--border); padding:1.4rem 1rem 1.2rem;
+    background:linear-gradient(160deg, var(--bg-2), var(--bg));
+    text-decoration:none; transition:border-color .25s, transform .25s, background .25s;
+  }
+  .badge-card:hover{border-color:var(--bronze); transform:translateY(-3px); background:rgba(176,141,87,0.06);}
+  .badge-card img{width:84px; height:84px; object-fit:contain; margin-bottom:0.9rem;}
+  .badge-card .badge-name{font-family:'Fraunces', serif; font-weight:500; font-size:0.9rem; line-height:1.25; color:var(--ink);}
+  .badge-card .badge-issuer{font-size:0.72rem; color:var(--ink-dim); margin-top:0.35rem;}
+  .badge-card .badge-year{font-size:0.68rem; color:var(--bronze-soft); margin-top:0.4rem; font-family:'IBM Plex Mono', monospace; letter-spacing:0.05em;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    text-align:center; padding:2.6rem 6vw; color:var(--ink-dim); font-size:0.76rem;
+    border-top:1px solid var(--border);
+  }
+  footer a{color:var(--ink-dim); text-decoration:none; transition:color .25s;}
+  footer a:hover{color:var(--ink);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-mark"><a href="index.html">T.K.</a></div>
+  <div class="nav-links">
+    <a href="index.html#about">About</a>
+    <a href="index.html#experience">Experience</a>
+    <a href="index.html#skills">Expertise</a>
+    <a href="qualifications.html" class="active">Qualifications</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="eyebrow">Qualifications</div>
+  <h1>Degrees, certificates &amp; credentialed skills.</h1>
+  <p>View actual certificates as images, plus every badge verified through Credly.</p>
+</header>
+
+<section id="certificates">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="eyebrow">Certificates</div>
+      <h2>Formal qualifications &amp; courses.</h2>
+    </div>
+    <div class="cert-grid">
+
+      <div class="cert-item">
+        <a class="cert-thumb" href="certificates/01_bsc-honours-computing.png" target="_blank" rel="noopener noreferrer">
+          <img src="certificates/01_bsc-honours-computing.png" alt="BSc Honours in Computing" loading="lazy">
+        </a>
+        <div class="cert-body">
+          <span class="eyebrow">Degree</span>
+          <h3>BSc Honours in Computing</h3>
+          <p class="issuer">Teesside University</p>
+          <a class="cert-link" href="certificates/01_bsc-honours-computing.png" target="_blank" rel="noopener noreferrer">View certificate</a>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <a class="cert-thumb" href="certificates/04_cissp-security-assessment-operations.png" target="_blank" rel="noopener noreferrer">
+          <img src="certificates/04_cissp-security-assessment-operations.png" alt="Introduction to CISSP: Security Assessment &amp; Testing and Security Operations" loading="lazy">
+        </a>
+        <div class="cert-body">
+          <span class="eyebrow">Certification</span>
+          <h3>Introduction to CISSP: Security Assessment &amp; Testing and Security Operations</h3>
+          <p class="issuer">Certification</p>
+          <p class="date">16 December 2025</p>
+          <a class="cert-link" href="certificates/04_cissp-security-assessment-operations.png" target="_blank" rel="noopener noreferrer">View certificate</a>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <a class="cert-thumb" href="certificates/05_intro-data-science.png" target="_blank" rel="noopener noreferrer">
+          <img src="certificates/05_intro-data-science.png" alt="Introduction to Data Science" loading="lazy">
+        </a>
+        <div class="cert-body">
+          <span class="eyebrow">Certification</span>
+          <h3>Introduction to Data Science</h3>
+          <p class="issuer">Certification</p>
+          <p class="date">16 December 2025</p>
+          <a class="cert-link" href="certificates/05_intro-data-science.png" target="_blank" rel="noopener noreferrer">View certificate</a>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <a class="cert-thumb" href="certificates/06_hr-analytics.png" target="_blank" rel="noopener noreferrer">
+          <img src="certificates/06_hr-analytics.png" alt="HR Analytics Course" loading="lazy">
+        </a>
+        <div class="cert-body">
+          <span class="eyebrow">Certification</span>
+          <h3>HR Analytics Course</h3>
+          <p class="issuer">Simplilearn</p>
+          <p class="date">17 December 2025</p>
+          <a class="cert-link" href="certificates/06_hr-analytics.png" target="_blank" rel="noopener noreferrer">View certificate</a>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <a class="cert-thumb" href="certificates/07_cybersecurity-in-finance.png" target="_blank" rel="noopener noreferrer">
+          <img src="certificates/07_cybersecurity-in-finance.png" alt="Cybersecurity in Finance" loading="lazy">
+        </a>
+        <div class="cert-body">
+          <span class="eyebrow">Certification</span>
+          <h3>Cybersecurity in Finance</h3>
+          <p class="issuer">Simplilearn</p>
+          <p class="date">17 December 2025</p>
+          <a class="cert-link" href="certificates/07_cybersecurity-in-finance.png" target="_blank" rel="noopener noreferrer">View certificate</a>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <a class="cert-thumb" href="certificates/08_grc-data-privacy-ibm.png" target="_blank" rel="noopener noreferrer">
+          <img src="certificates/08_grc-data-privacy-ibm.png" alt="Governance, Risk, Compliance, and Data Privacy" loading="lazy">
+        </a>
+        <div class="cert-body">
+          <span class="eyebrow">Certification</span>
+          <h3>Governance, Risk, Compliance, and Data Privacy</h3>
+          <p class="issuer">IBM SkillsBuild</p>
+          <p class="date">18 December 2025</p>
+          <a class="cert-link" href="certificates/08_grc-data-privacy-ibm.png" target="_blank" rel="noopener noreferrer">View certificate</a>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <a class="cert-thumb" href="certificates/09_project-management.png" target="_blank" rel="noopener noreferrer">
+          <img src="certificates/09_project-management.png" alt="BUS402: Introduction to Project Management" loading="lazy">
+        </a>
+        <div class="cert-body">
+          <span class="eyebrow">Certification</span>
+          <h3>BUS402: Introduction to Project Management</h3>
+          <p class="issuer">Certification</p>
+          <p class="date">21 January 2026</p>
+          <a class="cert-link" href="certificates/09_project-management.png" target="_blank" rel="noopener noreferrer">View certificate</a>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <a class="cert-thumb" href="certificates/10_project-management-transcript.png" target="_blank" rel="noopener noreferrer">
+          <img src="certificates/10_project-management-transcript.png" alt="BUS402: Introduction to Project Management — Transcript" loading="lazy">
+        </a>
+        <div class="cert-body">
+          <span class="eyebrow">Transcript</span>
+          <h3>BUS402: Introduction to Project Management</h3>
+          <p class="issuer">52 hours &middot; 97.78%</p>
+          <p class="date">21 January 2026</p>
+          <a class="cert-link" href="certificates/10_project-management-transcript.png" target="_blank" rel="noopener noreferrer">View certificate</a>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <a class="cert-thumb" href="certificates/11_social-media-marketing-hp.png" target="_blank" rel="noopener noreferrer">
+          <img src="certificates/11_social-media-marketing-hp.png" alt="Social Media Marketing" loading="lazy">
+        </a>
+        <div class="cert-body">
+          <span class="eyebrow">Certification</span>
+          <h3>Social Media Marketing</h3>
+          <p class="issuer">HP LIFE</p>
+          <a class="cert-link" href="certificates/11_social-media-marketing-hp.png" target="_blank" rel="noopener noreferrer">View certificate</a>
+        </div>
+      </div>
+
+    </div>
+    <p class="note">Click any thumbnail or "View certificate" to open the full certificate image.</p>
+  </div>
+</section>
+
+<section id="badges" style="background:var(--bg-2); border-top:1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="eyebrow">Badges</div>
+      <h2>Verified credentials on Credly.</h2>
+      <p style="color:var(--ink-dim); font-size:0.9rem; margin-top:1rem;">Credentials verified via <a href="https://www.credly.com/users/tetelo-karabo-keontse" target="_blank" rel="noopener" style="color:var(--bronze); text-decoration:underline;">Credly</a> &mdash; click any badge to view details.</p>
+    </div>
+    <div class="badge-grid">
+      <a class="badge-card" href="https://www.credly.com/badges/56381840-e746-49d9-b66d-e210b9e42e90" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/242902b5-f527-42ad-865e-977c9e1b5b58/image.png" alt="Ethical Hacker" loading="lazy">
+        <span class="badge-name">Ethical Hacker</span>
+        <span class="badge-issuer">Cisco</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/18737c2a-2820-4442-bfca-6a7551448396" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/441578ec-c0f3-46cc-95fc-86b27e90cf4f/image.png" alt="Junior Cybersecurity Analyst Career Path" loading="lazy">
+        <span class="badge-name">Junior Cybersecurity Analyst Career Path</span>
+        <span class="badge-issuer">Cisco</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/fb3beec1-3623-48a3-95c7-aa3fa17b92bb" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/51526f76-711b-4caf-b04d-27f89512b112/NetworkDefense_v1_091721.png" alt="Network Defense" loading="lazy">
+        <span class="badge-name">Network Defense</span>
+        <span class="badge-issuer">Cisco</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/35fcd0a4-b494-4d8c-91b4-5fb78c127c63" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/20082fc1-94af-4773-9df0-28856b566748/image.png" alt="Fortinet Certified Associate Cybersecurity" loading="lazy">
+        <span class="badge-name">Fortinet Certified Associate Cybersecurity</span>
+        <span class="badge-issuer">Fortinet</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/ff2eaf27-1b4b-4470-80ac-3adfb77afdd8" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/22a0ece5-ff05-4594-8320-25e55e9ae203/image.png" alt="Fortinet Certified Fundamentals Cybersecurity" loading="lazy">
+        <span class="badge-name">Fortinet Certified Fundamentals Cybersecurity</span>
+        <span class="badge-issuer">Fortinet</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/dea6f5a0-0f37-4b11-a2ad-c31b5f6c7602" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/453a3ef3-b400-4840-91b1-2f1f5157e015/blob" alt="Fortinet FortiGate 7.6 Operator" loading="lazy">
+        <span class="badge-name">Fortinet FortiGate 7.6 Operator</span>
+        <span class="badge-issuer">Fortinet</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/333cec83-8acc-43b5-8517-7c49040ad600" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/0dc7965b-8507-4312-9c12-1add6c50fa49/blob" alt="Fortinet NSE 1 Certified in Cybersecurity" loading="lazy">
+        <span class="badge-name">Fortinet NSE 1 Certified in Cybersecurity</span>
+        <span class="badge-issuer">Fortinet</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/d8e29ada-15b3-4fae-b4ba-f6c7ecb4e80d" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/a30952f3-f354-4233-b02a-690ffe95d190/blob" alt="Fortinet NSE 2 Certified in Cybersecurity" loading="lazy">
+        <span class="badge-name">Fortinet NSE 2 Certified in Cybersecurity</span>
+        <span class="badge-issuer">Fortinet</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/7882fb4e-a07f-4a62-a15c-ce825c0f45d8" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/7ca06297-1543-4ed2-b9fc-7f0af8635700/blob" alt="Fortinet NSE 3 Certified in Cybersecurity" loading="lazy">
+        <span class="badge-name">Fortinet NSE 3 Certified in Cybersecurity</span>
+        <span class="badge-issuer">Fortinet</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/bbd39877-218d-4c6a-9d8f-67d9804e15db" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/a27867b1-d64f-4890-b577-89f162015407/blob" alt="Getting Started in Cybersecurity 3.0" loading="lazy">
+        <span class="badge-name">Getting Started in Cybersecurity 3.0</span>
+        <span class="badge-issuer">Fortinet</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/31e6a483-8f51-4479-8442-63cdcb9019bc" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/a06a4e98-21bf-49ab-ad70-c61641f26fc8/blob" alt="Introduction to the Threat Landscape 3.0" loading="lazy">
+        <span class="badge-name">Introduction to the Threat Landscape 3.0</span>
+        <span class="badge-issuer">Fortinet</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/1ccdf099-e77b-4172-a433-fb48d0d74276" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/eb17d3c5-12f5-4be9-87b5-a6ccff62a22b/blob" alt="Technical Introduction to Cybersecurity 3.0" loading="lazy">
+        <span class="badge-name">Technical Introduction to Cybersecurity 3.0</span>
+        <span class="badge-issuer">Fortinet</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/b4a9b20e-6ec9-45fc-b906-0b30ed61b7ce" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/ed410b3b-a9db-4f69-b13e-6790008a8d60/AdvancedBadgeEmblem_20UIDesignAndUsabilityTesting_201.png" alt="UI Design and Usability Testing" loading="lazy">
+        <span class="badge-name">UI Design and Usability Testing</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/79b330ba-7190-47bf-8dfc-749f586899dd" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/8f5c6183-9294-47b8-962e-5e3b4717e278/AdvancedBadgeEmblem_InformationArchitectureWireframingAndPrototypingStrategies.png" alt="Information Architecture, Wireframing, and Prototyping Strategies" loading="lazy">
+        <span class="badge-name">Information Architecture, Wireframing, and Prototyping Strategies</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/cfd0d819-a1be-49f1-8fc2-3c7264308b99" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/6a6f45b2-f21a-4edc-a50d-d25177cf8b27/AdvancedBadgeEmblem_20NavigationDesignForUserEngagement_202.png" alt="Navigation Design for User Engagement" loading="lazy">
+        <span class="badge-name">Navigation Design for User Engagement</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/06cdda3a-b301-4858-bb85-d63d84ef0932" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/f76302d3-ffd6-41e6-9751-9d26d5889dc8/PrinciplesOfUXReviewAndEnhancement.png" alt="Principles of UX Review and Enhancement" loading="lazy">
+        <span class="badge-name">Principles of UX Review and Enhancement</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/932d4a5d-a7e0-494c-828d-4de6609b28ef" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/4e47b2d7-feb2-4927-bc3e-e45ffac46a7d/AdvancedBadgeEmblem_UserCenteredAndStoryBasedDesign.png" alt="User-centered and Story-based Design" loading="lazy">
+        <span class="badge-name">User-centered and Story-based Design</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/2ab990c1-f08a-4904-ace2-242cdceca18b" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/ceeff18a-ea29-4ce9-bef3-349761f3613b/AdvancedBadgeEmblem_UserExperienceRedesign.png" alt="User Experience Redesign" loading="lazy">
+        <span class="badge-name">User Experience Redesign</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/afe47e58-56fb-42a4-936e-bfcf019fd0c4" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/e7509df0-70cc-4641-ad00-112a7c2ee0a4/image.png" alt="Data Classification" loading="lazy">
+        <span class="badge-name">Data Classification</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/89f39786-fc0a-444b-9b5d-0e15b63a8ba4" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/1f924d27-b724-4aa8-970d-ae9d61e32e91/image.png" alt="Data Collection and Analysis" loading="lazy">
+        <span class="badge-name">Data Collection and Analysis</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/54920770-f5cb-46e4-b718-2bbc9c1c370c" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/8a4b4595-37dd-4498-8255-80d20101f3b6/image.png" alt="Data Preparation for Analysis" loading="lazy">
+        <span class="badge-name">Data Preparation for Analysis</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/3e9a1f11-55bf-4b54-b19e-df2356211465" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/2b5e18eb-ab38-4978-80b8-d2e12580607e/image.png" alt="Data Usability for Organizations" loading="lazy">
+        <span class="badge-name">Data Usability for Organizations</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/03f2cd60-9ab9-41ad-8fe8-c312e0d23274" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/e359ccf8-2b6e-4741-8f35-eb032c9b0de3/image.png" alt="Data Visualization and Presentation" loading="lazy">
+        <span class="badge-name">Data Visualization and Presentation</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/f4d950b3-dea9-4823-97f0-4ea0840e0a3f" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/681e00a0-5f6c-4ad9-a2e4-176c2b5d03cc/image.png" alt="Introduction to Inferential and Descriptive Statistics" loading="lazy">
+        <span class="badge-name">Introduction to Inferential and Descriptive Statistics</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/1df2577b-1ffe-4147-95c6-4e4caea8dee9" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/ee986187-6637-45e9-8184-8382dc117432/blob" alt="LFD121: Developing Secure Software" loading="lazy">
+        <span class="badge-name">LFD121: Developing Secure Software</span>
+        <span class="badge-issuer">The Linux Foundation</span>
+        <span class="badge-year">2026</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/2d639ebe-9ef9-4713-a7c8-bd937b4c72c8" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/8ea090d1-d6da-43f3-8ce2-940ab5345f22/image.png" alt="Cloud Security" loading="lazy">
+        <span class="badge-name">Cloud Security</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2025</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/f6875988-8376-4d25-b81f-6543ee30b83d" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/7ff0d7c3-7a73-4eb2-b364-19c20a94eb47/image.png" alt="Incident Response and Systems Forensics" loading="lazy">
+        <span class="badge-name">Incident Response and Systems Forensics</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2025</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/2e7a715b-c101-4d55-8e78-2d3e534d399f" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/571003e2-ef76-460e-be64-60029c3c7cbc/image.png" alt="Security Operations and Management" loading="lazy">
+        <span class="badge-name">Security Operations and Management</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2025</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/4b356ebe-29a2-4329-b0c7-e176755575c7" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/82e061d5-ce91-403d-8078-f213fd03ac62/image.png" alt="System and Network Security" loading="lazy">
+        <span class="badge-name">System and Network Security</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2025</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/254115a0-9789-4bdf-97bc-3c99d29a7a84" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/2fdda845-70ac-493d-9f37-533773d63be0/image.png" alt="Vulnerability Management" loading="lazy">
+        <span class="badge-name">Vulnerability Management</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2025</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/9e83846a-d5aa-41d6-ba36-84057c62b3ff" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/5d324f5d-18fa-43ee-8321-be88763c9e14/image.png" alt="Governance, Risk, Compliance, and Data Privacy" loading="lazy">
+        <span class="badge-name">Governance, Risk, Compliance, and Data Privacy</span>
+        <span class="badge-issuer">IBM SkillsBuild</span>
+        <span class="badge-year">2025</span>
+      </a>
+      <a class="badge-card" href="https://www.credly.com/badges/c7a5329d-6e6a-422d-99e3-ec5213eb90ef" target="_blank" rel="noopener noreferrer">
+        <img src="https://images.credly.com/images/9180921d-4a13-429e-9357-6f9706a554f0/image.png" alt="ISC2 Candidate" loading="lazy">
+        <span class="badge-name">ISC2 Candidate</span>
+        <span class="badge-issuer">ISC2</span>
+        <span class="badge-year">2025</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><a href="index.html">Back to home</a> &middot; Tetelo Karabo Keontse</p>
+</footer>
+
+</body>
+</html>

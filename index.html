@@ -202,7 +202,52 @@
   .cert-card .eyebrow{display:block; margin-bottom:0.7rem;}
   .cert-card h4{font-family:'Fraunces', serif; font-weight:500; font-size:1.05rem; line-height:1.3;}
   .cert-card p{color:var(--ink-dim); font-size:0.82rem; margin-top:0.5rem;}
+  .cert-divider{height:1px; background:var(--border); margin:2.6rem 0;}
+  .badge-meta{font-size:0.78rem; color:var(--ink-dim); letter-spacing:0.03em; margin-bottom:1.6rem;}
+  .badge-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:1.2rem;
+  }
+  @media (max-width:960px){ .badge-grid{grid-template-columns:repeat(3, 1fr);} }
+  @media (max-width:680px){ .badge-grid{grid-template-columns:repeat(2, 1fr);} }
+  .badge-card{
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    border:1px solid var(--border); padding:1.4rem 1rem 1.2rem;
+    background:linear-gradient(160deg, var(--bg-2), var(--bg));
+    text-decoration:none; transition:border-color .25s, transform .25s, background .25s;
+  }
+  .badge-card:hover{border-color:var(--bronze); transform:translateY(-3px); background:rgba(176,141,87,0.06);}
+  .badge-card img{width:84px; height:84px; object-fit:contain; margin-bottom:0.9rem;}
+  .badge-card .badge-name{font-family:'Fraunces', serif; font-weight:500; font-size:0.9rem; line-height:1.25; color:var(--ink);}
+  .badge-card .badge-issuer{font-size:0.72rem; color:var(--ink-dim); margin-top:0.35rem;}
+  .badge-card .badge-year{font-size:0.68rem; color:var(--bronze-soft); margin-top:0.4rem; font-family:'IBM Plex Mono', monospace; letter-spacing:0.05em;}
   .edit-note{font-size:0.75rem; color:var(--ink-dim); margin-top:1.2rem; font-style:italic;}
+
+  /* ---------- Landing page-link cards ---------- */
+  .page-link{
+    display:block; text-decoration:none;
+    border:1px solid var(--border); padding:2.6rem 2.8rem;
+    background:linear-gradient(160deg, var(--bg-2), var(--bg));
+    transition:border-color .3s, transform .3s, background .3s;
+  }
+  .page-link:hover{border-color:var(--bronze); transform:translateY(-4px); background:rgba(176,141,87,0.05);}
+  .page-link-head{display:flex; align-items:baseline; justify-content:space-between; gap:1.5rem; flex-wrap:wrap;}
+  .page-link h3{
+    font-family:'Fraunces', serif; font-weight:400;
+    font-size:clamp(1.4rem, 2.6vw, 2rem); margin-top:0.6rem;
+  }
+  .page-link .link-arrow{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--bronze); white-space:nowrap;
+  }
+  .page-counters{
+    display:flex; gap:2.6rem; margin-top:2.2rem; flex-wrap:wrap;
+  }
+  .page-counter .c-num{
+    font-family:'Fraunces', serif; font-weight:400; font-size:2.4rem; color:var(--bronze); line-height:1;
+  }
+  .page-counter .c-label{
+    font-size:0.76rem; color:var(--ink-dim); letter-spacing:0.04em; margin-top:0.5rem;
+  }
 
   /* ---------- Creative bridge ---------- */
   .bridge{
@@ -246,9 +291,9 @@
   <div></div>
   <div class="nav-links">
     <a href="#about">About</a>
-    <a href="#experience">Experience</a>
+    <a href="experience.html">Experience</a>
     <a href="#skills">Expertise</a>
-    <a href="#certifications">Credentials</a>
+    <a href="qualifications.html">Qualifications</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
@@ -291,32 +336,20 @@
       <div class="eyebrow">Experience</div>
       <h2>A career built across critical infrastructure.</h2>
     </div>
-    <div class="timeline">
-      <div class="t-item">
-        <div class="t-year">Jul 2024 – Jul 2025</div>
-        <div class="t-role">
-          <h3>Information Technology Systems and Data Integrity Officer</h3>
-          <div class="t-org">Department of Health Management Team</div>
-          <div class="t-desc"><strong style="color:var(--ink)">Governance —</strong> Led the maintenance of sensitive health records by enforcing strict data center best practices and Data Protection Act standards, ensuring 100% audit readiness.<br><br><strong style="color:var(--ink)">Data Analytics —</strong> Audited and reconciled high-volume data streams across clinical units to identify discrepancies, improving the accuracy of facilities management reports.</div>
+    <a class="page-link" href="experience.html">
+      <div class="page-link-head">
+        <div>
+          <div class="eyebrow">Work History</div>
+          <h3>Six years across government institutions.</h3>
         </div>
+        <span class="link-arrow">View experience →</span>
       </div>
-      <div class="t-item">
-        <div class="t-year">Oct 2022 – Feb 2024</div>
-        <div class="t-role">
-          <h3>Information Technology Officer (Security and Access)</h3>
-          <div class="t-org">Ministry of Basic Education</div>
-          <div class="t-desc"><strong style="color:var(--ink)">System Security —</strong> Administered GABS, implementing Role-Based Access Controls to secure critical financial database servers and user information.<br><br><strong style="color:var(--ink)">Networking —</strong> Configured VLAN segments using Cisco hardware to isolate administrative traffic, reducing internal security risks and enhancing network speed.</div>
-        </div>
+      <div class="page-counters">
+        <div class="page-counter"><div class="c-num">3</div><div class="c-label">Roles</div></div>
+        <div class="page-counter"><div class="c-num">6+</div><div class="c-label">Years of Experience</div></div>
+        <div class="page-counter"><div class="c-num">3</div><div class="c-label">Government Institutions</div></div>
       </div>
-      <div class="t-item">
-        <div class="t-year">Apr 2017 – Apr 2019</div>
-        <div class="t-role">
-          <h3>Information Technology Officer</h3>
-          <div class="t-org">Office of The District Commissioner</div>
-          <div class="t-desc"><strong style="color:var(--ink)">Infrastructure —</strong> Managed hardware diagnostics and server maintenance for district-wide offices, ensuring continuous uptime for essential public service terminals.</div>
-        </div>
-      </div>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -358,38 +391,20 @@
       <div class="eyebrow">Certifications</div>
       <h2>Continuously upskilled.</h2>
     </div>
-    <div class="cert-row">
-      <div class="cert-card">
-        <span class="eyebrow">Degree</span>
-        <h4>BSc Honours in Computing</h4>
-        <p>Teesside University</p>
+    <a class="page-link" href="qualifications.html">
+      <div class="page-link-head">
+        <div>
+          <div class="eyebrow">Qualification Summary</div>
+          <h3>Certificates, degrees &amp; credentialed skills.</h3>
+        </div>
+        <span class="link-arrow">View certifications →</span>
       </div>
-      <div class="cert-card">
-        <span class="eyebrow">Certification</span>
-        <h4>GRC and Data Privacy</h4>
-        <p>International Business Machines</p>
+      <div class="page-counters">
+        <div class="page-counter"><div class="c-num">9</div><div class="c-label">Certificates</div></div>
+        <div class="page-counter"><div class="c-num">32</div><div class="c-label">Badges</div></div>
+        <div class="page-counter"><div class="c-num">1</div><div class="c-label">Degree</div></div>
       </div>
-      <div class="cert-card">
-        <span class="eyebrow">Certification</span>
-        <h4>Cybersecurity in Finance</h4>
-        <p>Simplilearn</p>
-      </div>
-      <div class="cert-card">
-        <span class="eyebrow">Certification</span>
-        <h4>Human Resources Analytics</h4>
-        <p>Simplilearn</p>
-      </div>
-      <div class="cert-card">
-        <span class="eyebrow">Certification</span>
-        <h4>Introduction to Data Science</h4>
-        <p>Simplilearn</p>
-      </div>
-      <div class="cert-card">
-        <span class="eyebrow">Certification</span>
-        <h4>Social Media Marketing</h4>
-        <p>Hewlett-Packard LIFE</p>
-      </div>
-    </div>
+    </a>
   </div>
 </section>
 
