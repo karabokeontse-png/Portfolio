@@ -41,6 +41,8 @@
   .section-inner{max-width:1120px; margin:0 auto;}
   .section-head{margin-bottom:2.6rem;}
   .section-head h2{font-family:'Fraunces', serif; font-weight:400; font-size:clamp(1.7rem,3.2vw,2.4rem); margin-top:0.5rem;}
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);}
+  .reveal.in{opacity:1; transform:none;}
   .cert-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem;}
   @media (max-width:960px){ .cert-grid{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:640px){ .cert-grid{grid-template-columns:1fr;} }
@@ -88,6 +90,7 @@
   footer a{color:var(--ink-dim); text-decoration:none; transition:color .25s;}
   footer a:hover{color:var(--ink);}
 </style>
+<noscript><style>.reveal{opacity:1 !important; transform:none !important;}</style></noscript>
 </head>
 <body>
 
@@ -95,6 +98,7 @@
   <div class="nav-mark"><a href="index.html">T.K.</a></div>
   <div class="nav-links">
     <a href="index.html#about">About</a>
+    <a href="index.html#services">Services</a>
     <a href="experience.html">Experience</a>
     <a href="index.html#skills">Expertise</a>
     <a href="qualifications.html" class="active">Qualifications</a>
@@ -752,6 +756,22 @@
   function openModal(id){ document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
   function closeModal(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
   document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ document.querySelectorAll('.modal.open').forEach(function(m){ m.classList.remove('open'); }); document.body.style.overflow=''; } });
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const targets = document.querySelectorAll('#certificates .cert-item, #badges .badge-card');
+  if(reduceMotion || !('IntersectionObserver' in window)){
+    targets.forEach(el => el.classList.add('reveal','in'));
+  } else {
+    targets.forEach(el => el.classList.add('reveal'));
+    const ob = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if(!e.isIntersecting) return;
+        e.target.classList.add('in');
+        obs.unobserve(e.target);
+      });
+    }, {threshold: 0.12});
+    targets.forEach(el => ob.observe(el));
+  }
 </script>
 
 </body>

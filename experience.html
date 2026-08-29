@@ -98,6 +98,9 @@
   .t-desc{margin-top:1.2rem; font-size:0.96rem; line-height:1.8; color:var(--ink-dim);}
   .t-desc strong{color:var(--ink); font-weight:500;}
 
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);}
+  .reveal.in{opacity:1; transform:none;}
+
   @media (max-width:640px){
     .t-item{grid-template-columns:1fr; gap:1rem;}
   }
@@ -136,6 +139,7 @@
   footer a{color:var(--ink-dim); text-decoration:none; transition:color .25s;}
   footer a:hover{color:var(--ink);}
 </style>
+<noscript><style>.reveal{opacity:1 !important; transform:none !important;}</style></noscript>
 </head>
 <body>
 
@@ -143,6 +147,7 @@
   <div class="nav-mark"><a href="index.html">T.K.</a></div>
   <div class="nav-links">
     <a href="index.html#about">About</a>
+    <a href="index.html#services">Services</a>
     <a href="experience.html" class="active">Experience</a>
     <a href="index.html#skills">Expertise</a>
     <a href="qualifications.html">Qualifications</a>
@@ -159,7 +164,7 @@
 <section>
   <div class="section-inner">
 
-    <div class="t-item">
+    <div class="t-item reveal">
       <div class="t-year">Jul 2024 —<br>Jul 2025</div>
       <div class="t-role">
         <h3>IT Systems &amp; Data Integrity Officer</h3>
@@ -172,7 +177,7 @@
       </div>
     </div>
 
-    <div class="t-item">
+    <div class="t-item reveal">
       <div class="t-year">Oct 2022 —<br>Feb 2024</div>
       <div class="t-role">
         <h3>Information Technology Officer (Security &amp; Access)</h3>
@@ -185,7 +190,7 @@
       </div>
     </div>
 
-    <div class="t-item">
+    <div class="t-item reveal">
       <div class="t-year">Apr 2022 —<br>Oct 2022</div>
       <div class="t-role">
         <h3>Information Technology Officer (Infrastructure &amp; System Administration)</h3>
@@ -198,7 +203,7 @@
       </div>
     </div>
 
-    <div class="t-item">
+    <div class="t-item reveal">
       <div class="t-year">Aug 2019 —<br>Aug 2020</div>
       <div class="t-role">
         <h3>Temporary Computer Technician</h3>
@@ -211,7 +216,7 @@
       </div>
     </div>
 
-    <div class="ref-section">
+    <div class="ref-section reveal">
       <div class="ref-section-head">
         <div class="eyebrow">Referees</div>
         <h2 style="font-family:'Fraunces',serif; font-weight:400; font-size:1.9rem; margin-top:0.8rem;">Professional references.</h2>
@@ -256,6 +261,23 @@
 <footer>
   <p><a href="index.html">Back to home</a> &middot; Tetelo Karabo Keontse</p>
 </footer>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const els = document.querySelectorAll('.reveal');
+  if(reduceMotion || !('IntersectionObserver' in window)){
+    els.forEach(el => el.classList.add('in'));
+  } else {
+    const ob = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if(!e.isIntersecting) return;
+        e.target.classList.add('in');
+        obs.unobserve(e.target);
+      });
+    }, {threshold: 0.12});
+    els.forEach(el => ob.observe(el));
+  }
+</script>
 
 </body>
 </html>
