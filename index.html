@@ -362,6 +362,38 @@
     font-size:0.76rem; color:var(--ink-dim); letter-spacing:0.04em; margin-top:0.5rem;
   }
 
+  /* ---------- Work grid (design / development) ---------- */
+  .work-grid{display:grid; grid-template-columns:1fr 1fr; gap:1.6rem;}
+  @media (max-width:860px){ .work-grid{grid-template-columns:1fr;} }
+  .work-card{
+    position:relative; display:block; text-decoration:none;
+    border:1px solid var(--border); background:linear-gradient(160deg, var(--bg-2), var(--bg));
+    padding:2.6rem 2.4rem; overflow:hidden;
+    transition:border-color .3s, transform .3s, background .3s;
+  }
+  .work-card:hover{border-color:var(--bronze); transform:translateY(-4px); background:rgba(176,141,87,0.05);}
+  .work-card .w-icon{
+    width:52px; height:52px; border:1px solid var(--bronze-soft); border-radius:12px;
+    display:flex; align-items:center; justify-content:center; font-size:1.4rem; color:var(--bronze);
+    margin-bottom:1.4rem;
+  }
+  .work-card h3{font-family:'Fraunces',serif; font-weight:400; font-size:1.5rem;}
+  .work-card p{color:var(--ink-dim); font-size:0.92rem; line-height:1.7; margin-top:0.8rem;}
+  .work-card .w-meta{
+    display:flex; gap:1.2rem; margin-top:1.5rem; flex-wrap:wrap;
+    font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.08em; color:var(--ink-dim);
+  }
+  .work-card .w-meta b{color:var(--steel); font-weight:500;}
+  .work-card .w-cta{
+    display:inline-block; margin-top:1.6rem; font-family:'IBM Plex Mono',monospace;
+    font-size:0.74rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--bronze);
+  }
+  .work-card::after{
+    content:''; position:absolute; right:-40px; bottom:-40px; width:160px; height:160px; border-radius:50%;
+    background:radial-gradient(circle, var(--bronze-soft), transparent 70%); opacity:0; transition:opacity .4s;
+  }
+  .work-card:hover::after{opacity:1;}
+
   /* ---------- Creative bridge ---------- */
   .bridge{
     background:var(--bg-2);
@@ -410,6 +442,8 @@
   <div class="nav-links">
     <a href="#about">About</a>
     <a href="#services">Services</a>
+    <a href="design.html">Design</a>
+    <a href="software.html">Development</a>
     <a href="experience.html">Experience</a>
     <a href="#skills">Expertise</a>
     <a href="qualifications.html">Qualifications</a>
@@ -520,6 +554,31 @@
         <h3>ICT Systems &amp; Audit</h3>
         <p>Network administration, data protection compliance and internal audit — keeping critical systems secure, stable and audit-ready.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="auto-reveal">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="eyebrow">My Work</div>
+      <h2>Built, designed &amp; shipped.</h2>
+    </div>
+    <div class="work-grid">
+      <a class="work-card reveal" href="design.html">
+        <div class="w-icon">&#9998;</div>
+        <h3>Graphic Design</h3>
+        <p>Logos, flyers, menus, social media and business collateral for real clients — a filterable gallery of creative work.</p>
+        <div class="w-meta"><span><b>13</b> pieces</span><span><b>5+</b> categories</span></div>
+        <span class="w-cta">View the gallery →</span>
+      </a>
+      <a class="work-card reveal d1" href="software.html">
+        <div class="w-icon">&#123;&#125;</div>
+        <h3>Software Development</h3>
+        <p>Backend logic, system automation and integrations. Projects are landing here soon as I continue building.</p>
+        <div class="w-meta"><span><b>Java · C# · SQL</b></span><span><b>PowerShell</b></span></div>
+        <span class="w-cta">Explore development →</span>
+      </a>
     </div>
   </div>
 </section>
