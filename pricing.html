@@ -154,6 +154,25 @@
   footer a{color:var(--ink-dim); text-decoration:none;}
   footer a:hover{color:var(--ink);}
 
+  .m-field{display:block; margin:0.9rem 0;}
+  .m-field label{display:block; font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:0.45rem;}
+  .m-field input,.m-field textarea,.m-field select{width:100%; background:var(--bg-3); color:var(--ink); border:1px solid var(--border); font-family:'Inter',sans-serif; font-size:0.9rem; padding:0.65rem 0.8rem;}
+  .m-field textarea{min-height:74px; resize:vertical; line-height:1.5;}
+  .m-field input:focus,.m-field textarea:focus,.m-field select:focus{outline:none; border-color:var(--bronze);}
+  .m-field .phd{font-size:0.74rem; color:var(--ink-dim); line-height:1.6; margin-top:0.35rem;}
+  .m-field .phd b{color:var(--steel); font-weight:500;}
+  .attach-ph{border:1px dashed var(--border); padding:0.8rem 1rem; font-size:0.78rem; color:var(--ink-dim); line-height:1.6; background:rgba(127,169,201,0.04);}
+  .m-sec-msg{margin-top:1.5rem; font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-dim);}
+  .send-btns{display:flex; flex-direction:column; gap:0.6rem; margin-top:1.3rem;}
+  .sb-btn{display:flex; align-items:center; gap:0.8rem; border:1px solid var(--border); padding:0.9rem 1.1rem; cursor:pointer; transition:border-color .2s,background .2s; background:transparent; text-align:left; text-decoration:none; color:var(--ink);}
+  .sb-btn:hover{border-color:var(--bronze); background:rgba(176,141,87,0.06);}
+  .sb-btn .ico{font-size:1.5rem; line-height:1; width:34px; height:34px; display:flex; align-items:center; justify-content:center; flex-shrink:0; border-radius:50%; border:1px solid var(--border);}
+  .sb-btn .t{font-size:0.95rem; font-weight:400;}
+  .sb-btn .s{font-size:0.74rem; color:var(--ink-dim); margin-top:0.15rem;}
+  .sb-btn.wa .ico{color:#25d366; border-color:rgba(37,211,102,0.35);}
+  .sb-btn.em .ico{color:var(--steel); border-color:var(--bronze-soft);}
+  .sb-btn.direct .ico{color:var(--bronze); border-color:var(--bronze-soft);}
+
   .reveal{opacity:0; transform:translateY(20px); transition:opacity .6s ease,transform .6s ease;}
   .reveal.in{opacity:1; transform:none;}
 </style>
@@ -395,7 +414,7 @@
   <div class="section-inner">
     <div class="eyebrow">Have questions?</div>
     <h2 style="font-family:'Fraunces',serif; font-weight:400; font-size:clamp(1.8rem,3.4vw,2.6rem); margin-top:0.6rem;">Let's build your brand, your way.</h2>
-    <p style="color:var(--ink-dim); margin-top:1rem;">karabokeontse@gmail.com &middot; +267 7460 2164 / 7586 1674</p>
+    <p style="color:var(--ink-dim); margin-top:1rem;">karabokeontse@gmail.com &middot; +267 7294 7916</p>
     <a href="mailto:karabokeontse@gmail.com?subject=Design%20package%20enquiry" style="display:inline-block; margin-top:1.8rem; font-family:'IBM Plex Mono',monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink); border:1px solid var(--bronze-soft); padding:0.9rem 1.5rem; text-decoration:none;">Start a package</a>
   </div>
 </section>
@@ -418,21 +437,61 @@
       <div class="m-total"><span>Total</span><span class="v" id="mTotal">—</span></div>
       <div class="m-deposit"><span>Upfront deposit (25%)</span><span class="v" id="mDeposit">—</span></div>
 
-      <div class="m-sec">Payment method</div>
+      <div class="m-sec-msg">Tell me what to build</div>
+
+      <div class="m-field">
+        <label for="mType">What are we making?</label>
+        <select id="mType">
+          <option value="">—</option>
+          <option>Logo</option>
+          <option>Business Card</option>
+          <option>Letterhead</option>
+          <option>Receipt / Payslip</option>
+          <option>Flyer / Poster</option>
+          <option>Social Media Graphic</option>
+          <option>Menu</option>
+          <option>Full brand package</option>
+          <option>Website</option>
+          <option>Mobile App</option>
+          <option>ICT / Audit</option>
+          <option>Something else</option>
+        </select>
+      </div>
+
+      <div class="m-field">
+        <label for="mDesc">Describe what you want</label>
+        <textarea id="mDesc" placeholder="e.g. A business card using my existing logo — black background, gold accents, include my phone and email…"></textarea>
+      </div>
+
+      <div class="m-field">
+        <label for="mBrand">Business &amp; brand details</label>
+        <textarea id="mBrand" placeholder="Business name, colours, tone, text/contact details to include, or examples you like…"></textarea>
+      </div>
+
+      <div class="m-field">
+        <label for="mFiles">Files I should use (if any)</label>
+        <div class="attach-ph" id="mFilesPh">You can attach your logo or other files here in WhatsApp / email. Write what you're sending below, then attach the actual file when the message opens.</div>
+        <input id="mFiles" placeholder="e.g. Uploading my logo (logo.png)" style="margin-top:0.5rem;">
+      </div>
+
+      <div class="m-sec-msg">Payment method</div>
       <div class="pay-opts" id="payOpts">
         <div class="pay-opt" data-pay="visa"><div class="r"></div><div><div class="pt-name">Visa / Card</div><div class="pt-sub">Pay by debit or credit card</div></div></div>
         <div class="pay-opt" data-pay="orange"><div class="r"></div><div><div class="pt-name">Orange Money</div><div class="pt-sub">Mobile money transfer</div></div></div>
         <div class="pay-opt" data-pay="myzaka"><div class="r"></div><div><div class="pt-name">MyZaka</div><div class="pt-sub">Botswana mobile wallet</div></div></div>
         <div class="pay-opt" data-pay="smega"><div class="r"></div><div><div class="pt-name">Smega</div><div class="pt-sub">Botswana mobile wallet</div></div></div>
-        <div class="pay-opt" data-pay="other"><div class="r"></div><div><div class="pt-name">Other</div><div class="pt-sub">WhatsApp, email or phone call arrangements</div></div></div>
+        <div class="pay-opt" data-pay="other"><div class="r"></div><div><div class="pt-name">Other / arrange</div><div class="pt-sub">Agree payment via WhatsApp, email or phone</div></div></div>
       </div>
 
-      <div class="modal-actions">
-        <button class="btn solid" id="mWhats">Continue on WhatsApp &nearr;</button>
-        <button class="btn" id="mEmail">Send via Email &nearr;</button>
+      <div class="m-sec-msg">Send this to me</div>
+      <div class="send-btns">
+        <button class="sb-btn wa" id="mWhats"><span class="ico">✆</span><span><div class="t">Send via WhatsApp</div><div class="s">Opens WhatsApp — attach files &amp; send (+267 7294 7916)</div></span></button>
+        <button class="sb-btn em" id="mEmail"><span class="ico">✉</span><span><div class="t">Send via Email</div><div class="s">Opens email — attach files &amp; send</div></span></button>
+        <button class="sb-btn direct" id="mDirect"><span class="ico">⌘</span><span><div class="t">Message me directly</div><div class="s">Open WhatsApp or email without sending a package</div></span></button>
       </div>
+
       <p class="m-final" id="mFinal"></p>
-      <p style="margin-top:0.8rem; font-size:0.72rem; color:var(--ink-dim); line-height:1.6;">A 25% non-refundable deposit confirms the order. You'll receive a final quote confirming the total before paying.</p>
+      <p style="margin-top:0.8rem; font-size:0.72rem; color:var(--ink-dim); line-height:1.6;">A non-refundable <b>25% deposit</b> confirms the order. I'll confirm the total and then you pay the deposit — your brief arrives so I know exactly what to build.</p>
     </div>
   </div>
 </div>
@@ -637,33 +696,69 @@
     document.getElementById('mTotal').textContent = money(state.total, true);
     document.getElementById('mDeposit').textContent = money(Math.round(state.total*0.25), true);
     document.getElementById('mFinal').textContent = 'Total shown in ' + NAME[cur] + ' (' + cur + '). Final quote confirms this before payment.';
+    document.getElementById('mType').value = '';
+    document.getElementById('mType').style.borderColor = '';
+    document.getElementById('mDesc').value = '';
+    document.getElementById('mBrand').value = '';
+    document.getElementById('mFiles').value = '';
     modal.classList.add('open');
   }
 
   function methodText(){
-    const map = {visa:'Visa / Card', orange:'Orange Money', myzaka:'MyZaka', smega:'Smega', other:'Other'};
-    return payMethod ? map[payMethod] : 'payment method';
+    const map = {visa:'Visa / Card', orange:'Orange Money', myzaka:'MyZaka', smega:'Smega', other:'Other / arrange'};
+    return payMethod ? map[payMethod] : 'to be agreed';
   }
+
+  function val(id){ const el=document.getElementById(id); return el && el.value ? '\n' + el.value.trim() : ''; }
 
   function buildMessage(finalNote){
     const items = order.filter(n=>selections[n]!==null).map(n=>'- '+n+': '+CATALOG[n][selections[n]].label).join('\n');
-    return 'Hello Tetelo, I would like to order a design package.\n\n' + items +
+    let msg = 'Hello Tetelo, I would like to order the following:\n\n' + items +
       '\n\nSubtotal: ' + money(state.sub, true) +
       (state.pct>0 ? '\nBundle discount ('+state.pct+'%): -'+money(state.disc, true) : '') +
       '\nTotal: ' + money(state.total, true) +
       '\nUpfront deposit (25%): ' + money(Math.round(state.total*0.25), true) +
-      '\nCurrency: ' + NAME[cur] + ' (' + cur + ')' +
-      '\nPayment method: ' + methodText() + finalNote;
+      '\nCurrency: ' + NAME[cur] + ' (' + cur + ')';
+
+    const type = document.getElementById('mType').value;
+    if(type) msg += '\n\nProject type: ' + type;
+    const desc = val('mDesc');
+    if(desc) msg += '\n\nWhat I want:\n' + desc.trim();
+    const brand = val('mBrand');
+    if(brand) msg += '\n\nBusiness / brand details:\n' + brand.trim();
+    const files = val('mFiles');
+    if(files) msg += '\n\nFiles: ' + files.trim();
+
+    msg += '\n\nPayment method: ' + methodText() + finalNote;
+    return msg;
+  }
+
+  function briefValid(){
+    // Require a project type so we always know what to build
+    return document.getElementById('mType').value !== '';
   }
 
   document.getElementById('mWhats').addEventListener('click', ()=>{
-    const msg = buildMessage('\n\nI will send the 25% deposit now.');
-    window.open('https://wa.me/26774602164?text=' + encodeURIComponent(msg), '_blank');
+    if(!briefValid()){
+      document.getElementById('mType').focus();
+      document.getElementById('mType').style.borderColor = 'var(--red)';
+      return;
+    }
+    const msg = buildMessage('\n\nI will send the 25% deposit now. Please confirm.');
+    window.open('https://wa.me/26772947916?text=' + encodeURIComponent(msg), '_blank');
   });
   document.getElementById('mEmail').addEventListener('click', ()=>{
+    if(!briefValid()){
+      document.getElementById('mType').focus();
+      document.getElementById('mType').style.borderColor = 'var(--red)';
+      return;
+    }
     const msg = buildMessage('\n\nPlease send payment instructions.');
     location.href = 'mailto:karabokeontse@gmail.com?subject=' + encodeURIComponent('Design package order (deposit)') +
       '&body=' + encodeURIComponent(msg);
+  });
+  document.getElementById('mDirect').addEventListener('click', ()=>{
+    window.open('https://wa.me/26772947916?text=' + encodeURIComponent('Hello Tetelo, I\'d like to chat about a project.'), '_blank');
   });
 
   document.addEventListener('click', (e)=>{
