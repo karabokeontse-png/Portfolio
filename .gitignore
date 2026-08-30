@@ -6,3 +6,6 @@ all certifications part 2.pdf
 # Local tooling
 .DS_Store
 Thumbs.db
+
+# Editable document templates — keep out of the public repo
+work/design/documents/*.docx
