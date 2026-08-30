@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pricing — Tetelo Karabo Keontse</title>
-<meta name="description" content="Design and development pricing from Tetelo Karabo Keontse — transparent per-item rates, style tiers and bundle discounts.">
+<meta name="description" content="Design and development pricing from Tetelo Karabo Keontse — per-item rates, style tiers, bundle discounts and checkout in your currency.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -18,6 +18,7 @@
     --bronze: #b08d57;
     --bronze-soft: rgba(176,141,87,0.35);
     --steel: #7fa9c9;
+    --red: #c96f6f;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
@@ -35,23 +36,28 @@
   .nav-links a.active{color:var(--ink); border-bottom:1px solid var(--bronze); padding-bottom:0.2rem;}
   @media (max-width:860px){ .nav-links{display:none;} }
 
-  .page-head{min-height:38vh; display:flex; flex-direction:column; justify-content:flex-end; padding:9rem 6vw 3rem;}
+  .page-head{min-height:36vh; display:flex; flex-direction:column; justify-content:flex-end; padding:9rem 6vw 3rem;}
   .page-head .eyebrow{margin-bottom:1rem;}
   .page-head h1{font-family:'Fraunces',serif; font-weight:400; font-size:clamp(2.2rem,5vw,3.6rem); line-height:1.05; max-width:18ch;}
   .page-head p{margin-top:1.2rem; color:var(--ink-dim); font-size:1.02rem; max-width:56ch; line-height:1.7;}
-  .head-note{margin-top:1.2rem; color:var(--steel); font-family:'IBM Plex Mono',monospace; font-size:0.78rem; letter-spacing:0.04em;}
+  .head-actions{display:flex; align-items:center; gap:1rem; margin-top:1.6rem; flex-wrap:wrap;}
+  .head-actions label{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-dim);}
+  .head-actions select{background:var(--bg-3); color:var(--ink); border:1px solid var(--border); font-family:'IBM Plex Mono',monospace; font-size:0.8rem; padding:0.6rem 0.8rem; cursor:pointer;}
+  .head-actions select:focus{outline:none; border-color:var(--bronze);}
+  .rate-note{margin-top:0.7rem; color:var(--ink-dim); font-family:'IBM Plex Mono',monospace; font-size:0.7rem;}
 
   section{padding:2.5rem 6vw 3rem;}
   .section-inner{max-width:1000px; margin:0 auto;}
   .section-head{display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.6rem;}
   .section-head h2{font-family:'Fraunces',serif; font-weight:400; font-size:clamp(1.6rem,3vw,2.2rem);}
 
-  /* Price table */
+  .deposit-banner{border:1px solid var(--bronze-soft); background:linear-gradient(180deg,rgba(176,141,87,0.08),transparent); padding:1.2rem 1.5rem; margin-bottom:1.6rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap;}
+  .deposit-banner b{font-family:'Fraunces',serif; font-weight:500;}
+  .deposit-banner .d-tag{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--bronze); background:var(--bronze-soft); padding:0.4rem 0.7rem; flex-shrink:0;}
+  .deposit-banner p{font-size:0.88rem; color:var(--ink-dim); line-height:1.6;}
+
   .price-table{width:100%; border-collapse:collapse; margin-bottom:1.6rem;}
-  .price-table th{
-    text-align:left; font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase;
-    color:var(--ink-dim); border-bottom:1px solid var(--border); padding:0.7rem 1rem; font-weight:400;
-  }
+  .price-table th{text-align:left; font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-dim); border-bottom:1px solid var(--border); padding:0.7rem 1rem; font-weight:400;}
   .price-table td{border-bottom:1px solid var(--border); padding:0.9rem 1rem; vertical-align:top;}
   .price-table tr.item-row:hover td{background:rgba(176,141,87,0.04);}
   .price-table .item-name{font-family:'Fraunces',serif; font-size:1.05rem; font-weight:500;}
@@ -64,13 +70,11 @@
 
   .table-wrap{overflow-x:auto;}
 
-  /* combo discount table */
   .discount-table{width:100%; max-width:560px; border-collapse:collapse;}
   .discount-table td,.discount-table th{border-bottom:1px solid var(--border); padding:0.8rem 1rem; text-align:left;}
   .discount-table th{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-dim); font-weight:400;}
   .discount-table .pc{color:var(--bronze); font-family:'IBM Plex Mono',monospace; font-weight:500;}
 
-  /* Calculator */
   .calc{border:1px solid var(--border); background:var(--bg-2); overflow:hidden; margin-top:2.4rem;}
   .calc-head{padding:1.6rem 2rem; border-bottom:1px solid var(--border); display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:1rem;}
   .calc-head h3{font-family:'Fraunces',serif; font-weight:400; font-size:1.5rem;}
@@ -82,29 +86,33 @@
   @media (max-width:560px){ .calc-item{grid-template-columns:1fr 1fr; grid-template-rows:auto auto;} }
   .calc-item:last-child{border-bottom:none;}
   .calc-item .ci-name{font-family:'Fraunces',serif; font-size:1rem; font-weight:500;}
-  .calc-item select{
-    background:var(--bg-3); color:var(--ink); border:1px solid var(--border); font-family:'IBM Plex Mono',monospace;
-    font-size:0.8rem; padding:0.5rem 0.7rem; cursor:pointer; min-width:150px;
-  }
+  .calc-item select{background:var(--bg-3); color:var(--ink); border:1px solid var(--border); font-family:'IBM Plex Mono',monospace; font-size:0.8rem; padding:0.5rem 0.7rem; cursor:pointer; min-width:165px;}
   .calc-item select:focus{outline:none; border-color:var(--bronze);}
-  .calc-item .ci-price{font-family:'IBM Plex Mono',monospace; font-size:0.95rem; color:var(--bronze); min-width:64px; text-align:right; font-weight:500;}
+  .calc-item select.choose{color:var(--ink-dim);}
+  .calc-item .ci-price{font-family:'IBM Plex Mono',monospace; font-size:0.95rem; color:var(--bronze); min-width:72px; text-align:right; font-weight:500;}
+  .calc-item .ci-price.na{color:var(--ink-dim);}
 
-  .calc-tally{border-left:1px solid var(--border); padding:2rem; background:linear-gradient(180deg,var(--bg-3),var(--bg-2));
-    position:sticky; top:0;}
+  .calc-tally{border-left:1px solid var(--border); padding:2rem; background:linear-gradient(180deg,var(--bg-3),var(--bg-2)); position:sticky; top:0;}
   @media (max-width:800px){ .calc-tally{border-left:none; border-top:1px solid var(--border);} }
   .tally-row{display:flex; justify-content:space-between; align-items:baseline; padding:0.55rem 0; font-size:0.95rem; color:var(--ink-dim);}
   .tally-row .v{font-family:'IBM Plex Mono',monospace; color:var(--ink);}
   .tally-row.discount .v{color:var(--steel);}
   .tally-total{display:flex; justify-content:space-between; align-items:baseline; margin-top:1rem; padding-top:1.2rem; border-top:1px solid var(--border); font-family:'Fraunces',serif; font-size:1.5rem;}
   .tally-total .v{color:var(--bronze);}
-  .combo-flag{margin-top:1.4rem; font-size:0.82rem; color:var(--ink-dim); line-height:1.6;}
+  .tally-deposit{display:flex; justify-content:space-between; align-items:baseline; padding-top:0.6rem; font-size:0.85rem; color:var(--red);}
+  .tally-deposit .v{font-family:'IBM Plex Mono',monospace;}
+  .combo-flag{margin-top:1.2rem; font-size:0.82rem; color:var(--ink-dim); line-height:1.6;}
   .combo-flag b{color:var(--bronze); font-weight:500;}
-  .excl-note{margin-top:1.2rem; font-size:0.8rem; color:var(--ink-dim); line-height:1.7; border-top:1px dashed var(--border); padding-top:1.1rem;}
-  .calc-cta{margin-top:1.6rem;}
-  .btn{display:inline-flex; align-items:center; gap:0.5rem; font-family:'IBM Plex Mono',monospace; font-size:0.76rem; letter-spacing:0.07em; text-transform:uppercase; text-decoration:none; color:var(--ink); border:1px solid var(--bronze-soft); padding:0.85rem 1.2rem; transition:background .25s,border-color .25s; cursor:pointer; background:transparent; width:100%; justify-content:center;}
+  .excl-note{margin-top:1.1rem; font-size:0.78rem; color:var(--ink-dim); line-height:1.7; border-top:1px dashed var(--border); padding-top:1rem;}
+  .calc-cta{margin-top:1.4rem; display:flex; flex-direction:column; gap:0.6rem;}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; font-family:'IBM Plex Mono',monospace; font-size:0.76rem; letter-spacing:0.07em; text-transform:uppercase; text-decoration:none; color:var(--ink); border:1px solid var(--bronze-soft); padding:0.85rem 1.2rem; transition:background .25s,border-color .25s; cursor:pointer; background:transparent;}
   .btn:hover{background:rgba(176,141,87,0.1); border-color:var(--bronze);}
+  .btn.solid{background:var(--bronze); border-color:var(--bronze); color:#0e1218; font-weight:500;}
+  .btn.solid:hover{background:var(--bronze-soft);}
+  .btn.muted{border-color:var(--border); color:var(--ink-dim);}
+  .btn.muted:hover{border-color:var(--steel); color:var(--ink);}
+  .btn.disabled{opacity:0.4; pointer-events:none;}
 
-  /* premium services */
   .premium-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem;}
   @media (max-width:860px){ .premium-grid{grid-template-columns:1fr;} }
   .premium-card{border:1px solid var(--border); background:var(--bg-2); padding:1.6rem 1.5rem;}
@@ -112,6 +120,35 @@
   .premium-card .from{font-family:'IBM Plex Mono',monospace; font-size:0.9rem; color:var(--bronze); margin-top:0.7rem; font-weight:500;}
   .premium-card p{font-size:0.85rem; color:var(--ink-dim); line-height:1.7; margin-top:0.6rem;}
   .premium-note{margin-top:1.4rem; font-size:0.82rem; color:var(--steel); font-family:'IBM Plex Mono',monospace; letter-spacing:0.03em;}
+
+  /* Modal */
+  .modal-overlay{position:fixed; inset:0; z-index:100; background:rgba(8,10,14,0.82); backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; padding:2vw; overflow-y:auto;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:var(--bg-2); border:1px solid var(--border); width:100%; max-width:560px; max-height:92vh; overflow-y:auto; padding:0;}
+  .modal-head{display:flex; align-items:center; justify-content:space-between; padding:1.4rem 1.8rem; border-bottom:1px solid var(--border); position:sticky; top:0; background:var(--bg-2); z-index:2;}
+  .modal-head h3{font-family:'Fraunces',serif; font-weight:400; font-size:1.3rem;}
+  .modal-close{cursor:pointer; background:none; border:none; color:var(--ink-dim); font-size:1.6rem; line-height:1; font-family:'Inter',sans-serif;}
+  .modal-close:hover{color:var(--ink);}
+  .modal-body{padding:1.8rem;}
+  .m-row{display:flex; justify-content:space-between; align-items:baseline; padding:0.5rem 0; font-size:0.95rem; color:var(--ink-dim);}
+  .m-row .v{font-family:'IBM Plex Mono',monospace; color:var(--ink);}
+  .m-total{display:flex; justify-content:space-between; align-items:baseline; margin-top:0.8rem; padding-top:1rem; border-top:1px solid var(--border); font-family:'Fraunces',serif; font-size:1.3rem;}
+  .m-total .v{color:var(--bronze);}
+  .m-deposit{display:flex; justify-content:space-between; align-items:baseline; font-size:0.85rem; color:var(--red); padding-top:0.4rem;}
+  .m-deposit .v{font-family:'IBM Plex Mono',monospace;}
+  .m-sec{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-dim); margin:1.5rem 0 0.8rem;}
+  .pay-opts{display:flex; flex-direction:column; gap:0.5rem;}
+  .pay-opt{display:flex; align-items:center; gap:0.7rem; border:1px solid var(--border); padding:0.75rem 1rem; cursor:pointer; transition:border-color .2s,background .2s;}
+  .pay-opt:hover{border-color:var(--bronze-soft);}
+  .pay-opt.sel{border-color:var(--bronze); background:rgba(176,141,87,0.08);}
+  .pay-opt .r{width:14px; height:14px; border:1px solid var(--ink-dim); border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center;}
+  .pay-opt.sel .r{border-color:var(--bronze);}
+  .pay-opt.sel .r::after{content:''; width:8px; height:8px; border-radius:50%; background:var(--bronze);}
+  .pay-opt .pt-name{font-size:0.9rem; font-weight:400;}
+  .pay-opt .pt-sub{font-size:0.72rem; color:var(--ink-dim); margin-top:0.15rem;}
+  .modal-note{margin-top:0.9rem; font-size:0.78rem; color:var(--ink-dim); line-height:1.6;}
+  .modal-actions{margin-top:1.5rem; display:flex; flex-direction:column; gap:0.6rem;}
+  .m-final{font-family:'IBM Plex Mono',monospace; font-size:0.76rem; color:var(--steel); margin-top:1rem; line-height:1.6;}
 
   footer{text-align:center; padding:2.6rem 6vw; color:var(--ink-dim); font-size:0.76rem; border-top:1px solid var(--border);}
   footer a{color:var(--ink-dim); text-decoration:none;}
@@ -133,7 +170,6 @@
     <a href="software.html">Development</a>
     <a href="experience.html">Experience</a>
     <a href="qualifications.html">Qualifications</a>
-    <a href="pricing.html" class="active">Pricing</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
@@ -142,8 +178,39 @@
   <div class="eyebrow">Pricing</div>
   <h1>Clear, simple &amp; bundle-friendly.</h1>
   <p>Design work priced per item with style options, so you only pay for what you need. Build your own package below — the more you add, the more you save.</p>
-  <div class="head-note">All prices in Botswana Pula (P) &middot; Web development, apps &amp; ICT are quoted separately</div>
+  <div class="head-actions">
+    <label for="currency">Pay in</label>
+    <select id="currency">
+      <option value="BWP">🇧🇼 Botswanan Pula (BWP)</option>
+      <option value="USD">🇺🇸 US Dollar (USD)</option>
+      <option value="EUR">🇪🇺 Euro (EUR)</option>
+      <option value="GBP">🇬🇧 British Pound (GBP)</option>
+      <option value="ZAR">🇿🇦 South African Rand (ZAR)</option>
+      <option value="NAD">🇳🇦 Namibian Dollar (NAD)</option>
+      <option value="ZMW">🇿🇲 Zambian Kwacha (ZMW)</option>
+      <option value="ZWG">🇿🇼 Zimbabwe Gold (ZiG)</option>
+      <option value="NGN">🇳🇬 Nigerian Naira (NGN)</option>
+      <option value="KES">🇰🇪 Kenyan Shilling (KES)</option>
+      <option value="CNY">🇨🇳 Chinese Yuan (CNY)</option>
+      <option value="INR">🇮🇳 Indian Rupee (INR)</option>
+      <option value="JPY">🇯🇵 Japanese Yen (JPY)</option>
+      <option value="CAD">🇨🇦 Canadian Dollar (CAD)</option>
+      <option value="AUD">🇦🇺 Australian Dollar (AUD)</option>
+      <option value="CHF">🇨🇭 Swiss Franc (CHF)</option>
+    </select>
+    <span id="curSymbol" style="font-family:'IBM Plex Mono',monospace; color:var(--ink-dim); font-size:0.8rem;"></span>
+  </div>
+  <div class="rate-note" id="rateNote"></div>
 </header>
+
+<section class="reveal">
+  <div class="section-inner">
+    <div class="deposit-banner">
+      <span class="d-tag">Deposit 25%</span>
+      <p>A non-refundable <b>25% upfront deposit</b> confirms your order and secures the start date. The balance is due on delivery. Larger projects (websites &amp; apps) may use milestone payments instead.</p>
+    </div>
+  </div>
+</section>
 
 <section class="reveal">
   <div class="section-inner">
@@ -163,98 +230,89 @@
       <tbody>
         <tr class="item-row">
           <td><div class="item-name">Logo</div><div class="item-hint">Choose the style you want</div></td>
-          <td class="style-col">
-            <div class="style-label">Typography (wordmark)</div>
-            <div class="style-sub">Clean text-based logo</div>
-          </td>
-          <td class="price">P 250</td>
+          <td class="style-col"><div class="style-label">Typography (wordmark)</div><div class="style-sub">Clean text-based logo</div></td>
+          <td class="price" data-bwp="250"><small>BWP</small> 250</td>
         </tr>
         <tr class="item-row">
           <td></td>
-          <td class="style-col">
-            <div class="style-label">Illustrated</div>
-            <div class="style-sub">Custom icon / symbol design</div>
-          </td>
-          <td class="price">P 350</td>
+          <td class="style-col"><div class="style-label">Illustrated</div><div class="style-sub">Custom icon / symbol design</div></td>
+          <td class="price" data-bwp="350"><small>BWP</small> 350</td>
         </tr>
         <tr class="item-row">
           <td></td>
-          <td class="style-col">
-            <div class="style-label">3D</div>
-            <div class="style-sub">Dimensional, premium finish</div>
-          </td>
-          <td class="price">P 450</td>
+          <td class="style-col"><div class="style-label">3D</div><div class="style-sub">Dimensional, premium finish</div></td>
+          <td class="price" data-bwp="450"><small>BWP</small> 450</td>
         </tr>
 
         <tr class="item-row">
           <td><div class="item-name">Business Card</div><div class="item-hint">Front &amp; back, print-ready</div></td>
           <td class="style-col"><div class="style-label">Standard</div><div class="style-sub">Clean professional layout</div></td>
-          <td class="price">P 200</td>
+          <td class="price" data-bwp="200"><small>BWP</small> 200</td>
         </tr>
         <tr class="item-row">
           <td></td>
           <td class="style-col"><div class="style-label">Premium</div><div class="style-sub">Foil / specialty finishes</div></td>
-          <td class="price">P 300</td>
+          <td class="price" data-bwp="300"><small>BWP</small> 300</td>
         </tr>
 
         <tr class="item-row">
           <td><div class="item-name">Letterhead</div></td>
           <td class="style-col"><div class="style-label">Basic</div><div class="style-sub">Branded header</div></td>
-          <td class="price">P 150</td>
+          <td class="price" data-bwp="150"><small>BWP</small> 150</td>
         </tr>
         <tr class="item-row">
           <td></td>
           <td class="style-col"><div class="style-label">Premium</div><div class="style-sub">With footer &amp; layout</div></td>
-          <td class="price">P 250</td>
+          <td class="price" data-bwp="250"><small>BWP</small> 250</td>
         </tr>
 
         <tr class="item-row">
           <td><div class="item-name">Receipt / Payslip</div><div class="item-hint">Branded template</div></td>
           <td class="style-col"><div class="style-label">Standard</div><div class="style-sub">Clean template</div></td>
-          <td class="price">P 300</td>
+          <td class="price" data-bwp="300"><small>BWP</small> 300</td>
         </tr>
         <tr class="item-row">
           <td></td>
           <td class="style-col"><div class="style-label">Premium</div><div class="style-sub">Fully branded layout</div></td>
-          <td class="price">P 500</td>
+          <td class="price" data-bwp="500"><small>BWP</small> 500</td>
         </tr>
 
         <tr class="item-row">
           <td><div class="item-name">Flyer / Poster</div></td>
           <td class="style-col"><div class="style-label">Basic (A5–A6)</div><div class="style-sub">Simple promo</div></td>
-          <td class="price">P 150</td>
+          <td class="price" data-bwp="150"><small>BWP</small> 150</td>
         </tr>
         <tr class="item-row">
           <td></td>
           <td class="style-col"><div class="style-label">Standard (A4)</div><div class="style-sub">Full layout</div></td>
-          <td class="price">P 250</td>
+          <td class="price" data-bwp="250"><small>BWP</small> 250</td>
         </tr>
         <tr class="item-row">
           <td></td>
           <td class="style-col"><div class="style-label">Premium</div><div class="style-sub">Custom illustrated</div></td>
-          <td class="price">P 400</td>
+          <td class="price" data-bwp="400"><small>BWP</small> 400</td>
         </tr>
 
         <tr class="item-row">
           <td><div class="item-name">Social Media Graphic</div><div class="item-hint">Per post / asset</div></td>
           <td class="style-col"><div class="style-label">Standard post</div><div class="style-sub">Template-based</div></td>
-          <td class="price">P 100</td>
+          <td class="price" data-bwp="100"><small>BWP</small> 100</td>
         </tr>
         <tr class="item-row">
           <td></td>
           <td class="style-col"><div class="style-label">Custom illustration</div><div class="style-sub">Original artwork per post</div></td>
-          <td class="price">P 200</td>
+          <td class="price" data-bwp="200"><small>BWP</small> 200</td>
         </tr>
 
         <tr class="item-row">
           <td><div class="item-name">Menu</div></td>
           <td class="style-col"><div class="style-label">Standard</div><div class="style-sub">Clean food/beverage layout</div></td>
-          <td class="price">P 300</td>
+          <td class="price" data-bwp="300"><small>BWP</small> 300</td>
         </tr>
         <tr class="item-row">
           <td></td>
           <td class="style-col"><div class="style-label">Custom illustrated</div><div class="style-sub">Hand-drawn / custom artwork</div></td>
-          <td class="price">P 500</td>
+          <td class="price" data-bwp="500"><small>BWP</small> 500</td>
         </tr>
       </tbody>
     </table>
@@ -289,12 +347,15 @@
         <div class="calc-items" id="calcItems"></div>
         <div class="calc-tally" id="calcTally">
           <div class="tally-row"><span>Items</span><span class="v" id="tItems">0</span></div>
-          <div class="tally-row"><span>Subtotal</span><span class="v" id="tSub">P 0</span></div>
-          <div class="tally-row discount"><span>Bundle discount</span><span class="v" id="tDisc">P 0</span></div>
-          <div class="tally-total"><span>Total</span><span class="v" id="tTotal">P 0</span></div>
-          <div class="combo-flag" id="comboFlag">Add 2 or more items to unlock a bundle discount.</div>
+          <div class="tally-row"><span>Subtotal</span><span class="v" id="tSub">—</span></div>
+          <div class="tally-row discount"><span>Bundle discount</span><span class="v" id="tDisc">—</span></div>
+          <div class="tally-total"><span>Total</span><span class="v" id="tTotal">—</span></div>
+          <div class="tally-deposit"><span>Upfront deposit (25%)</span><span class="v" id="tDeposit">—</span></div>
+          <div class="combo-flag" id="comboFlag">Choose at least 2 items to unlock a bundle discount.</div>
           <div class="excl-note">Web development, mobile apps and ICT services are <b>not included</b> in the bundle — they're quoted separately for your project.</div>
-          <div class="calc-cta"><a class="btn" id="quoteCta" href="mailto:karabokeontse@gmail.com?subject=Design%20package%20quote">Request this package &nearr;</a></div>
+          <div class="calc-cta">
+            <button class="btn solid" id="checkoutBtn" disabled>Continue to checkout</button>
+          </div>
         </div>
       </div>
     </div>
@@ -312,17 +373,17 @@
     <div class="premium-grid">
       <div class="premium-card">
         <h4>Websites</h4>
-        <div class="from">from P 4,900</div>
+        <div class="from" data-bwp="4900"><small>BWP</small> 4,900</div>
         <p>Business sites, landing pages and corporate websites — designed and launched on your own domain.</p>
       </div>
       <div class="premium-card">
         <h4>Mobile Apps</h4>
-        <div class="from">from P 13,400</div>
+        <div class="from" data-bwp="13400"><small>BWP</small> 13,400</div>
         <p>Custom applications built for your business needs. Ideal for international clients too.</p>
       </div>
       <div class="premium-card">
         <h4>ICT &amp; Audit</h4>
-        <div class="from">from P 3,000 / day</div>
+        <div class="from" data-bwp="3000"><small>BWP</small> 3,000 / day</div>
         <p>Systems support, data protection compliance and internal audits — backed by years of hands-on IT operations.</p>
       </div>
     </div>
@@ -343,81 +404,190 @@
   <p><a href="index.html">Back to home</a> &middot; Tetelo Karabo Keontse</p>
 </footer>
 
+<!-- Checkout Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Checkout</h3>
+      <button class="modal-close" id="modalClose">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p id="mSummary" style="font-size:0.85rem; color:var(--ink-dim); line-height:1.6; margin-bottom:0.8rem;"></p>
+      <div class="m-row"><span>Subtotal</span><span class="v" id="mSub">—</span></div>
+      <div class="m-row" style="color:var(--steel);"><span>Bundle discount</span><span class="v" id="mDisc">—</span></div>
+      <div class="m-total"><span>Total</span><span class="v" id="mTotal">—</span></div>
+      <div class="m-deposit"><span>Upfront deposit (25%)</span><span class="v" id="mDeposit">—</span></div>
+
+      <div class="m-sec">Payment method</div>
+      <div class="pay-opts" id="payOpts">
+        <div class="pay-opt" data-pay="visa"><div class="r"></div><div><div class="pt-name">Visa / Card</div><div class="pt-sub">Pay by debit or credit card</div></div></div>
+        <div class="pay-opt" data-pay="orange"><div class="r"></div><div><div class="pt-name">Orange Money</div><div class="pt-sub">Mobile money transfer</div></div></div>
+        <div class="pay-opt" data-pay="myzaka"><div class="r"></div><div><div class="pt-name">MyZaka</div><div class="pt-sub">Botswana mobile wallet</div></div></div>
+        <div class="pay-opt" data-pay="smega"><div class="r"></div><div><div class="pt-name">Smega</div><div class="pt-sub">Botswana mobile wallet</div></div></div>
+        <div class="pay-opt" data-pay="other"><div class="r"></div><div><div class="pt-name">Other</div><div class="pt-sub">WhatsApp, email or phone call arrangements</div></div></div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn solid" id="mWhats">Continue on WhatsApp &nearr;</button>
+        <button class="btn" id="mEmail">Send via Email &nearr;</button>
+      </div>
+      <p class="m-final" id="mFinal"></p>
+      <p style="margin-top:0.8rem; font-size:0.72rem; color:var(--ink-dim); line-height:1.6;">A 25% non-refundable deposit confirms the order. You'll receive a final quote confirming the total before paying.</p>
+    </div>
+  </div>
+</div>
+
 <script>
-  // Catalog: item -> [{label, price}]
+  // ---- Currency ----
+  const RATES = {
+    BWP:1, USD:0.071118, EUR:0.061226, GBP:0.052434, ZAR:1.142544, NAD:1.142307,
+    ZMW:1.383397, ZWG:1.8951, NGN:98.928398, KES:9.437399, CNY:0.475745,
+    INR:6.924266, JPY:11.368849, CAD:0.098527, AUD:0.099303, CHF:0.057455
+  };
+  const SYM = {
+    BWP:'P', USD:'$', EUR:'€', GBP:'£', ZAR:'R', NAD:'N$', ZMW:'ZK', ZWG:'ZiG',
+    NGN:'₦', KES:'KSh', CNY:'¥', INR:'₹', JPY:'¥', CAD:'C$', AUD:'A$', CHF:'CHF'
+  };
+  const NAME = {
+    BWP:'Botswanan Pula', USD:'US Dollar', EUR:'Euro', GBP:'British Pound', ZAR:'South African Rand',
+    NAD:'Namibian Dollar', ZMW:'Zambian Kwacha', ZWG:'Zimbabwe Gold', NGN:'Nigerian Naira',
+    KES:'Kenyan Shilling', CNY:'Chinese Yuan', INR:'Indian Rupee', JPY:'Japanese Yen',
+    CAD:'Canadian Dollar', AUD:'Australian Dollar', CHF:'Swiss Franc'
+  };
+  let cur = 'BWP';
+
+  // Convert a BWP amount to current currency, return {num, str}
+  function cvPula(bwp){
+    const n = bwp * RATES[cur];
+    const s = n < 100 ? n.toFixed(2) : Math.round(n).toLocaleString(undefined,{maximumFractionDigits:0});
+    return {num:n, str:s};
+  }
+  function money(bwp, withSym){
+    const {str} = cvPula(bwp);
+    const s = SYM[cur];
+    return cur==='BWP' ? 'P ' + str : s + ' ' + str;
+  }
+  function moneyNum(bwp){
+    return cvPula(bwp).str;
+  }
+
+  function refreshCurrencyUI(){
+    // static price table
+    document.querySelectorAll('.price[data-bwp]').forEach(el=>{
+      el.innerHTML = '<small>'+(cur==='BWP'?'BWP':SYM[cur])+'</small> ' + moneyNum(parseFloat(el.dataset.bwp));
+    });
+    // premium cards
+    document.querySelectorAll('.premium-card .from[data-bwp]').forEach(el=>{
+      const bwp = parseFloat(el.dataset.bwp);
+      el.innerHTML = '<small>'+(cur==='BWP'?'BWP':SYM[cur])+'</small> ' + moneyNum(bwp) +
+        (el.textContent.includes('/') ? ' / day' : '');
+    });
+    // page symbols
+    document.getElementById('curSymbol').textContent = cur==='BWP' ? 'Pula' : SYM[cur] + ' ' + NAME[cur];
+    document.getElementById('rateNote').textContent =
+      'Rates: 1 BWP = ' + (RATES[cur]>=1 ? RATES[cur].toFixed(2) : RATES[cur].toFixed(4)) +
+      ' ' + cur + ' · snapshot 30 Aug 2026 · shown in ' + NAME[cur] + '.';
+    // configurator + tally
+    refreshCalc();
+  }
+
+  // ---- Catalog (BWP) ----
   const CATALOG = {
     'Logo': [
-      {label:'Typography (wordmark) — P250', price:250},
-      {label:'Illustrated — P350', price:350},
-      {label:'3D — P450', price:450}
+      {label:'Typography (wordmark)', price:250},
+      {label:'Illustrated', price:350},
+      {label:'3D', price:450}
     ],
     'Business Card': [
-      {label:'Standard — P200', price:200},
-      {label:'Premium — P300', price:300}
+      {label:'Standard', price:200},
+      {label:'Premium', price:300}
     ],
     'Letterhead': [
-      {label:'Basic — P150', price:150},
-      {label:'Premium — P250', price:250}
+      {label:'Basic', price:150},
+      {label:'Premium', price:250}
     ],
     'Receipt / Payslip': [
-      {label:'Standard — P300', price:300},
-      {label:'Premium — P500', price:500}
+      {label:'Standard', price:300},
+      {label:'Premium', price:500}
     ],
     'Flyer / Poster': [
-      {label:'Basic (A5–A6) — P150', price:150},
-      {label:'Standard (A4) — P250', price:250},
-      {label:'Premium — P400', price:400}
+      {label:'Basic (A5–A6)', price:150},
+      {label:'Standard (A4)', price:250},
+      {label:'Premium', price:400}
     ],
     'Social Graphic': [
-      {label:'Standard post — P100', price:100},
-      {label:'Custom illustration — P200', price:200}
+      {label:'Standard post', price:100},
+      {label:'Custom illustration', price:200}
     ],
     'Menu': [
-      {label:'Standard — P300', price:300},
-      {label:'Custom illustrated — P500', price:500}
+      {label:'Standard', price:300},
+      {label:'Custom illustrated', price:500}
     ]
   };
-
   const order = ['Logo','Business Card','Letterhead','Receipt / Payslip','Flyer / Poster','Social Graphic','Menu'];
 
   const container = document.getElementById('calcItems');
-  const selections = {};
+  const selections = {};   // name -> index or null
 
   function build(){
     container.innerHTML = '';
-    order.forEach((name, idx) => {
+    order.forEach(name => {
       const opts = CATALOG[name];
-      selections[name] = 0;
+      selections[name] = null;
       const row = document.createElement('div');
       row.className = 'calc-item';
       row.innerHTML =
         '<div class="ci-name">' + name + '</div>' +
-        '<select data-item="' + name + '">' +
+        '<select data-item="' + name + '" class="choose">' +
+          '<option value="" disabled selected>Choose…</option>' +
           opts.map((o,i)=>'<option value="'+i+'">'+o.label+'</option>').join('') +
         '</select>' +
-        '<div class="ci-price">' + opts[0].price + '</div>';
+        '<div class="ci-price na">—</div>';
       container.appendChild(row);
       const sel = row.querySelector('select');
       const priceEl = row.querySelector('.ci-price');
       sel.addEventListener('change', ()=>{
-        selections[name] = parseInt(sel.value,10);
-        priceEl.textContent = opts[parseInt(sel.value,10)].price;
-        tally();
+        const v = sel.value;
+        if(v === ''){
+          selections[name] = null;
+          sel.classList.add('choose');
+          priceEl.textContent = '—';
+          priceEl.classList.add('na');
+        } else {
+          selections[name] = parseInt(v,10);
+          sel.classList.remove('choose');
+          priceEl.textContent = money(opts[parseInt(v,10)].price, true);
+          priceEl.classList.remove('na');
+        }
+        refreshCalc();
       });
     });
-    tally();
   }
 
-  // Discount tiers: [minItems, percent]
   const TIERS = [[2,10],[3,15],[4,20]];
+  let state = {count:0, sub:0, pct:0, disc:0, total:0};
 
-  function tally(){
-    let count = 0;
-    let sub = 0;
+  function refreshCalc(){
+    let count = 0, sub = 0;
     order.forEach(name => {
-      const o = CATALOG[name][selections[name]];
-      const v = parseInt(selections[name],10);
-      if(!isNaN(v) && o){ count++; sub += o.price; }
+      const idx = selections[name];
+      if(idx !== null){
+        count++;
+        sub += CATALOG[name][idx].price;
+      }
+    });
+    // update item price cells to current currency
+    document.querySelectorAll('.calc-item').forEach(row=>{
+      const name = row.querySelector('select').dataset.item;
+      const idx = selections[name];
+      const priceEl = row.querySelector('.ci-price');
+      if(idx !== null){
+        priceEl.textContent = money(CATALOG[name][idx].price, true);
+        priceEl.classList.remove('na');
+      } else {
+        priceEl.textContent = '—';
+        priceEl.classList.add('na');
+      }
     });
 
     let pct = 0;
@@ -425,27 +595,88 @@
     const disc = Math.round(sub * pct / 100);
     const total = sub - disc;
 
+    state = {count, sub, pct, disc, total};
+
     document.getElementById('tItems').textContent = count;
-    document.getElementById('tSub').textContent = 'P ' + sub.toLocaleString();
-    document.getElementById('tDisc').textContent = (pct>0 ? '-' : '') + 'P ' + disc.toLocaleString();
-    document.getElementById('tTotal').textContent = 'P ' + total.toLocaleString();
+    document.getElementById('tSub').textContent = count ? money(sub, true) : '—';
+    document.getElementById('tDisc').textContent = (count && pct>0) ? '-' + money(disc, true) : '—';
+    document.getElementById('tTotal').textContent = count ? money(total, true) : '—';
+    document.getElementById('tDeposit').textContent = count ? money(Math.round(total*0.25), true) : '—';
 
     const flag = document.getElementById('comboFlag');
     if(count >= 4) flag.innerHTML = '<b>20% off</b> applied — nice, you built a full package!';
     else if(count === 3) flag.innerHTML = '<b>15% off</b> applied — add one more item to unlock 20%.';
     else if(count === 2) flag.innerHTML = '<b>10% off</b> applied — add another to reach 15%.';
-    else flag.textContent = 'Add 2 or more items to unlock a bundle discount.';
+    else flag.textContent = 'Choose at least 2 items to unlock a bundle discount.';
 
-    const cta = document.getElementById('quoteCta');
-    const items = order
-      .filter(n=>!isNaN(parseInt(selections[n],10)))
-      .map(n=>n+': '+CATALOG[n][selections[n]].label)
-      .join('; ');
-    cta.href = 'mailto:karabokeontse@gmail.com?subject=Design%20package%20quote&body=' +
-      encodeURIComponent(items + '\n\nEstimated total (before final quote): P ' + total);
+    document.getElementById('checkoutBtn').disabled = count < 1;
   }
 
+  // ---- Checkout modal ----
+  const modal = document.getElementById('modal');
+  let payMethod = null;
+  const payOpts = document.querySelectorAll('.pay-opt');
+
+  document.getElementById('checkoutBtn').addEventListener('click', openModal);
+  document.getElementById('modalClose').addEventListener('click', () => modal.classList.remove('open'));
+
+  payOpts.forEach(opt=>{
+    opt.addEventListener('click', ()=>{
+      payOpts.forEach(o=>o.classList.remove('sel'));
+      opt.classList.add('sel');
+      payMethod = opt.dataset.pay;
+    });
+  });
+
+  function openModal(){
+    if(state.count < 1) return;
+    const items = order.filter(n=>selections[n]!==null).map(n=>n+' ('+CATALOG[n][selections[n]].label+')').join('; ');
+    document.getElementById('mSummary').textContent = 'Your package: ' + items;
+    document.getElementById('mSub').textContent = money(state.sub, true);
+    document.getElementById('mDisc').textContent = state.pct>0 ? '-' + money(state.disc, true) : '—';
+    document.getElementById('mTotal').textContent = money(state.total, true);
+    document.getElementById('mDeposit').textContent = money(Math.round(state.total*0.25), true);
+    document.getElementById('mFinal').textContent = 'Total shown in ' + NAME[cur] + ' (' + cur + '). Final quote confirms this before payment.';
+    modal.classList.add('open');
+  }
+
+  function methodText(){
+    const map = {visa:'Visa / Card', orange:'Orange Money', myzaka:'MyZaka', smega:'Smega', other:'Other'};
+    return payMethod ? map[payMethod] : 'payment method';
+  }
+
+  function buildMessage(finalNote){
+    const items = order.filter(n=>selections[n]!==null).map(n=>'- '+n+': '+CATALOG[n][selections[n]].label).join('\n');
+    return 'Hello Tetelo, I would like to order a design package.\n\n' + items +
+      '\n\nSubtotal: ' + money(state.sub, true) +
+      (state.pct>0 ? '\nBundle discount ('+state.pct+'%): -'+money(state.disc, true) : '') +
+      '\nTotal: ' + money(state.total, true) +
+      '\nUpfront deposit (25%): ' + money(Math.round(state.total*0.25), true) +
+      '\nCurrency: ' + NAME[cur] + ' (' + cur + ')' +
+      '\nPayment method: ' + methodText() + finalNote;
+  }
+
+  document.getElementById('mWhats').addEventListener('click', ()=>{
+    const msg = buildMessage('\n\nI will send the 25% deposit now.');
+    window.open('https://wa.me/26774602164?text=' + encodeURIComponent(msg), '_blank');
+  });
+  document.getElementById('mEmail').addEventListener('click', ()=>{
+    const msg = buildMessage('\n\nPlease send payment instructions.');
+    location.href = 'mailto:karabokeontse@gmail.com?subject=' + encodeURIComponent('Design package order (deposit)') +
+      '&body=' + encodeURIComponent(msg);
+  });
+
+  document.addEventListener('click', (e)=>{
+    if(e.target === modal) modal.classList.remove('open');
+  });
+
+  // ---- Init ----
   build();
+  document.getElementById('currency').addEventListener('change', (e)=>{
+    cur = e.target.value;
+    refreshCurrencyUI();
+  });
+  refreshCurrencyUI();
 
   // Reveal on scroll
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
