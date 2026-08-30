@@ -106,14 +106,6 @@
   .app-card .a-tags span{font-family:'IBM Plex Mono',monospace; font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-dim); border:1px solid var(--border); padding:0.35rem 0.7rem;}
   .app-card .a-ribbon{position:absolute; top:0; right:0; padding:0.35rem 0.9rem; font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; background:rgba(176,141,87,0.14); color:var(--bronze); border-left:1px solid var(--bronze-soft); border-bottom:1px solid var(--bronze-soft);}
 
-  /* Blurred / redacted upcoming name */
-  .redact{filter:blur(7px); user-select:none; cursor:default; transition:filter .3s;}
-  .redact:hover{filter:blur(3px);}
-  .app-card.upcoming .a-name-wrap{position:relative;}
-  .app-card.upcoming.is-revealed .redact{filter:none;}
-  .reveal-name{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--steel); background:transparent; border:1px dashed var(--border); padding:0.4rem 0.9rem; cursor:pointer; transition:border-color .25s,color .25s; margin-top:0.2rem; align-self:flex-start;}
-  .reveal-name:hover{border-color:var(--bronze); color:var(--ink);}
-
   footer{text-align:center; padding:2.6rem 6vw; color:var(--ink-dim); font-size:0.76rem; border-top:1px solid var(--border);}
   footer a{color:var(--ink-dim); text-decoration:none; transition:color .25s;}
   footer a:hover{color:var(--ink);}
@@ -209,19 +201,16 @@
       </div>
 
       <div class="apps-grid">
-        <div class="app-card upcoming" id="vantedgeCard">
+        <div class="app-card upcoming">
           <div class="a-ribbon">Upcoming</div>
           <div class="a-emblem">&#11088;</div>
           <div class="a-status">Mobile Application &middot; In Progress</div>
-          <div class="a-name-wrap">
-            <h4 class="redact" id="vantedgeName">VantEdge</h4>
-          </div>
+          <h4 style="font-style:italic; color:var(--ink-dim);">Project name hidden until launch</h4>
           <p>A native Android application currently in active development. More details once it ships.</p>
           <div class="a-tags">
             <span>Kotlin</span>
             <span>Android</span>
           </div>
-          <button class="reveal-name" id="revealName">Reveal name</button>
         </div>
       </div>
     </div>
@@ -268,18 +257,6 @@
     toggle.innerHTML = 'Live preview loaded &nearr;';
   }
   if(toggle) toggle.addEventListener('click', loadPreview);
-
-  // Reveal the upcoming app name on demand
-  const revealBtn = document.getElementById('revealName');
-  const vanityCard = document.getElementById('vantedgeCard');
-  if(revealBtn && vanityCard){
-    let revealed = false;
-    revealBtn.addEventListener('click', () => {
-      revealed = !revealed;
-      vanityCard.classList.toggle('is-revealed', revealed);
-      revealBtn.textContent = revealed ? 'Hide name' : 'Reveal name';
-    });
-  }
 </script>
 
 </body>
