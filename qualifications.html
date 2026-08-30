@@ -25,10 +25,8 @@
   @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
   .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--bronze);}
   a{color:inherit;}
-  nav{position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:1.6rem 4vw; backdrop-filter:blur(10px); background:linear-gradient(to bottom, rgba(16,20,28,0.85), transparent);}
-  .nav-mark{font-family:'Fraunces', serif; font-size:1.05rem; letter-spacing:0.02em;}
-  .nav-mark a{text-decoration:none;}
-  .nav-links{display:flex; gap:2.2rem; font-size:0.82rem; letter-spacing:0.03em;}
+  nav{position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; padding:1.6rem 4vw; backdrop-filter:blur(10px); background:linear-gradient(to bottom, rgba(16,20,28,0.85), transparent);}
+  .nav-links{display:flex; justify-content:space-between; width:100%; font-size:0.82rem; letter-spacing:0.03em;}
   .nav-links a{text-decoration:none; color:var(--ink-dim); transition:color .25s;}
   .nav-links a:hover{color:var(--ink);}
   .nav-links a.active{color:var(--ink); border-bottom:1px solid var(--bronze); padding-bottom:0.2rem;}
@@ -95,7 +93,6 @@
 <body>
 
 <nav>
-  <div class="nav-mark"><a href="index.html">T.K.</a></div>
   <div class="nav-links">
     <a href="index.html#about">About</a>
     <a href="index.html#services">Services</a>
