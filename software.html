@@ -91,6 +91,29 @@
   .empty h4{font-family:'Fraunces',serif; font-weight:400; font-size:1.3rem;}
   .empty p{color:var(--ink-dim); font-size:0.9rem; line-height:1.7; margin-top:0.6rem; max-width:44ch; margin-left:auto; margin-right:auto;}
 
+  /* Apps section */
+  .apps-section{margin-top:2.6rem;}
+  .apps-head{display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.6rem;}
+  .apps-head h3{font-family:'Fraunces',serif; font-weight:400; font-size:1.5rem;}
+  .apps-head .tag{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--bronze);}
+  .apps-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:1.4rem;}
+  .app-card{border:1px solid var(--border); background:var(--bg-2); padding:2rem 1.8rem; display:flex; flex-direction:column; gap:1.1rem; position:relative; overflow:hidden;}
+  .app-card .a-emblem{width:56px; height:56px; border:1px solid var(--bronze-soft); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; color:var(--bronze);}
+  .app-card .a-status{font-family:'IBM Plex Mono',monospace; font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--bronze);}
+  .app-card h4{font-family:'Fraunces',serif; font-weight:500; font-size:1.4rem;}
+  .app-card p{color:var(--ink-dim); font-size:0.9rem; line-height:1.7;}
+  .app-card .a-tags{display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:auto;}
+  .app-card .a-tags span{font-family:'IBM Plex Mono',monospace; font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-dim); border:1px solid var(--border); padding:0.35rem 0.7rem;}
+  .app-card .a-ribbon{position:absolute; top:0; right:0; padding:0.35rem 0.9rem; font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; background:rgba(176,141,87,0.14); color:var(--bronze); border-left:1px solid var(--bronze-soft); border-bottom:1px solid var(--bronze-soft);}
+
+  /* Blurred / redacted upcoming name */
+  .redact{filter:blur(7px); user-select:none; cursor:default; transition:filter .3s;}
+  .redact:hover{filter:blur(3px);}
+  .app-card.upcoming .a-name-wrap{position:relative;}
+  .app-card.upcoming.is-revealed .redact{filter:none;}
+  .reveal-name{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--steel); background:transparent; border:1px dashed var(--border); padding:0.4rem 0.9rem; cursor:pointer; transition:border-color .25s,color .25s; margin-top:0.2rem; align-self:flex-start;}
+  .reveal-name:hover{border-color:var(--bronze); color:var(--ink);}
+
   footer{text-align:center; padding:2.6rem 6vw; color:var(--ink-dim); font-size:0.76rem; border-top:1px solid var(--border);}
   footer a{color:var(--ink-dim); text-decoration:none; transition:color .25s;}
   footer a:hover{color:var(--ink);}
@@ -179,9 +202,28 @@
       </div>
     </div>
 
-    <div class="empty reveal">
-      <h4>More projects on the way.</h4>
-      <p>I'm continuing to build and will keep adding to this page — including the apps and tools I'm working on now.</p>
+    <div class="apps-section reveal">
+      <div class="apps-head">
+        <h3>Applications</h3>
+        <span class="tag">In development</span>
+      </div>
+
+      <div class="apps-grid">
+        <div class="app-card upcoming" id="vantedgeCard">
+          <div class="a-ribbon">Upcoming</div>
+          <div class="a-emblem">&#11088;</div>
+          <div class="a-status">Mobile Application &middot; In Progress</div>
+          <div class="a-name-wrap">
+            <h4 class="redact" id="vantedgeName">VantEdge</h4>
+          </div>
+          <p>A native Android application currently in active development. More details once it ships.</p>
+          <div class="a-tags">
+            <span>Kotlin</span>
+            <span>Android</span>
+          </div>
+          <button class="reveal-name" id="revealName">Reveal name</button>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -226,6 +268,18 @@
     toggle.innerHTML = 'Live preview loaded &nearr;';
   }
   if(toggle) toggle.addEventListener('click', loadPreview);
+
+  // Reveal the upcoming app name on demand
+  const revealBtn = document.getElementById('revealName');
+  const vanityCard = document.getElementById('vantedgeCard');
+  if(revealBtn && vanityCard){
+    let revealed = false;
+    revealBtn.addEventListener('click', () => {
+      revealed = !revealed;
+      vanityCard.classList.toggle('is-revealed', revealed);
+      revealBtn.textContent = revealed ? 'Hide name' : 'Reveal name';
+    });
+  }
 </script>
 
 </body>
