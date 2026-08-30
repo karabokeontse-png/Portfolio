@@ -31,8 +31,7 @@
 
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important; transition:none !important;}
-    .hero-content h1 .line > span,
-    .hero .role, .hero .divider, .hero .eyebrow, .hero .scroll-cue{opacity:1 !important; transform:none !important;}
+    .jumbotron-track{animation:none !important;}
   }
 
   .eyebrow{
@@ -61,51 +60,91 @@
   .nav-links a:hover{color:var(--ink);}
   @media (max-width:720px){ .nav-links{display:none;} }
 
-  /* ---------- Hero ---------- */
-  .hero{
+  /* ---------- Jumbotron (scrolling strip under nav) ---------- */
+  .jumbotron{
+    margin-top:0;
+    overflow:hidden; white-space:nowrap;
+    border-bottom:1px solid var(--border);
+    background:var(--bg);
+    padding:2.6rem 0;
     position:relative;
-    min-height:100vh;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center;
-    padding:8rem 6vw 4rem;
   }
-  canvas#web{
-    position:fixed; top:0; left:0; width:100vw; height:100vh;
-    z-index:0; opacity:0.5; pointer-events:none;
-  }
-  nav, .hero-content, .scroll-cue, section, footer{position:relative; z-index:1;}
-  body{position:relative;}
-  .hero-content{position:relative; z-index:2; max-width:900px;}
-  .hero h1{
-    font-family:'Fraunces', serif;
+  .jumbotron-inner{display:inline-flex; gap:0; white-space:nowrap; animation:jscroll 26s linear infinite;}
+  .jumbotron-inner .jt-group{display:inline-flex; align-items:center; gap:2.4rem; padding-right:2.4rem;}
+  .jumbotron-inner span{
+    font-family:'Fraunces',serif;
     font-weight:400;
-    font-size:clamp(2.6rem, 7vw, 5.4rem);
-    line-height:1.02;
+    font-size:clamp(2.4rem, 6vw, 4.6rem);
+    line-height:1;
     letter-spacing:-0.01em;
+    color:var(--ink);
   }
-  .hero h1 em{
-    font-style:italic; font-weight:300; color:var(--bronze);
+  .jumbotron-inner .jt-accent{color:var(--bronze); font-style:italic; font-weight:300;}
+  .jumbotron-inner .jt-div{color:var(--bronze); font-size:clamp(1.6rem,4vw,3rem);}
+  @keyframes jscroll{ to{transform:translateX(-50%);} }
+  .marquee{display:none;}
+
+  /* ---------- Featured projects (full-width strip) ---------- */
+  .featured{padding:4.5rem 0 0;}
+  .featured-strip{
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    width:100%;
+    border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    background:var(--bg-2);
   }
-  .hero p.role{
-    margin-top:1.4rem;
-    font-size:clamp(1rem, 1.6vw, 1.25rem);
-    color:var(--ink-dim);
-    font-weight:300;
-    letter-spacing:0.01em;
+  @media (max-width:860px){ .featured-strip{grid-template-columns:1fr;} }
+  .f-item{
+    position:relative; display:block; text-decoration:none;
+    padding:0; overflow:hidden; transition:background .3s;
   }
-  .hero .divider{
-    width:1px; height:56px; background:linear-gradient(var(--bronze), transparent);
-    margin:2.4rem auto 0;
+  .f-item + .f-item{border-left:1px solid var(--border);}
+  @media (max-width:860px){ .f-item + .f-item{border-left:none; border-top:1px solid var(--border);} }
+  .f-item:hover{background:var(--bg-3);}
+  .f-media{position:relative; overflow:hidden;}
+  .f-media img{width:100%; height:300px; object-fit:cover; display:block; transition:transform .6s cubic-bezier(.22,1,.36,1);}
+  @media (max-width:680px){ .f-media img{height:200px;} }
+  .f-item:hover .f-media img{transform:scale(1.03);}
+  .f-body{padding:2rem 2.4rem 2.4rem;}
+  .f-body .f-cat{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--bronze);}
+  .f-body h3{font-family:'Fraunces',serif; font-weight:400; font-size:1.5rem; margin-top:0.5rem;}
+  .f-body p{color:var(--ink-dim); font-size:0.9rem; line-height:1.7; margin-top:0.7rem;}
+  .f-body .f-cta{
+    display:inline-block; margin-top:1.3rem; font-family:'IBM Plex Mono',monospace;
+    font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink);
+    border:1px solid var(--bronze-soft); padding:0.7rem 1.1rem; transition:background .25s,border-color .25s;
   }
-  .scroll-cue{
-    position:absolute; bottom:2.4rem; left:50%; transform:translateX(-50%);
-    font-family:'IBM Plex Mono', monospace; font-size:0.68rem; letter-spacing:0.14em;
-    color:var(--ink-dim); text-transform:uppercase;
-    display:flex; flex-direction:column; align-items:center; gap:0.6rem;
-    z-index:2;
+  .f-item:hover .f-cta{background:rgba(176,141,87,0.1); border-color:var(--bronze);}
+
+  /* ---------- Slogan ---------- */
+  .slogan{
+    padding:7rem 6vw;
+    text-align:center;
+    position:relative;
   }
-  .scroll-cue .line{width:1px; height:34px; background:var(--ink-dim); animation:pulse 2.2s ease-in-out infinite;}
-  @keyframes pulse{0%,100%{opacity:0.25;} 50%{opacity:0.9;}}
+  .slogan::before,
+  .slogan::after{
+    content:''; position:absolute; border-radius:50%;
+    filter:blur(90px); opacity:0.28; z-index:0; pointer-events:none;
+  }
+  .slogan::before{
+    width:44vmax; height:44vmax; left:-12vmax; top:-16vmax;
+    background:radial-gradient(circle, rgba(127,169,201,0.5), transparent 60%);
+  }
+  .slogan::after{
+    width:40vmax; height:40vmax; right:-10vmax; bottom:-14vmax;
+    background:radial-gradient(circle, rgba(176,141,87,0.45), transparent 60%);
+  }
+  .slogan-inner{position:relative; z-index:1; max-width:900px; margin:0 auto;}
+  .slogan h1{
+    font-family:'Fraunces',serif; font-weight:400;
+    font-size:clamp(2.6rem, 7vw, 5.4rem);
+    line-height:1.02; letter-spacing:-0.01em;
+  }
+  .slogan h1 em{font-style:italic; font-weight:300; color:var(--bronze);}
+  .slogan p{
+    margin-top:1.6rem; color:var(--ink-dim);
+    font-size:clamp(1rem,1.6vw,1.25rem);
+  }
 
   /* ---------- Scroll progress bar ---------- */
   #progress{
@@ -120,35 +159,7 @@
     content:''; position:absolute; border-radius:50%;
     filter:blur(90px); opacity:0.34; z-index:0; pointer-events:none;
   }
-  .hero::before{
-    width:52vmax; height:52vmax; left:-14vmax; top:-18vmax;
-    background:radial-gradient(circle, rgba(127,169,201,0.5), transparent 60%);
-    animation:drift 22s ease-in-out infinite alternate;
-  }
-  .hero::after{
-    width:46vmax; height:46vmax; right:-12vmax; bottom:-16vmax;
-    background:radial-gradient(circle, rgba(176,141,87,0.45), transparent 60%);
-    animation:drift 26s ease-in-out infinite alternate-reverse;
-  }
-  @keyframes drift{ from{transform:translate3d(0,0,0) scale(1);} to{transform:translate3d(6vmax,4vmax,0) scale(1.15);} }
-
-  .hero-content h1 .line{
-    display:inline-block; overflow:hidden; vertical-align:bottom;
-  }
-  .hero-content h1 .line > span{
-    display:inline-block; transform:translateY(110%);
-    animation:rise .9s cubic-bezier(.22,1,.36,1) forwards;
-  }
-  .hero-content h1 .line:nth-child(1) > span{animation-delay:.1s;}
-  .hero-content h1 .line:nth-child(2) > span{animation-delay:.28s;}
-  @keyframes rise{ to{transform:translateY(0);} }
-  .hero .role, .hero .divider{opacity:0; animation:fadeup .8s ease forwards .55s;}
-  .hero .divider{animation-delay:.75s;}
-  .hero .scroll-cue{opacity:0; animation:fadeup .8s ease forwards 1s;}
-  @keyframes fadeup{ from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);} }
-
-  /* live multiline type badge inside role */
-  #type-role{display:inline-block; color:var(--steel); font-style:italic; min-height:1.35em;}
+  body{position:relative;}
 
   /* ---------- Section reveal on scroll ---------- */
   .reveal{
@@ -431,8 +442,7 @@
 </style>
 <noscript><style>
   .reveal{opacity:1 !important; transform:none !important;}
-  .hero-content h1 .line > span{transform:none !important; opacity:1 !important;}
-  .hero .role, .hero .divider{opacity:1 !important;}
+  .jumbotron-inner{animation:none !important;}
 </style></noscript>
 </head>
 <body>
@@ -453,40 +463,59 @@
 
 <div id="progress"></div>
 
-<section class="hero">
-  <canvas id="web"></canvas>
-  <div class="hero-content">
-    <div class="eyebrow" style="opacity:0; animation:fadeup .8s ease forwards .05s;">Software Developer · Graphic Designer · ICT Specialist</div>
-    <h1>
-      <span class="line"><span>Systems that scale.</span></span><br>
-      <span class="line"><span><em>Creativity</em> that lands.</span></span>
-    </h1>
-    <p class="role">Tetelo Karabo Keontse — <span id="type-role"></span></p>
-    <div class="divider"></div>
-  </div>
-  <div class="scroll-cue"><div class="line"></div>Scroll</div>
-</section>
-
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>Software Development</span><span class="dot">◆</span>
-    <span>Graphic Design</span><span class="dot">◆</span>
-    <span>Logo &amp; Branding</span><span class="dot">◆</span>
-    <span>Web Design</span><span class="dot">◆</span>
-    <span>Business Cards</span><span class="dot">◆</span>
-    <span>Systems &amp; Audit</span><span class="dot">◆</span>
-    <span>Data Protection</span><span class="dot">◆</span>
-    <span>Networking</span><span class="dot">◆</span>
-    <span>Software Development</span><span class="dot">◆</span>
-    <span>Graphic Design</span><span class="dot">◆</span>
-    <span>Logo &amp; Branding</span><span class="dot">◆</span>
-    <span>Web Design</span><span class="dot">◆</span>
-    <span>Business Cards</span><span class="dot">◆</span>
-    <span>Systems &amp; Audit</span><span class="dot">◆</span>
-    <span>Data Protection</span><span class="dot">◆</span>
-    <span>Networking</span>
+<!-- Scrolling jumbotron -->
+<div class="jumbotron" aria-hidden="true">
+  <div class="jumbotron-inner">
+    <div class="jt-group">
+      <span>Software Development</span><span class="jt-div">◆</span>
+      <span class="jt-accent">Graphic Design</span><span class="jt-div">◆</span>
+      <span>ICT &amp; Audit</span><span class="jt-div">◆</span>
+      <span>Web &amp; Branding</span><span class="jt-div">◆</span>
+    </div>
+    <div class="jt-group">
+      <span>Software Development</span><span class="jt-div">◆</span>
+      <span class="jt-accent">Graphic Design</span><span class="jt-div">◆</span>
+      <span>ICT &amp; Audit</span><span class="jt-div">◆</span>
+      <span>Web &amp; Branding</span><span class="jt-div">◆</span>
+    </div>
   </div>
 </div>
+
+<!-- Featured projects (full-width strip) -->
+<section class="featured">
+  <div class="featured-strip">
+    <a class="f-item" href="software.html">
+      <div class="f-media"><img src="work/dev/cmc-hero.jpg" alt="Screenshot of the CMC Africa website" loading="lazy"></div>
+      <div class="f-body">
+        <div class="f-cat">Development &middot; Live Site</div>
+        <h3>CMC Africa — Corporate Website</h3>
+        <p>A multi-page consultancy website for CMC Africa — LAW · FINANCE · RISK · TAX · STRATEGY · AUDIT — deployed live on GitHub Pages with 17 pages.</p>
+        <span class="f-cta">Explore the build →</span>
+      </div>
+    </a>
+    <a class="f-item" href="design.html">
+      <div class="f-media"><img src="work/design/business-cards/optimized/photographer-business-card.jpg" alt="Business card design" loading="lazy"></div>
+      <div class="f-body">
+        <div class="f-cat">Design &middot; Business Cards</div>
+        <h3>Business Card Design</h3>
+        <p>A clean, professional business card — part of a gallery of logos, cards, flyers, menus and social media work for real clients, organised by category.</p>
+        <span class="f-cta">View the gallery →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Slogan -->
+<section class="slogan">
+  <div class="slogan-inner">
+    <div class="eyebrow">Software Developer · Graphic Designer · ICT Specialist</div>
+    <h1>
+      Systems that scale.<br>
+      <em>Creativity</em> that lands.
+    </h1>
+    <p>Tetelo Karabo Keontse — building reliable systems and design that communicates.</p>
+  </div>
+</section>
 
 <section id="about" class="auto-reveal">
   <div class="section-inner about-grid">
@@ -667,75 +696,7 @@
 
 
 <script>
-  // Ambient node-network signature animation
-  const canvas = document.getElementById('web');
-  const ctx = canvas.getContext('2d');
-  let w, h, nodes = [];
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function resize(){
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-  }
-  window.addEventListener('resize', resize);
-
-  function init(){
-    resize();
-    const count = w < 700 ? 29 : 55;
-    nodes = Array.from({length:count}, () => ({
-      x: Math.random()*w,
-      y: Math.random()*h,
-      vx: (Math.random()-0.5)*0.325,
-      vy: (Math.random()-0.5)*0.325,
-    }));
-  }
-
-  let mouse = {x:-9999, y:-9999};
-  canvas.addEventListener('mousemove', e=>{
-    const r = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - r.left;
-    mouse.y = e.clientY - r.top;
-  });
-  canvas.addEventListener('mouseleave', ()=>{ mouse.x=-9999; mouse.y=-9999; });
-
-  function frame(){
-    ctx.clearRect(0,0,w,h);
-    for(const n of nodes){
-      n.x += n.vx; n.y += n.vy;
-      if(n.x<0||n.x>w) n.vx*=-1;
-      if(n.y<0||n.y>h) n.vy*=-1;
-      const dx = mouse.x-n.x, dy = mouse.y-n.y;
-      const dist = Math.sqrt(dx*dx+dy*dy);
-      if(dist < 140){
-        n.x -= dx*0.004; n.y -= dy*0.004;
-      }
-    }
-    for(let i=0;i<nodes.length;i++){
-      for(let j=i+1;j<nodes.length;j++){
-        const a=nodes[i], b=nodes[j];
-        const dx=a.x-b.x, dy=a.y-b.y;
-        const d=Math.sqrt(dx*dx+dy*dy);
-        if(d < 195){
-          ctx.strokeStyle = `rgba(176,141,87,${0.208*(1-d/195)})`;
-          ctx.lineWidth = 1.3;
-          ctx.beginPath();
-          ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
-          ctx.stroke();
-        }
-      }
-    }
-    for(const n of nodes){
-      ctx.fillStyle = 'rgba(127,169,201,0.72)';
-      ctx.beginPath();
-      ctx.arc(n.x,n.y,1.9,0,Math.PI*2);
-      ctx.fill();
-    }
-    if(!reduceMotion) requestAnimationFrame(frame);
-  }
-
-  init();
-  if(!reduceMotion){ requestAnimationFrame(frame); }
-  else { frame(); }
 
   // ---------- Scroll progress bar ----------
   const progress = document.getElementById('progress');
@@ -746,29 +707,6 @@
   }
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
-
-  // ---------- Typewriter role ----------
-  const roles = [
-    "software developer",
-    "graphic designer",
-    "ICT systems & audit specialist",
-    "freelance creator"
-  ];
-  const typeEl = document.getElementById('type-role');
-  let ri = 0, ci = 0, deleting = false;
-  function type(){
-    const cur = roles[ri];
-    if(!deleting){
-      typeEl.textContent = cur.slice(0, ++ci);
-      if(ci === cur.length){ deleting = true; setTimeout(type, 1600); return; }
-      setTimeout(type, 55);
-    } else {
-      typeEl.textContent = cur.slice(0, --ci);
-      if(ci === 0){ deleting = false; ri = (ri+1)%roles.length; setTimeout(type, 350); return; }
-      setTimeout(type, 28);
-    }
-  }
-  if(typeEl) setTimeout(type, 1100);
 
   // ---------- Count-up numbers on first scroll into view ----------
   const counters = document.querySelectorAll('[data-count]');
