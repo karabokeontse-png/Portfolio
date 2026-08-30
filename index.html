@@ -47,15 +47,12 @@
   /* ---------- Nav ---------- */
   nav{
     position:fixed; top:0; left:0; right:0; z-index:50;
-    display:flex; align-items:center; justify-content:space-between;
+    display:flex; align-items:center;
     padding:1.6rem 4vw;
     backdrop-filter:blur(10px);
     background:linear-gradient(to bottom, rgba(16,20,28,0.85), transparent);
   }
-  .nav-mark{
-    font-family:'Fraunces', serif; font-size:1.05rem; letter-spacing:0.02em;
-  }
-  .nav-links{display:flex; gap:2.2rem; font-size:0.82rem; letter-spacing:0.03em;}
+  .nav-links{display:flex; justify-content:space-between; width:100%; font-size:0.82rem; letter-spacing:0.03em;}
   .nav-links a{text-decoration:none; color:var(--ink-dim); transition:color .25s;}
   .nav-links a:hover{color:var(--ink);}
   @media (max-width:720px){ .nav-links{display:none;} }
@@ -463,7 +460,6 @@
 <body>
 
 <nav>
-  <div class="nav-mark"><a href="#about" style="font-family:'Fraunces',serif; letter-spacing:.02em; color:var(--ink); text-decoration:none;">T.K.</a></div>
   <div class="nav-links">
     <a href="#about">About</a>
     <a href="#services">Services</a>
