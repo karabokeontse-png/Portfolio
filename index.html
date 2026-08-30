@@ -66,12 +66,11 @@
     overflow:hidden; white-space:nowrap;
     border-bottom:1px solid var(--border);
     background:var(--bg);
-    padding:clamp(1.1rem, 2.8vw, 2.4rem) 0;
+    padding:clamp(4.6rem, 9vw, 6.2rem) 0 clamp(1rem, 2.4vw, 1.8rem);
     position:relative;
   }
   .jumbotron-inner{
     display:inline-flex; gap:0; white-space:nowrap;
-    animation:jscroll 26s linear infinite;
     will-change:transform;
     backface-visibility:hidden;
     transform:translate3d(0,0,0);
@@ -80,51 +79,58 @@
   .jumbotron-inner span{
     font-family:'Fraunces',serif;
     font-weight:400;
-    font-size:clamp(2rem, 5.2vw, 4.2rem);
+    font-size:clamp(1.9rem, 5.2vw, 4rem);
     line-height:1;
     letter-spacing:-0.01em;
     color:var(--ink);
+    backface-visibility:hidden;
+    transform:translateZ(0);
   }
   .jumbotron-inner .jt-accent{color:var(--bronze); font-style:italic; font-weight:300;}
-  .jumbotron-inner .jt-div{color:var(--bronze); font-size:clamp(1.4rem,3.4vw,2.8rem);}
-  @keyframes jscroll{ to{transform:translate3d(-50%,0,0);} }
+  .jumbotron-inner .jt-div{color:var(--bronze); font-size:clamp(1.3rem,3.4vw,2.6rem);}
   @media (max-width:520px){
-    .jumbotron-inner span{font-size:clamp(1.5rem, 6vw, 2.4rem);}
-    .jumbotron-inner .jt-div{font-size:clamp(1.1rem,4vw,1.9rem);}
+    .jumbotron-inner span{font-size:clamp(1.4rem, 6vw, 2.2rem);}
+    .jumbotron-inner .jt-div{font-size:clamp(1rem,4vw,1.8rem);}
     .jumbotron-inner .jt-group{gap:1.5rem; padding-right:1.5rem;}
   }
   .marquee{display:none;}
 
-  /* ---------- Featured projects (full-width strip) ---------- */
-  .featured{padding:4.5rem 0 0;}
+  /* ---------- Featured projects (compact ad-banner cards) ---------- */
+  .featured{padding:3rem 6vw 0;}
+  .featured-head{max-width:1000px; margin:0 auto 1.6rem; display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap;}
+  .featured-head h2{font-family:'Fraunces',serif; font-weight:400; font-size:clamp(1.4rem,3vw,2rem);}
+  .featured-head .f-tag{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--bronze);}
   .featured-strip{
-    display:grid; grid-template-columns:1fr 1fr; gap:0;
-    width:100%;
-    border-top:1px solid var(--border); border-bottom:1px solid var(--border);
-    background:var(--bg-2);
+    display:grid; grid-template-columns:1fr 1fr; gap:1.1rem;
+    max-width:1000px; margin:0 auto;
   }
-  @media (max-width:860px){ .featured-strip{grid-template-columns:1fr;} }
+  @media (max-width:760px){ .featured-strip{grid-template-columns:1fr;} }
   .f-item{
-    position:relative; display:block; text-decoration:none;
-    padding:0; overflow:hidden; transition:background .3s;
+    position:relative; display:flex; align-items:stretch; text-decoration:none;
+    border:1px solid var(--border); background:var(--bg-2);
+    overflow:hidden; transition:border-color .25s,transform .25s;
+    min-height:0;
   }
-  .f-item + .f-item{border-left:1px solid var(--border);}
-  @media (max-width:860px){ .f-item + .f-item{border-left:none; border-top:1px solid var(--border);} }
-  .f-item:hover{background:var(--bg-3);}
-  .f-media{position:relative; overflow:hidden;}
-  .f-media img{width:100%; height:300px; object-fit:cover; display:block; transition:transform .6s cubic-bezier(.22,1,.36,1);}
-  @media (max-width:680px){ .f-media img{height:200px;} }
-  .f-item:hover .f-media img{transform:scale(1.03);}
-  .f-body{padding:2rem 2.4rem 2.4rem;}
-  .f-body .f-cat{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--bronze);}
-  .f-body h3{font-family:'Fraunces',serif; font-weight:400; font-size:1.5rem; margin-top:0.5rem;}
-  .f-body p{color:var(--ink-dim); font-size:0.9rem; line-height:1.7; margin-top:0.7rem;}
+  .f-item:hover{border-color:var(--bronze-soft); transform:translateY(-2px);}
+  .f-flag{
+    position:absolute; top:0; left:0; z-index:2;
+    font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase;
+    color:#0e1218; background:var(--bronze); padding:0.28rem 0.7rem; font-weight:500;
+  }
+  .f-media{flex:0 0 8.5rem; position:relative; overflow:hidden; min-height:8.5rem;}
+  .f-media img{width:100%; height:100%; object-fit:cover; display:block;}
+  @media (max-width:760px){
+    .f-media{flex:0 0 6.5rem; min-height:6.5rem;}
+  }
+  .f-body{flex:1; padding:1.1rem 1.3rem; display:flex; flex-direction:column; justify-content:center;}
+  .f-body .f-cat{font-family:'IBM Plex Mono',monospace; font-size:0.66rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--bronze);}
+  .f-body h3{font-family:'Fraunces',serif; font-weight:500; font-size:1.1rem; margin-top:0.35rem; line-height:1.2;}
+  .f-body p{color:var(--ink-dim); font-size:0.82rem; line-height:1.55; margin-top:0.45rem;}
   .f-body .f-cta{
-    display:inline-block; margin-top:1.3rem; font-family:'IBM Plex Mono',monospace;
-    font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink);
-    border:1px solid var(--bronze-soft); padding:0.7rem 1.1rem; transition:background .25s,border-color .25s;
+    display:inline-block; margin-top:0.7rem; width:fit-content;
+    font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--ink); border-bottom:1px solid var(--bronze-soft); padding-bottom:0.1rem;
   }
-  .f-item:hover .f-cta{background:rgba(176,141,87,0.1); border-color:var(--bronze);}
 
   /* ---------- Slogan ---------- */
   .slogan{
@@ -493,24 +499,30 @@
   </div>
 </div>
 
-<!-- Featured projects (full-width strip) -->
+<!-- Featured projects (compact ad-banner cards) -->
 <section class="featured">
+  <div class="featured-head">
+    <h2>Featured work</h2>
+    <span class="f-tag">Two things I can build for you</span>
+  </div>
   <div class="featured-strip">
     <a class="f-item" href="software.html">
+      <span class="f-flag">Featured</span>
       <div class="f-media"><img src="work/dev/cmc-hero.jpg" alt="Screenshot of the CMC Africa website" loading="lazy"></div>
       <div class="f-body">
         <div class="f-cat">Development &middot; Live Site</div>
         <h3>CMC Africa — Corporate Website</h3>
-        <p>A multi-page consultancy website for CMC Africa — LAW · FINANCE · RISK · TAX · STRATEGY · AUDIT — deployed live on GitHub Pages with 17 pages.</p>
-        <span class="f-cta">Explore the build →</span>
+        <p>A multi-page consultancy website for CMC Africa, deployed live on GitHub Pages — 17 pages.</p>
+        <span class="f-cta">See the build →</span>
       </div>
     </a>
     <a class="f-item" href="design.html">
+      <span class="f-flag">Featured</span>
       <div class="f-media"><img src="work/design/packages/ll-package-showcase.jpg" alt="L&L Business Design Package — logo, business card, letterhead and payslip" loading="lazy"></div>
       <div class="f-body">
         <div class="f-cat">Design &middot; Brand Package</div>
         <h3>Business Design Package</h3>
-        <p>A complete brand bundle — logo, business card, letterhead and payslip, all tailored to one identity. Packages are flexible and can be customised to fit any business.</p>
+        <p>A complete brand bundle — logo, card, letterhead and payslip — customisable to any business.</p>
         <span class="f-cta">View the gallery →</span>
       </div>
     </a>
@@ -710,6 +722,26 @@
 
 <script>
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- Jumbotron marquee (pixel-snapped rAF — jitter-free motion) ----------
+  (function(){
+    const track = document.querySelector('.jumbotron-inner');
+    if(!track || reduceMotion) return;
+    const group = track.querySelector('.jt-group');
+    let pos = 0;
+    let raf = null;
+    const SPEED = 0.5; // px per frame (~30px/s at 60fps)
+    function step(){
+      const half = group ? group.offsetWidth : 0;
+      if(half > 0){
+        pos += SPEED;
+        if(pos >= half) pos -= half;
+        track.style.transform = 'translate3d(' + (-Math.round(pos)) + 'px,0,0)';
+      }
+      raf = requestAnimationFrame(step);
+    }
+    raf = requestAnimationFrame(step);
+  })();
 
   // ---------- Scroll progress bar ----------
   const progress = document.getElementById('progress');
