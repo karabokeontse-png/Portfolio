@@ -339,6 +339,29 @@
           <td class="style-col"><div class="style-label">Custom illustrated</div><div class="style-sub">Hand-drawn / custom artwork</div></td>
           <td class="price" data-bwp="500"><small>BWP</small> 500</td>
         </tr>
+
+        <tr><td colspan="3" style="padding:1.2rem 1rem 0.4rem;"><div class="eyebrow">Digitization</div><div style="font-family:'Fraunces',serif; font-size:1.1rem; font-weight:500; margin-top:0.2rem;">Drawings &amp; physical art &rarr; digital</div></td></tr>
+
+        <tr class="item-row">
+          <td><div class="item-name">Clean Copy</div><div class="item-hint">Per image / piece</div></td>
+          <td class="style-col"><div class="style-label">Flat digitize</div><div class="style-sub">Tidy, hi-res digital image</div></td>
+          <td class="price" data-bwp="80"><small>BWP</small> 80</td>
+        </tr>
+        <tr class="item-row">
+          <td></td>
+          <td class="style-col"><div class="style-label">Retouch / enhance</div><div class="style-sub">Remove stains, scratches, fix light</div></td>
+          <td class="price" data-bwp="150"><small>BWP</small> 150</td>
+        </tr>
+        <tr class="item-row">
+          <td></td>
+          <td class="style-col"><div class="style-label">Restoration</div><div class="style-sub">Repair damaged / aged originals</div></td>
+          <td class="price" data-bwp="250"><small>BWP</small> 250</td>
+        </tr>
+        <tr class="item-row">
+          <td></td>
+          <td class="style-col"><div class="style-label">Vector rebuild</div><div class="style-sub">Trace into scalable vector, logo-ready</div></td>
+          <td class="price" data-bwp="300"><small>BWP</small> 300</td>
+        </tr>
       </tbody>
     </table>
     </div>
@@ -358,6 +381,7 @@
         <tr><td>4 or more items</td><td class="pc">20% off</td></tr>
       </tbody>
     </table>
+    <p style="margin-top:0.9rem; font-size:0.78rem; color:var(--ink-dim); line-height:1.6;"><b style="color:var(--steel); font-weight:500;">Digitizing a batch?</b> 5+ pieces gets <b>10% off</b> and 10+ pieces gets <b>15% off</b> the digitization items — I'll add it when I quote your batch.</p>
   </div>
 </section>
 
@@ -456,6 +480,7 @@
           <option>Flyer / Poster</option>
           <option>Social Media Graphic</option>
           <option>Menu</option>
+          <option>Digitization (art / drawing / photo &rarr; digital)</option>
           <option>Full brand package</option>
           <option>Website</option>
           <option>Mobile App</option>
@@ -593,9 +618,15 @@
     'Menu': [
       {label:'Standard', price:300},
       {label:'Custom illustrated', price:500}
+    ],
+    'Digitization': [
+      {label:'Clean copy', price:80},
+      {label:'Retouch / enhance', price:150},
+      {label:'Restoration', price:250},
+      {label:'Vector rebuild', price:300}
     ]
   };
-  const order = ['Logo','Business Card','Letterhead','Receipt / Payslip','Flyer / Poster','Social Graphic','Menu'];
+  const order = ['Logo','Business Card','Letterhead','Receipt / Payslip','Flyer / Poster','Social Graphic','Menu','Digitization'];
 
   const container = document.getElementById('calcItems');
   const selections = {};   // name -> index or null
