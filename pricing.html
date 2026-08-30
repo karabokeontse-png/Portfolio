@@ -173,6 +173,14 @@
   .sb-btn.em .ico{color:var(--steel); border-color:var(--bronze-soft);}
   .sb-btn.direct .ico{color:var(--bronze); border-color:var(--bronze-soft);}
 
+  .pay-group{margin-top:0.2rem;}
+  .pay-coming{border:1px dashed var(--border); background:rgba(127,169,201,0.04); padding:1rem 1.1rem;}
+  .pay-coming .pc-head{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; letter-spacing:0.04em; color:var(--ink); font-weight:500;}
+  .pay-coming .pc-tags{display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.7rem;}
+  .pay-coming .pc-tags span{font-size:0.74rem; color:var(--ink-dim); border:1px solid var(--border); padding:0.25rem 0.6rem; border-radius:999px;}
+  .pay-coming .pc-note{margin-top:0.8rem; font-size:0.78rem; color:var(--ink-dim); line-height:1.6;}
+  .pay-coming .pc-note b{color:var(--bronze); font-weight:500;}
+
   .reveal{opacity:0; transform:translateY(20px); transition:opacity .6s ease,transform .6s ease;}
   .reveal.in{opacity:1; transform:none;}
 </style>
@@ -474,13 +482,19 @@
         <input id="mFiles" placeholder="e.g. Uploading my logo (logo.png)" style="margin-top:0.5rem;">
       </div>
 
-      <div class="m-sec-msg">Payment method</div>
-      <div class="pay-opts" id="payOpts">
-        <div class="pay-opt" data-pay="visa"><div class="r"></div><div><div class="pt-name">Visa / Card</div><div class="pt-sub">Pay by debit or credit card</div></div></div>
-        <div class="pay-opt" data-pay="orange"><div class="r"></div><div><div class="pt-name">Orange Money</div><div class="pt-sub">Mobile money transfer</div></div></div>
-        <div class="pay-opt" data-pay="myzaka"><div class="r"></div><div><div class="pt-name">MyZaka</div><div class="pt-sub">Botswana mobile wallet</div></div></div>
-        <div class="pay-opt" data-pay="smega"><div class="r"></div><div><div class="pt-name">Smega</div><div class="pt-sub">Botswana mobile wallet</div></div></div>
-        <div class="pay-opt" data-pay="other"><div class="r"></div><div><div class="pt-name">Other / arrange</div><div class="pt-sub">Agree payment via WhatsApp, email or phone</div></div></div>
+      <div class="m-sec-msg">Payment</div>
+      <div class="pay-group">
+        <div class="pay-coming">
+          <div class="pc-head">Online payment — coming soon</div>
+          <div class="pc-tags">
+            <span>Visa / Card</span>
+            <span>PayPal</span>
+            <span>Orange Money</span>
+            <span>MyZaka</span>
+            <span>Smega</span>
+          </div>
+          <p class="pc-note">These are being set up. For now, send your brief below and we'll arrange payment by WhatsApp or email (a 25% deposit confirms your order).</p>
+        </div>
       </div>
 
       <div class="m-sec-msg">Send this to me</div>
@@ -673,19 +687,9 @@
 
   // ---- Checkout modal ----
   const modal = document.getElementById('modal');
-  let payMethod = null;
-  const payOpts = document.querySelectorAll('.pay-opt');
 
   document.getElementById('checkoutBtn').addEventListener('click', openModal);
   document.getElementById('modalClose').addEventListener('click', () => modal.classList.remove('open'));
-
-  payOpts.forEach(opt=>{
-    opt.addEventListener('click', ()=>{
-      payOpts.forEach(o=>o.classList.remove('sel'));
-      opt.classList.add('sel');
-      payMethod = opt.dataset.pay;
-    });
-  });
 
   function openModal(){
     if(state.count < 1) return;
@@ -702,11 +706,6 @@
     document.getElementById('mBrand').value = '';
     document.getElementById('mFiles').value = '';
     modal.classList.add('open');
-  }
-
-  function methodText(){
-    const map = {visa:'Visa / Card', orange:'Orange Money', myzaka:'MyZaka', smega:'Smega', other:'Other / arrange'};
-    return payMethod ? map[payMethod] : 'to be agreed';
   }
 
   function val(id){ const el=document.getElementById(id); return el && el.value ? '\n' + el.value.trim() : ''; }
@@ -729,7 +728,7 @@
     const files = val('mFiles');
     if(files) msg += '\n\nFiles: ' + files.trim();
 
-    msg += '\n\nPayment method: ' + methodText() + finalNote;
+    msg += finalNote;
     return msg;
   }
 

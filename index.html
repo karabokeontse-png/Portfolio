@@ -66,22 +66,33 @@
     overflow:hidden; white-space:nowrap;
     border-bottom:1px solid var(--border);
     background:var(--bg);
-    padding:2.6rem 0;
+    padding:clamp(1.1rem, 2.8vw, 2.4rem) 0;
     position:relative;
   }
-  .jumbotron-inner{display:inline-flex; gap:0; white-space:nowrap; animation:jscroll 26s linear infinite;}
-  .jumbotron-inner .jt-group{display:inline-flex; align-items:center; gap:2.4rem; padding-right:2.4rem;}
+  .jumbotron-inner{
+    display:inline-flex; gap:0; white-space:nowrap;
+    animation:jscroll 26s linear infinite;
+    will-change:transform;
+    backface-visibility:hidden;
+    transform:translate3d(0,0,0);
+  }
+  .jumbotron-inner .jt-group{display:inline-flex; align-items:center; gap:2rem; padding-right:2rem;}
   .jumbotron-inner span{
     font-family:'Fraunces',serif;
     font-weight:400;
-    font-size:clamp(2.4rem, 6vw, 4.6rem);
+    font-size:clamp(2rem, 5.2vw, 4.2rem);
     line-height:1;
     letter-spacing:-0.01em;
     color:var(--ink);
   }
   .jumbotron-inner .jt-accent{color:var(--bronze); font-style:italic; font-weight:300;}
-  .jumbotron-inner .jt-div{color:var(--bronze); font-size:clamp(1.6rem,4vw,3rem);}
-  @keyframes jscroll{ to{transform:translateX(-50%);} }
+  .jumbotron-inner .jt-div{color:var(--bronze); font-size:clamp(1.4rem,3.4vw,2.8rem);}
+  @keyframes jscroll{ to{transform:translate3d(-50%,0,0);} }
+  @media (max-width:520px){
+    .jumbotron-inner span{font-size:clamp(1.5rem, 6vw, 2.4rem);}
+    .jumbotron-inner .jt-div{font-size:clamp(1.1rem,4vw,1.9rem);}
+    .jumbotron-inner .jt-group{gap:1.5rem; padding-right:1.5rem;}
+  }
   .marquee{display:none;}
 
   /* ---------- Featured projects (full-width strip) ---------- */
