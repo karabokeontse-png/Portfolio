@@ -1,0 +1,8 @@
+# Sensitive / personal documents — keep out of the public repo
+All Certificates.pdf
+Tetelo Keontse Data Center Specialist CV_combined.pdf
+all certifications part 2.pdf
+
+# Local tooling
+.DS_Store
+Thumbs.db
