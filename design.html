@@ -76,6 +76,7 @@
   .g-item:hover .g-caption{opacity:1; transform:none;}
   .g-caption .c-cat{font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--bronze);}
   .g-caption .c-title{font-family:'Fraunces',serif; font-weight:500; font-size:1.05rem; margin-top:0.25rem; line-height:1.3;}
+  .g-caption .c-open{display:inline-block; margin-top:0.6rem; font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--steel); border:1px solid var(--bronze-soft); padding:0.4rem 0.75rem;}
 
   /* Video tile */
   .g-item.video{aspect-ratio:16/9;}
@@ -158,6 +159,7 @@
       <button class="filter-btn" data-filter="flyers">Flyers &amp; Posters</button>
       <button class="filter-btn" data-filter="cards">Business Cards</button>
       <button class="filter-btn" data-filter="docs">Documents</button>
+      <button class="filter-btn" data-filter="packages">Packages</button>
       <button class="filter-btn" data-filter="social">Social Media</button>
       <button class="filter-btn" data-filter="menus">Menus</button>
       <button class="filter-btn" data-filter="video">Video</button>
@@ -299,6 +301,11 @@
         <img src="work/design/photos/optimized/work-photo-2.jpg" alt="Photo of printed design work" loading="lazy" data-full="work/design/photos/work-photo-2.jpg" data-title="Printed Work — Photo 2" data-cat-label="Photo">
         <div class="g-caption"><div class="c-cat">Photo</div><div class="c-title">Printed Work — Photo 2</div></div>
       </div>
+
+      <div class="g-item pkg-tile" data-cat="packages" onclick="window.open('work/design/L%26L%20Business%20Design%20Package%20.pdf','_blank')" style="cursor:pointer;">
+        <img src="work/design/packages/ll-package-showcase.jpg" alt="L&L Business Design Package — logo, business card, letterhead and payslip" loading="lazy" data-title="Business Design Package" data-cat-label="Package">
+        <div class="g-caption"><div class="c-cat">Package</div><div class="c-title">Business Design Package</div><div class="c-open">Open PDF &nearr;</div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -360,8 +367,8 @@
   if(reduceMotion || !('IntersectionObserver' in window)) items.forEach(el => el.classList.add('in'));
   else observeReveal();
 
-  // Lightbox over image items (skip doc tiles and video)
-  const imageItems = items.filter(it => it.querySelector('img') && !it.classList.contains('video'));
+  // Lightbox over image items (skip doc tiles, package tiles and video)
+  const imageItems = items.filter(it => it.querySelector('img') && !it.classList.contains('video') && !it.classList.contains('pkg-tile'));
 
   const lb = document.getElementById('lightbox');
   const lbMedia = document.createElement('img');
