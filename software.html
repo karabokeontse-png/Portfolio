@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Software Development — Tetelo Karabo Keontse</title>
+<meta name="description" content="Software development work by Tetelo Karabo Keontse — web development, automation and system integration projects.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -35,34 +36,60 @@
   .nav-links a.active{color:var(--ink); border-bottom:1px solid var(--bronze); padding-bottom:0.2rem;}
   @media (max-width:860px){ .nav-links{display:none;} }
 
-  .page-head{min-height:44vh; display:flex; flex-direction:column; justify-content:flex-end; padding:9rem 6vw 3rem;}
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);}
+  .reveal.in{opacity:1; transform:none;}
+
+  .page-head{min-height:42vh; display:flex; flex-direction:column; justify-content:flex-end; padding:9rem 6vw 3rem;}
   .page-head .eyebrow{margin-bottom:1rem;}
   .page-head h1{font-family:'Fraunces',serif; font-weight:400; font-size:clamp(2.2rem,5.4vw,4rem); line-height:1.05; letter-spacing:-0.01em; max-width:18ch;}
   .page-head p{margin-top:1.3rem; color:var(--ink-dim); font-size:1.02rem; max-width:52ch; line-height:1.7;}
 
   section{padding:2.5rem 6vw 6rem;}
   .section-inner{max-width:1120px; margin:0 auto;}
+  .section-head{margin-bottom:2rem;}
+  .section-head h2{font-family:'Fraunces',serif; font-weight:400; font-size:clamp(1.7rem,3.2vw,2.3rem); margin-top:0.5rem;}
 
-  .stack{
-    display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:3rem;
-  }
-  .stack span{
-    font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
-    color:var(--ink-dim); border:1px solid var(--border); padding:0.5rem 1rem;
-  }
+  .stack{display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:2.4rem;}
+  .stack span{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-dim); border:1px solid var(--border); padding:0.5rem 1rem;}
 
-  .empty{
-    border:1px dashed var(--border); border-radius:14px;
-    padding:4.5rem 2.5rem; text-align:center; background:linear-gradient(160deg, var(--bg-2), var(--bg));
+  /* Featured project */
+  .project{border:1px solid var(--border); background:var(--bg-2); overflow:hidden;}
+  .project .p-hero{position:relative; display:block;}
+  .project .p-hero img{width:100%; display:block;}
+  .project .p-hero .badge{
+    position:absolute; top:1rem; left:1rem;
+    font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--ink); background:rgba(16,20,28,0.8); border:1px solid var(--bronze-soft); padding:0.45rem 0.9rem; backdrop-filter:blur(4px);
   }
-  .empty .emblem{
-    width:74px; height:74px; margin:0 auto 1.6rem; border:1px solid var(--bronze-soft); border-radius:50%;
-    display:flex; align-items:center; justify-content:center; font-size:1.8rem; color:var(--bronze);
-  }
-  .empty h2{font-family:'Fraunces',serif; font-weight:400; font-size:clamp(1.6rem,3vw,2.2rem);}
-  .empty p{color:var(--ink-dim); font-size:1rem; line-height:1.8; margin:1.1rem auto 0; max-width:46ch;}
+  .project .p-body{padding:2.6rem 2.6rem 2.4rem;}
+  .project .p-meta{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; letter-spacing:0.08em; color:var(--steel); text-transform:uppercase; margin-bottom:0.8rem;}
+  .project h3{font-family:'Fraunces',serif; font-weight:400; font-size:clamp(1.7rem,3vw,2.2rem);}
+  .project .p-tagline{color:var(--ink-dim); font-size:1.02rem; line-height:1.7; margin-top:1rem;}
+  .project .p-desc{color:var(--ink-dim); font-size:0.96rem; line-height:1.8; margin-top:1rem;}
 
-  .projects-coming{display:none;}
+  .p-links{display:flex; flex-wrap:wrap; gap:1rem; margin-top:1.8rem;}
+  .btn{display:inline-flex; align-items:center; gap:0.55rem; font-family:'IBM Plex Mono',monospace; font-size:0.76rem; letter-spacing:0.07em; text-transform:uppercase; text-decoration:none; color:var(--ink); border:1px solid var(--bronze-soft); padding:0.85rem 1.3rem; transition:background .25s,border-color .25s; cursor:pointer; background:transparent;}
+  .btn:hover{background:rgba(176,141,87,0.1); border-color:var(--bronze);}
+  .btn.primary{background:rgba(176,141,87,0.12); border-color:var(--bronze);}
+
+  .features{border-top:1px solid var(--border); margin-top:2.4rem; padding-top:1.8rem; display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem;}
+  @media (max-width:760px){ .features{grid-template-columns:1fr;} }
+  .feature .f-num{font-family:'Fraunces',serif; font-size:1.3rem; color:var(--bronze);}
+  .feature .f-desc{color:var(--ink-dim); font-size:0.86rem; line-height:1.6; margin-top:0.4rem;}
+
+  /* Live preview */
+  .preview-wrap{margin-top:1.6rem; border:1px solid var(--border); background:var(--bg);}
+  .preview-bar{display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.8rem 1.2rem; border-bottom:1px solid var(--border); flex-wrap:wrap;}
+  .preview-bar .addr{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--ink-dim); letter-spacing:0.03em;}
+  .preview-frame{position:relative; width:100%; height:520px; background:var(--bg-3); overflow:hidden;}
+  .preview-frame iframe{width:100%; height:100%; border:0;}
+  .preview-frame .hint{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.8rem; color:var(--ink-dim); text-align:center; padding:1rem;}
+  .preview-frame .hint .sm{font-size:0.8rem;}
+  .preview-frame iframe.hidden{opacity:0;}
+
+  .empty{border:1px dashed var(--border); border-radius:12px; padding:3rem 2rem; text-align:center; margin-top:2.6rem; background:linear-gradient(160deg,var(--bg-2),var(--bg));}
+  .empty h4{font-family:'Fraunces',serif; font-weight:400; font-size:1.3rem;}
+  .empty p{color:var(--ink-dim); font-size:0.9rem; line-height:1.7; margin-top:0.6rem; max-width:44ch; margin-left:auto; margin-right:auto;}
 
   footer{text-align:center; padding:2.6rem 6vw; color:var(--ink-dim); font-size:0.76rem; border-top:1px solid var(--border);}
   footer a{color:var(--ink-dim); text-decoration:none; transition:color .25s;}
@@ -86,36 +113,82 @@
 
 <header class="page-head">
   <div class="eyebrow">Software Development</div>
-  <h1>Code that keeps <em style="font-style:italic; font-weight:300; color:var(--bronze);">systems running</em>.</h1>
-  <p>Backend logic, system automation and integrations that make infrastructure reliable, secure and efficient — from PowerShell automation to database administration and beyond.</p>
+  <h1>Code that <em style="font-style:italic; font-weight:300; color:var(--bronze);">ships</em>.</h1>
+  <p>Websites, automation and integrations — built to be reliable, responsive and ready to go live. Explore a featured project below.</p>
 </header>
 
 <section>
   <div class="section-inner">
 
-    <div class="stack">
-      <span>Java</span>
-      <span>C#</span>
-      <span>SQL / MS SQL Server</span>
-      <span>PowerShell</span>
-      <span>System Integration</span>
-      <span>API Support</span>
-      <span>Database Design</span>
+    <div class="stack reveal">
+      <span>HTML</span>
+      <span>CSS</span>
+      <span>JavaScript</span>
+      <span>Responsive Web</span>
+      <span>Multi-page</span>
+      <span>GitHub Pages</span>
     </div>
 
-    <div class="empty">
-      <div class="emblem">&#123;&#125;</div>
-      <h2>Projects landing soon.</h2>
-      <p>I'm actively building software projects and will showcase them here — web apps, automation tools and integrations. Check back, or get in touch to see what I'm working on today.</p>
+    <div class="project reveal">
+
+      <div class="p-hero">
+        <span class="badge">Featured Project</span>
+        <img src="work/dev/cmc-hero.jpg" alt="Screenshot of the CMC Africa website homepage" loading="lazy">
+      </div>
+
+      <div class="p-body">
+        <div class="p-meta">Client Website &middot; Live on GitHub Pages</div>
+        <h3>CMC Africa — Corporate Website</h3>
+        <p class="p-tagline">A multi-page professional-services website for a consultancy operating across African markets — LAW · FINANCE · RISK · TAX · STRATEGY · AUDIT.</p>
+        <p class="p-desc">Designed and built as a clean, editorial corporate site with a home page and 16 sector landing pages. Structured content, responsive layout and custom-generated sector imagery, deployed live straight from the repository.</p>
+
+        <div class="p-links">
+          <a class="btn primary" href="https://karabokeontse-png.github.io/CMC-website-/" target="_blank" rel="noopener">Open Live Site &nearr;</a>
+          <a class="btn" href="https://github.com/karabokeontse-png/CMC-website-" target="_blank" rel="noopener">Source Code &nearr;</a>
+        </div>
+
+        <div class="features">
+          <div class="feature">
+            <div class="f-num">17</div>
+            <div class="f-desc">Pages — a home page plus 16 sector landing pages, all linked from the Our Sectors section.</div>
+          </div>
+          <div class="feature">
+            <div class="f-num">100%</div>
+            <div class="f-desc">Responsive — layout adapts cleanly across desktop, tablet and mobile.</div>
+          </div>
+          <div class="feature">
+            <div class="f-num">Live</div>
+            <div class="f-desc">Deployed on GitHub Pages, so the finished site is reachable at a public URL.</div>
+          </div>
+        </div>
+
+        <div class="preview-wrap">
+          <div class="preview-bar">
+            <span class="addr">karabokeontse-png.github.io/CMC-website-/</span>
+            <button class="btn" id="previewToggle" style="padding:0.55rem 1rem; font-size:0.7rem;">&#9654; Load live preview</button>
+          </div>
+          <div class="preview-frame" id="previewFrame">
+            <div class="hint" id="previewHint">
+              <span>An interactive preview of the actual live site will load here.</span>
+              <span class="sm">Tap the button above, or open it in a new tab.</span>
+            </div>
+            <iframe id="cmcFrame" data-src="https://karabokeontse-png.github.io/CMC-website-/" title="Live preview of CMC Africa website" loading="lazy" style="opacity:0;" allow="fullscreen"></iframe>
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <div class="projects-coming"><!-- future project tiles rendered here --></div>
+    <div class="empty reveal">
+      <h4>More projects on the way.</h4>
+      <p>I'm continuing to build and will keep adding to this page — including the apps and tools I'm working on now.</p>
+    </div>
 
   </div>
 </section>
 
 <section id="contact" style="text-align:center;">
-  <div class="section-inner">
+  <div class="section-inner reveal">
     <div class="eyebrow">Have a project in mind?</div>
     <h2 style="font-family:'Fraunces',serif; font-weight:400; font-size:clamp(1.8rem,3.4vw,2.6rem); margin-top:0.6rem;">Let's build something reliable.</h2>
     <a href="mailto:karabokeontse@gmail.com?subject=Software%20project%20enquiry" style="display:inline-block; margin-top:1.8rem; font-family:'IBM Plex Mono',monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink); border:1px solid var(--bronze-soft); padding:0.9rem 1.5rem; text-decoration:none; transition:background .25s,border-color .25s;">Start a build</a>
@@ -125,6 +198,35 @@
 <footer>
   <p><a href="index.html">Back to home</a> &middot; Tetelo Karabo Keontse</p>
 </footer>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const els = document.querySelectorAll('.reveal');
+  if(reduceMotion || !('IntersectionObserver' in window)){
+    els.forEach(el => el.classList.add('in'));
+  } else {
+    const ob = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+    }, {threshold: 0.1});
+    els.forEach(el => ob.observe(el));
+  }
+
+  // Lazy-load the live preview iframe on demand
+  const frame = document.getElementById('cmcFrame');
+  const hint = document.getElementById('previewHint');
+  const toggle = document.getElementById('previewToggle');
+  let loaded = false;
+  function loadPreview(){
+    if(loaded) return;
+    loaded = true;
+    if(!frame.dataset.src) return;
+    frame.src = frame.dataset.src;
+    frame.style.opacity = '1';
+    if(hint) hint.style.display = 'none';
+    toggle.innerHTML = 'Live preview loaded &nearr;';
+  }
+  if(toggle) toggle.addEventListener('click', loadPreview);
+</script>
 
 </body>
 </html>
