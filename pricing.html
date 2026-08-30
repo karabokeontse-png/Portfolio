@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — Tetelo Karabo Keontse</title>
+<meta name="description" content="Design and development pricing from Tetelo Karabo Keontse — transparent per-item rates, style tiers and bundle discounts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #10141c;
+    --bg-2: #171c26;
+    --bg-3: #1d2330;
+    --ink: #e8e6df;
+    --ink-dim: #8891a0;
+    --border: #232938;
+    --bronze: #b08d57;
+    --bronze-soft: rgba(176,141,87,0.35);
+    --steel: #7fa9c9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif; font-weight:300; overflow-x:hidden;}
+  ::selection{background:var(--bronze-soft); color:var(--ink);}
+  a{color:inherit;}
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
+  .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--bronze);}
+
+  nav{position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:1.5rem 4vw; backdrop-filter:blur(10px); background:linear-gradient(to bottom, rgba(16,20,28,0.85), transparent);}
+  .nav-mark{font-family:'Fraunces',serif; font-size:1.05rem;}
+  .nav-links{display:flex; gap:2rem; font-size:0.82rem; letter-spacing:0.03em;}
+  .nav-links a{text-decoration:none; color:var(--ink-dim); transition:color .25s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a.active{color:var(--ink); border-bottom:1px solid var(--bronze); padding-bottom:0.2rem;}
+  @media (max-width:860px){ .nav-links{display:none;} }
+
+  .page-head{min-height:38vh; display:flex; flex-direction:column; justify-content:flex-end; padding:9rem 6vw 3rem;}
+  .page-head .eyebrow{margin-bottom:1rem;}
+  .page-head h1{font-family:'Fraunces',serif; font-weight:400; font-size:clamp(2.2rem,5vw,3.6rem); line-height:1.05; max-width:18ch;}
+  .page-head p{margin-top:1.2rem; color:var(--ink-dim); font-size:1.02rem; max-width:56ch; line-height:1.7;}
+  .head-note{margin-top:1.2rem; color:var(--steel); font-family:'IBM Plex Mono',monospace; font-size:0.78rem; letter-spacing:0.04em;}
+
+  section{padding:2.5rem 6vw 3rem;}
+  .section-inner{max-width:1000px; margin:0 auto;}
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.6rem;}
+  .section-head h2{font-family:'Fraunces',serif; font-weight:400; font-size:clamp(1.6rem,3vw,2.2rem);}
+
+  /* Price table */
+  .price-table{width:100%; border-collapse:collapse; margin-bottom:1.6rem;}
+  .price-table th{
+    text-align:left; font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--ink-dim); border-bottom:1px solid var(--border); padding:0.7rem 1rem; font-weight:400;
+  }
+  .price-table td{border-bottom:1px solid var(--border); padding:0.9rem 1rem; vertical-align:top;}
+  .price-table tr.item-row:hover td{background:rgba(176,141,87,0.04);}
+  .price-table .item-name{font-family:'Fraunces',serif; font-size:1.05rem; font-weight:500;}
+  .price-table .item-hint{font-size:0.78rem; color:var(--ink-dim); margin-top:0.2rem; font-weight:300;}
+  .style-col{min-width:170px;}
+  .style-label{font-size:0.9rem; font-weight:400;}
+  .style-sub{font-size:0.72rem; color:var(--ink-dim); font-weight:300;}
+  .price{font-family:'IBM Plex Mono',monospace; font-size:0.95rem; color:var(--bronze); white-space:nowrap; font-weight:500;}
+  .price small{color:var(--ink-dim); font-weight:300;}
+
+  .table-wrap{overflow-x:auto;}
+
+  /* combo discount table */
+  .discount-table{width:100%; max-width:560px; border-collapse:collapse;}
+  .discount-table td,.discount-table th{border-bottom:1px solid var(--border); padding:0.8rem 1rem; text-align:left;}
+  .discount-table th{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-dim); font-weight:400;}
+  .discount-table .pc{color:var(--bronze); font-family:'IBM Plex Mono',monospace; font-weight:500;}
+
+  /* Calculator */
+  .calc{border:1px solid var(--border); background:var(--bg-2); overflow:hidden; margin-top:2.4rem;}
+  .calc-head{padding:1.6rem 2rem; border-bottom:1px solid var(--border); display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:1rem;}
+  .calc-head h3{font-family:'Fraunces',serif; font-weight:400; font-size:1.5rem;}
+  .calc-head .note{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--steel); letter-spacing:0.04em;}
+  .calc-body{display:grid; grid-template-columns:1.4fr 1fr; gap:0;}
+  @media (max-width:800px){ .calc-body{grid-template-columns:1fr;} }
+  .calc-items{padding:2rem;}
+  .calc-item{display:grid; grid-template-columns:1fr auto auto; gap:1rem; align-items:center; padding:0.9rem 0; border-bottom:1px solid var(--border);}
+  @media (max-width:560px){ .calc-item{grid-template-columns:1fr 1fr; grid-template-rows:auto auto;} }
+  .calc-item:last-child{border-bottom:none;}
+  .calc-item .ci-name{font-family:'Fraunces',serif; font-size:1rem; font-weight:500;}
+  .calc-item select{
+    background:var(--bg-3); color:var(--ink); border:1px solid var(--border); font-family:'IBM Plex Mono',monospace;
+    font-size:0.8rem; padding:0.5rem 0.7rem; cursor:pointer; min-width:150px;
+  }
+  .calc-item select:focus{outline:none; border-color:var(--bronze);}
+  .calc-item .ci-price{font-family:'IBM Plex Mono',monospace; font-size:0.95rem; color:var(--bronze); min-width:64px; text-align:right; font-weight:500;}
+
+  .calc-tally{border-left:1px solid var(--border); padding:2rem; background:linear-gradient(180deg,var(--bg-3),var(--bg-2));
+    position:sticky; top:0;}
+  @media (max-width:800px){ .calc-tally{border-left:none; border-top:1px solid var(--border);} }
+  .tally-row{display:flex; justify-content:space-between; align-items:baseline; padding:0.55rem 0; font-size:0.95rem; color:var(--ink-dim);}
+  .tally-row .v{font-family:'IBM Plex Mono',monospace; color:var(--ink);}
+  .tally-row.discount .v{color:var(--steel);}
+  .tally-total{display:flex; justify-content:space-between; align-items:baseline; margin-top:1rem; padding-top:1.2rem; border-top:1px solid var(--border); font-family:'Fraunces',serif; font-size:1.5rem;}
+  .tally-total .v{color:var(--bronze);}
+  .combo-flag{margin-top:1.4rem; font-size:0.82rem; color:var(--ink-dim); line-height:1.6;}
+  .combo-flag b{color:var(--bronze); font-weight:500;}
+  .excl-note{margin-top:1.2rem; font-size:0.8rem; color:var(--ink-dim); line-height:1.7; border-top:1px dashed var(--border); padding-top:1.1rem;}
+  .calc-cta{margin-top:1.6rem;}
+  .btn{display:inline-flex; align-items:center; gap:0.5rem; font-family:'IBM Plex Mono',monospace; font-size:0.76rem; letter-spacing:0.07em; text-transform:uppercase; text-decoration:none; color:var(--ink); border:1px solid var(--bronze-soft); padding:0.85rem 1.2rem; transition:background .25s,border-color .25s; cursor:pointer; background:transparent; width:100%; justify-content:center;}
+  .btn:hover{background:rgba(176,141,87,0.1); border-color:var(--bronze);}
+
+  /* premium services */
+  .premium-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem;}
+  @media (max-width:860px){ .premium-grid{grid-template-columns:1fr;} }
+  .premium-card{border:1px solid var(--border); background:var(--bg-2); padding:1.6rem 1.5rem;}
+  .premium-card h4{font-family:'Fraunces',serif; font-weight:500; font-size:1.15rem;}
+  .premium-card .from{font-family:'IBM Plex Mono',monospace; font-size:0.9rem; color:var(--bronze); margin-top:0.7rem; font-weight:500;}
+  .premium-card p{font-size:0.85rem; color:var(--ink-dim); line-height:1.7; margin-top:0.6rem;}
+  .premium-note{margin-top:1.4rem; font-size:0.82rem; color:var(--steel); font-family:'IBM Plex Mono',monospace; letter-spacing:0.03em;}
+
+  footer{text-align:center; padding:2.6rem 6vw; color:var(--ink-dim); font-size:0.76rem; border-top:1px solid var(--border);}
+  footer a{color:var(--ink-dim); text-decoration:none;}
+  footer a:hover{color:var(--ink);}
+
+  .reveal{opacity:0; transform:translateY(20px); transition:opacity .6s ease,transform .6s ease;}
+  .reveal.in{opacity:1; transform:none;}
+</style>
+<noscript><style>.reveal{opacity:1 !important; transform:none !important;}</style></noscript>
+</head>
+<body>
+
+<nav>
+  <div class="nav-mark"><a href="index.html" style="color:var(--ink); text-decoration:none;">T.K.</a></div>
+  <div class="nav-links">
+    <a href="index.html#about">About</a>
+    <a href="index.html#services">Services</a>
+    <a href="design.html">Design</a>
+    <a href="software.html">Development</a>
+    <a href="experience.html">Experience</a>
+    <a href="qualifications.html">Qualifications</a>
+    <a href="pricing.html" class="active">Pricing</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="eyebrow">Pricing</div>
+  <h1>Clear, simple &amp; bundle-friendly.</h1>
+  <p>Design work priced per item with style options, so you only pay for what you need. Build your own package below — the more you add, the more you save.</p>
+  <div class="head-note">All prices in Botswana Pula (P) &middot; Web development, apps &amp; ICT are quoted separately</div>
+</header>
+
+<section class="reveal">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Graphic Design</div>
+        <h2>Per-item pricing</h2>
+      </div>
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--steel);">Each item has style options</span>
+    </div>
+
+    <div class="table-wrap">
+    <table class="price-table">
+      <thead>
+        <tr><th>Item</th><th class="style-col">Style / Tier</th><th>Price</th></tr>
+      </thead>
+      <tbody>
+        <tr class="item-row">
+          <td><div class="item-name">Logo</div><div class="item-hint">Choose the style you want</div></td>
+          <td class="style-col">
+            <div class="style-label">Typography (wordmark)</div>
+            <div class="style-sub">Clean text-based logo</div>
+          </td>
+          <td class="price">P 250</td>
+        </tr>
+        <tr class="item-row">
+          <td></td>
+          <td class="style-col">
+            <div class="style-label">Illustrated</div>
+            <div class="style-sub">Custom icon / symbol design</div>
+          </td>
+          <td class="price">P 350</td>
+        </tr>
+        <tr class="item-row">
+          <td></td>
+          <td class="style-col">
+            <div class="style-label">3D</div>
+            <div class="style-sub">Dimensional, premium finish</div>
+          </td>
+          <td class="price">P 450</td>
+        </tr>
+
+        <tr class="item-row">
+          <td><div class="item-name">Business Card</div><div class="item-hint">Front &amp; back, print-ready</div></td>
+          <td class="style-col"><div class="style-label">Standard</div><div class="style-sub">Clean professional layout</div></td>
+          <td class="price">P 200</td>
+        </tr>
+        <tr class="item-row">
+          <td></td>
+          <td class="style-col"><div class="style-label">Premium</div><div class="style-sub">Foil / specialty finishes</div></td>
+          <td class="price">P 300</td>
+        </tr>
+
+        <tr class="item-row">
+          <td><div class="item-name">Letterhead</div></td>
+          <td class="style-col"><div class="style-label">Basic</div><div class="style-sub">Branded header</div></td>
+          <td class="price">P 150</td>
+        </tr>
+        <tr class="item-row">
+          <td></td>
+          <td class="style-col"><div class="style-label">Premium</div><div class="style-sub">With footer &amp; layout</div></td>
+          <td class="price">P 250</td>
+        </tr>
+
+        <tr class="item-row">
+          <td><div class="item-name">Receipt / Payslip</div><div class="item-hint">Branded template</div></td>
+          <td class="style-col"><div class="style-label">Standard</div><div class="style-sub">Clean template</div></td>
+          <td class="price">P 300</td>
+        </tr>
+        <tr class="item-row">
+          <td></td>
+          <td class="style-col"><div class="style-label">Premium</div><div class="style-sub">Fully branded layout</div></td>
+          <td class="price">P 500</td>
+        </tr>
+
+        <tr class="item-row">
+          <td><div class="item-name">Flyer / Poster</div></td>
+          <td class="style-col"><div class="style-label">Basic (A5–A6)</div><div class="style-sub">Simple promo</div></td>
+          <td class="price">P 150</td>
+        </tr>
+        <tr class="item-row">
+          <td></td>
+          <td class="style-col"><div class="style-label">Standard (A4)</div><div class="style-sub">Full layout</div></td>
+          <td class="price">P 250</td>
+        </tr>
+        <tr class="item-row">
+          <td></td>
+          <td class="style-col"><div class="style-label">Premium</div><div class="style-sub">Custom illustrated</div></td>
+          <td class="price">P 400</td>
+        </tr>
+
+        <tr class="item-row">
+          <td><div class="item-name">Social Media Graphic</div><div class="item-hint">Per post / asset</div></td>
+          <td class="style-col"><div class="style-label">Standard post</div><div class="style-sub">Template-based</div></td>
+          <td class="price">P 100</td>
+        </tr>
+        <tr class="item-row">
+          <td></td>
+          <td class="style-col"><div class="style-label">Custom illustration</div><div class="style-sub">Original artwork per post</div></td>
+          <td class="price">P 200</td>
+        </tr>
+
+        <tr class="item-row">
+          <td><div class="item-name">Menu</div></td>
+          <td class="style-col"><div class="style-label">Standard</div><div class="style-sub">Clean food/beverage layout</div></td>
+          <td class="price">P 300</td>
+        </tr>
+        <tr class="item-row">
+          <td></td>
+          <td class="style-col"><div class="style-label">Custom illustrated</div><div class="style-sub">Hand-drawn / custom artwork</div></td>
+          <td class="price">P 500</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="section-head" style="margin-top:2.4rem;">
+      <div>
+        <div class="eyebrow">Bundle Discount</div>
+        <h2>Save more when you bundle</h2>
+      </div>
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--steel);">Discount applies to the whole order</span>
+    </div>
+    <table class="discount-table">
+      <thead><tr><th>Items in your package</th><th>Discount off total</th></tr></thead>
+      <tbody>
+        <tr><td>2 items</td><td class="pc">10% off</td></tr>
+        <tr><td>3 items</td><td class="pc">15% off</td></tr>
+        <tr><td>4 or more items</td><td class="pc">20% off</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="section-inner">
+    <div class="calc">
+      <div class="calc-head">
+        <h3>Build your package</h3>
+        <span class="note">Pick items &amp; styles &mdash; the total auto-calculates</span>
+      </div>
+      <div class="calc-body">
+        <div class="calc-items" id="calcItems"></div>
+        <div class="calc-tally" id="calcTally">
+          <div class="tally-row"><span>Items</span><span class="v" id="tItems">0</span></div>
+          <div class="tally-row"><span>Subtotal</span><span class="v" id="tSub">P 0</span></div>
+          <div class="tally-row discount"><span>Bundle discount</span><span class="v" id="tDisc">P 0</span></div>
+          <div class="tally-total"><span>Total</span><span class="v" id="tTotal">P 0</span></div>
+          <div class="combo-flag" id="comboFlag">Add 2 or more items to unlock a bundle discount.</div>
+          <div class="excl-note">Web development, mobile apps and ICT services are <b>not included</b> in the bundle — they're quoted separately for your project.</div>
+          <div class="calc-cta"><a class="btn" id="quoteCta" href="mailto:karabokeontse@gmail.com?subject=Design%20package%20quote">Request this package &nearr;</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Premium Services</div>
+        <h2>Quoted separately per project</h2>
+      </div>
+    </div>
+    <div class="premium-grid">
+      <div class="premium-card">
+        <h4>Websites</h4>
+        <div class="from">from P 4,900</div>
+        <p>Business sites, landing pages and corporate websites — designed and launched on your own domain.</p>
+      </div>
+      <div class="premium-card">
+        <h4>Mobile Apps</h4>
+        <div class="from">from P 13,400</div>
+        <p>Custom applications built for your business needs. Ideal for international clients too.</p>
+      </div>
+      <div class="premium-card">
+        <h4>ICT &amp; Audit</h4>
+        <div class="from">from P 3,000 / day</div>
+        <p>Systems support, data protection compliance and internal audits — backed by years of hands-on IT operations.</p>
+      </div>
+    </div>
+    <p class="premium-note">These are assessed on scope — send a message for a free, no-obligation quote.</p>
+  </div>
+</section>
+
+<section id="contact" class="reveal" style="text-align:center;">
+  <div class="section-inner">
+    <div class="eyebrow">Have questions?</div>
+    <h2 style="font-family:'Fraunces',serif; font-weight:400; font-size:clamp(1.8rem,3.4vw,2.6rem); margin-top:0.6rem;">Let's build your brand, your way.</h2>
+    <p style="color:var(--ink-dim); margin-top:1rem;">karabokeontse@gmail.com &middot; +267 7460 2164 / 7586 1674</p>
+    <a href="mailto:karabokeontse@gmail.com?subject=Design%20package%20enquiry" style="display:inline-block; margin-top:1.8rem; font-family:'IBM Plex Mono',monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink); border:1px solid var(--bronze-soft); padding:0.9rem 1.5rem; text-decoration:none;">Start a package</a>
+  </div>
+</section>
+
+<footer>
+  <p><a href="index.html">Back to home</a> &middot; Tetelo Karabo Keontse</p>
+</footer>
+
+<script>
+  // Catalog: item -> [{label, price}]
+  const CATALOG = {
+    'Logo': [
+      {label:'Typography (wordmark) — P250', price:250},
+      {label:'Illustrated — P350', price:350},
+      {label:'3D — P450', price:450}
+    ],
+    'Business Card': [
+      {label:'Standard — P200', price:200},
+      {label:'Premium — P300', price:300}
+    ],
+    'Letterhead': [
+      {label:'Basic — P150', price:150},
+      {label:'Premium — P250', price:250}
+    ],
+    'Receipt / Payslip': [
+      {label:'Standard — P300', price:300},
+      {label:'Premium — P500', price:500}
+    ],
+    'Flyer / Poster': [
+      {label:'Basic (A5–A6) — P150', price:150},
+      {label:'Standard (A4) — P250', price:250},
+      {label:'Premium — P400', price:400}
+    ],
+    'Social Graphic': [
+      {label:'Standard post — P100', price:100},
+      {label:'Custom illustration — P200', price:200}
+    ],
+    'Menu': [
+      {label:'Standard — P300', price:300},
+      {label:'Custom illustrated — P500', price:500}
+    ]
+  };
+
+  const order = ['Logo','Business Card','Letterhead','Receipt / Payslip','Flyer / Poster','Social Graphic','Menu'];
+
+  const container = document.getElementById('calcItems');
+  const selections = {};
+
+  function build(){
+    container.innerHTML = '';
+    order.forEach((name, idx) => {
+      const opts = CATALOG[name];
+      selections[name] = 0;
+      const row = document.createElement('div');
+      row.className = 'calc-item';
+      row.innerHTML =
+        '<div class="ci-name">' + name + '</div>' +
+        '<select data-item="' + name + '">' +
+          opts.map((o,i)=>'<option value="'+i+'">'+o.label+'</option>').join('') +
+        '</select>' +
+        '<div class="ci-price">' + opts[0].price + '</div>';
+      container.appendChild(row);
+      const sel = row.querySelector('select');
+      const priceEl = row.querySelector('.ci-price');
+      sel.addEventListener('change', ()=>{
+        selections[name] = parseInt(sel.value,10);
+        priceEl.textContent = opts[parseInt(sel.value,10)].price;
+        tally();
+      });
+    });
+    tally();
+  }
+
+  // Discount tiers: [minItems, percent]
+  const TIERS = [[2,10],[3,15],[4,20]];
+
+  function tally(){
+    let count = 0;
+    let sub = 0;
+    order.forEach(name => {
+      const o = CATALOG[name][selections[name]];
+      const v = parseInt(selections[name],10);
+      if(!isNaN(v) && o){ count++; sub += o.price; }
+    });
+
+    let pct = 0;
+    for(const [min,p] of TIERS){ if(count >= min) pct = p; }
+    const disc = Math.round(sub * pct / 100);
+    const total = sub - disc;
+
+    document.getElementById('tItems').textContent = count;
+    document.getElementById('tSub').textContent = 'P ' + sub.toLocaleString();
+    document.getElementById('tDisc').textContent = (pct>0 ? '-' : '') + 'P ' + disc.toLocaleString();
+    document.getElementById('tTotal').textContent = 'P ' + total.toLocaleString();
+
+    const flag = document.getElementById('comboFlag');
+    if(count >= 4) flag.innerHTML = '<b>20% off</b> applied — nice, you built a full package!';
+    else if(count === 3) flag.innerHTML = '<b>15% off</b> applied — add one more item to unlock 20%.';
+    else if(count === 2) flag.innerHTML = '<b>10% off</b> applied — add another to reach 15%.';
+    else flag.textContent = 'Add 2 or more items to unlock a bundle discount.';
+
+    const cta = document.getElementById('quoteCta');
+    const items = order
+      .filter(n=>!isNaN(parseInt(selections[n],10)))
+      .map(n=>n+': '+CATALOG[n][selections[n]].label)
+      .join('; ');
+    cta.href = 'mailto:karabokeontse@gmail.com?subject=Design%20package%20quote&body=' +
+      encodeURIComponent(items + '\n\nEstimated total (before final quote): P ' + total);
+  }
+
+  build();
+
+  // Reveal on scroll
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revs = document.querySelectorAll('.reveal');
+  if(reduceMotion || !('IntersectionObserver' in window)){
+    revs.forEach(r=>r.classList.add('in'));
+  } else {
+    const ob = new IntersectionObserver((es,o)=>{
+      es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); o.unobserve(e.target);} });
+    },{threshold:0.1});
+    revs.forEach(r=>ob.observe(r));
+  }
+</script>
+
+</body>
+</html>
