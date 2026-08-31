@@ -169,6 +169,7 @@
 
 <nav>
   <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
     <a href="index.html#about">About</a>
     <a href="index.html#services">Services</a>
     <a href="design.html">Design</a>
@@ -191,6 +192,7 @@
   <div class="eyebrow">Software Development</div>
   <h1>Code that <em style="font-style:italic; font-weight:300; color:var(--bronze);">ships</em>.</h1>
   <p>Websites, automation and integrations — built to be reliable, responsive and ready to go live. Explore a featured project below.</p>
+<div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.7rem 1rem; margin-top:1.4rem;"><span style="font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--steel);">Like what you see?</span><a class="btn solid" href="pricing.html" style="font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; padding:0.85rem 1.3rem;">Get development pricing &nearr;</a></div>
 </header>
 
 <section>
@@ -320,5 +322,41 @@
   if(toggle) toggle.addEventListener('click', loadPreview);
 </script>
 
+<script>
+  (function(){
+    var root = document.documentElement;
+    var saved = localStorage.getItem('theme');
+    if(saved) root.setAttribute('data-theme', saved);
+    var btn = document.getElementById('themeToggle');
+    if(btn){
+      btn.innerHTML = root.getAttribute('data-theme') === 'light' ? '&#9680;' : '&#9681;';
+      btn.addEventListener('click', function(){
+        var next = root.getAttribute('data-theme') === 'light' ? null : 'light';
+        if(next) root.setAttribute('data-theme', next); else root.removeAttribute('data-theme');
+        localStorage.setItem('theme', next || 'dark');
+        btn.innerHTML = next ? '&#9680;' : '&#9681;';
+      });
+    }
+  })();
+  (function(){
+    var ham = document.getElementById('hamburger');
+    var links = document.getElementById('navLinks');
+    if(!ham || !links) return;
+    ham.addEventListener('click', function(){
+      var open = links.classList.toggle('open');
+      ham.classList.toggle('active', open);
+      ham.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        links.classList.remove('open');
+        ham.classList.remove('active');
+        ham.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+</script>
+
 </body>
+
 </html>
