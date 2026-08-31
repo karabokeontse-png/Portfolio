@@ -514,15 +514,15 @@
   /* --- two-column layout --- */
   .cols-wrap{display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; padding:3.5rem 6vw 5rem;}
   .col{min-width:0;}
-  .col-head{border-bottom:1px solid var(--border); padding-bottom:1.1rem; margin-bottom:1.8rem; display:flex; align-items:center; gap:1rem;}
-  .col-head::before{content:attr(data-icon); font-size:2rem; line-height:1; color:var(--bronze);}
-  .col--bg .col-head::before{color:var(--steel);}
+  .col-head{border-bottom:1px solid var(--border); padding-bottom:1.1rem; margin-bottom:1.8rem;}
   .col-head .col-title{font-family:"Fraunces",serif; font-weight:400; font-size:clamp(1.6rem,3vw,2.3rem); margin:0;}
   .col--bg .col-head .eyebrow{color:var(--steel);}
   .col--offer .col-head .eyebrow{color:var(--bronze);}
   .col-body{display:flex; flex-direction:column; gap:1.4rem;}
   .col-card{border:1px solid var(--border); background:var(--bg-2); padding:1.6rem 1.6rem 1.7rem;}
-  .col-card .mini-label{font-family:"IBM Plex Mono",monospace; font-size:0.74rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--bronze); margin-bottom:0.9rem;}
+  .col-card .mini-label{display:flex; align-items:center; gap:0.5rem; font-family:"IBM Plex Mono",monospace; font-size:0.74rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--bronze); margin-bottom:0.9rem;}
+  .col-card .mini-label svg{width:1.05rem; height:1.05rem; flex:0 0 auto; color:var(--bronze);}
+  .col--bg .col-card .mini-label svg{color:var(--steel);}
   .col-card .summary{color:var(--ink-dim); font-size:0.96rem; line-height:1.7;}
   .mini-stats{display:flex; gap:1.4rem; margin:1.1rem 0; flex-wrap:wrap;}
   .mini-stats .ms{flex:1 1 auto;}
@@ -541,15 +541,12 @@
   .offer .o-desc{color:var(--ink-dim); font-size:0.88rem; line-height:1.6; margin:0.4rem 0 0.2rem;}
   .teaser{font-size:0.88rem; color:var(--ink-dim); line-height:1.7; padding:1rem 0 0; border-top:1px solid var(--border); margin-top:0.4rem;}
   .teaser b{color:var(--ink); font-weight:500;}
-  .product-list{display:grid; gap:1rem;}
-  .product{display:flex; gap:1rem; align-items:center; border:1px solid var(--border); background:var(--bg-3); padding:0.7rem; text-decoration:none; transition:border-color .25s, transform .25s;}
-  .product:hover{border-color:var(--bronze-soft); transform:translateY(-2px);}
-  .product .p-thumb{flex:0 0 5.2rem; height:5.2rem; overflow:hidden;}
-  .product .p-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
-  .product .p-copy{min-width:0;}
-  .product .p-cat{font-family:"IBM Plex Mono",monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--steel);}
-  .product h4{font-family:"Fraunces",serif; font-weight:400; font-size:1.05rem; margin:0.3rem 0 0.1rem;}
-  .product .mini-link{margin-top:0.2rem;}
+  .offer .offer-thumbs{display:grid; grid-template-columns:repeat(4,1fr); gap:0.55rem; margin-top:0.75rem;}
+  .offer .offer-thumbs a{display:block; aspect-ratio:1/1; overflow:hidden; border:1px solid var(--border); background:var(--bg-3); transition:border-color .25s, transform .25s;}
+  .offer .offer-thumbs a:hover{border-color:var(--bronze-soft); transform:translateY(-2px);}
+  .offer .offer-thumbs img{width:100%; height:100%; object-fit:cover; display:block;}
+  .offer .offer-thumbs .ot-empty{display:grid; place-items:center; color:var(--ink-dim); font-family:"IBM Plex Mono",monospace; font-size:0.6rem; letter-spacing:0.05em; text-align:center; background:var(--bg-2); border:1px dashed var(--border);}
+  @media (max-width:420px){ .offer .offer-thumbs{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:900px){ .cols-wrap{grid-template-columns:1fr; gap:2rem;} }
 </style>
 <noscript><style>
@@ -678,11 +675,11 @@
 
   <!-- COLUMN 1: Professional Background -->
   <div class="col col--bg">
-    <div class="col-head" data-icon="&#128214;"><div class="eyebrow">Who I Am</div><h2 class="col-title">Professional Background</h2></div>
+    <div class="col-head"><div class="eyebrow">Who I Am</div><h2 class="col-title">Professional Background</h2></div>
     <div class="col-body">
 
       <section class="col-card" id="experience">
-        <h3 class="mini-label">&#128337; Experience</h3>
+        <h3 class="mini-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Experience</h3>
         <p class="summary">Six years keeping mission-critical government systems running — systems administration, data integrity, network security and internal audit.</p>
         <div class="mini-stats">
           <div class="ms"><b>4</b><span>Roles</span></div>
@@ -693,7 +690,7 @@
       </section>
 
       <section class="col-card" id="qualifications">
-        <h3 class="mini-label">&#127891; Qualifications</h3>
+        <h3 class="mini-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5l-10 5 10 5 10-5z"/><path d="M6 12.5V16c0 1.1 2.7 2.5 6 2.5s6-1.4 6-2.5v-3.5"/></svg> Qualifications</h3>
         <p class="summary">BSc Honours in Computing, plus certifications in security, data protection, governance and project management.</p>
         <div class="mini-stats">
           <div class="ms"><b>1</b><span>Degree</span></div>
@@ -704,7 +701,7 @@
       </section>
 
       <section class="col-card" id="skills">
-        <h3 class="mini-label">&#9881; Skills</h3>
+        <h3 class="mini-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="7" cy="18" r="2"/></svg> Skills</h3>
         <div class="skill-cols">
           <div class="skill-card"><h3>Development</h3><ul><li>Java / C# / SQL</li><li>PowerShell Automation</li><li>System Integration &amp; APIs</li><li>Database Design &amp; Admin</li></ul></div>
           <div class="skill-card"><h3>Design</h3><ul><li>Logo &amp; Brand Identity</li><li>Business Cards &amp; Graphics</li><li>Web &amp; UI Design</li><li>Marketing Collateral</li></ul></div>
@@ -717,31 +714,70 @@
 
   <!-- COLUMN 2: Services & Products I Offer -->
   <div class="col col--offer">
-    <div class="col-head" data-icon="&#127775;"><div class="eyebrow">What I Do</div><h2 class="col-title">Services &amp; Products I Offer</h2></div>
+    <div class="col-head"><div class="eyebrow">What I Do</div><h2 class="col-title">Services &amp; Products I Offer</h2></div>
     <div class="col-body">
 
       <section class="col-card" id="services">
-        <h3 class="mini-label">&#128736; Services</h3>
+        <h3 class="mini-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4.5 4.5 0 0 0-6 6L3 18l3 3 5.7-5.7a4.5 4.5 0 0 0 6-6L14.5 12.5l-3-3 3.2-3.2z"/></svg> Services</h3>
         <div class="offer-list">
-          <div class="offer"><div class="o-top"><span class="o-name">Graphic Design</span><span class="o-price">from P150</span></div><p class="o-desc">Logos, flyers, menus, cards, social media &amp; brand packages.</p><a class="mini-link" href="design.html">Design work →</a></div>
-          <div class="offer"><div class="o-top"><span class="o-name">Software Development</span><span class="o-price">by quote</span></div><p class="o-desc">Websites, automation, integrations &amp; system support.</p><a class="mini-link" href="software.html">Dev work →</a></div>
-          <div class="offer"><div class="o-top"><span class="o-name">Digitization</span><span class="o-price">from P80</span></div><p class="o-desc">Clean copies, restoration &amp; vector rebuilds of your art.</p><a class="mini-link" href="digitization.html">Digitize →</a></div>
-          <div class="offer"><div class="o-top"><span class="o-name">ICT Systems &amp; Audit</span><span class="o-price">by quote</span></div><p class="o-desc">Network admin, data protection compliance &amp; internal audit.</p><a class="mini-link" href="experience.html">Learn more →</a></div>
+          <div class="offer" data-service="design"><div class="o-top"><span class="o-name">Graphic Design</span><span class="o-price">from P150</span></div><p class="o-desc">Logos, flyers, menus, cards, social media &amp; brand packages.</p><a class="mini-link" href="design.html">Design work →</a><div class="offer-thumbs" data-service="design"></div></div>
+          <div class="offer" data-service="software"><div class="o-top"><span class="o-name">Software Development</span><span class="o-price">by quote</span></div><p class="o-desc">Websites, automation, integrations &amp; system support.</p><a class="mini-link" href="software.html">Dev work →</a><div class="offer-thumbs" data-service="software"></div></div>
+          <div class="offer" data-service="digitization"><div class="o-top"><span class="o-name">Digitization</span><span class="o-price">from P80</span></div><p class="o-desc">Clean copies, restoration &amp; vector rebuilds of your art.</p><a class="mini-link" href="digitization.html">Digitize →</a><div class="offer-thumbs" data-service="digitization"></div></div>
+          <div class="offer" data-service="ict"><div class="o-top"><span class="o-name">ICT Systems &amp; Audit</span><span class="o-price">by quote</span></div><p class="o-desc">Network admin, data protection compliance &amp; internal audit.</p><a class="mini-link" href="experience.html">Learn more →</a><div class="offer-thumbs" data-service="ict"></div></div>
         </div>
         <p class="teaser">Bundle services or digitize in bulk and unlock <b>discounts</b>. — <a href="pricing.html">See pricing &amp; build a package →</a></p>
-      </section>
-
-      <section class="col-card" id="products">
-        <h3 class="mini-label">&#128230; Products</h3>
-        <div class="product-list">
-          <a class="product" href="design.html"><div class="p-thumb"><img src="work/design/packages/ll-package-showcase.jpg" alt="Business design package" loading="lazy"></div><div class="p-copy"><span class="p-cat">Brand Package</span><h4>Business Design Package</h4><span class="mini-link">View gallery →</span></div></a>
-          <a class="product" href="software.html"><div class="p-thumb"><img src="work/dev/cmc-hero.jpg" alt="CMC Africa website" loading="lazy"></div><div class="p-copy"><span class="p-cat">Live Website</span><h4>CMC Africa — Corporate Site</h4><span class="mini-link">See the build →</span></div></a>
-        </div>
       </section>
 
     </div>
   </div>
 </div>
+
+<script>
+(function(){
+  var POOLS = {
+    design: [
+      {s:"work/design/flyers-posters/optimized/fast-food-flyer.jpg", a:"Fast-food restaurant flyer"},
+      {s:"work/design/flyers-posters/optimized/molepolole-festival-flyer.jpg", a:"Molepolole festival flyer"},
+      {s:"work/design/flyers-posters/optimized/fashion-district-flyer.jpg", a:"Fashion district flyer"},
+      {s:"work/design/flyers-posters/optimized/promo-poster.jpg", a:"Promotional poster"},
+      {s:"work/design/flyers-posters/optimized/tall-poster.jpg", a:"Tall poster"},
+      {s:"work/design/flyers-posters/optimized/veggie-party-flyer.jpg", a:"Veggie party flyer"},
+      {s:"work/design/logos/optimized/d-phet-logo.jpg", a:"D-Phet logo"},
+      {s:"work/design/logos/optimized/rad-services-logo.jpg", a:"RAD Services logo"},
+      {s:"work/design/logos/optimized/botswana-logo.jpg", a:"Botswana identity logo"},
+      {s:"work/design/logos/optimized/botswana-badge.jpg", a:"Botswana badge"},
+      {s:"work/design/logos/optimized/botswana-stock-exchange.jpg", a:"Botswana Stock Exchange identity"},
+      {s:"work/design/logos/optimized/initial-font-logo.jpg", a:"Initial font logo"},
+      {s:"work/design/logos/optimized/nl-monogram-logo.jpg", a:"NL monogram logo"},
+      {s:"work/design/business-cards/optimized/photographer-business-card.jpg", a:"Photographer business card"},
+      {s:"work/design/business-cards/optimized/rad-services-business-card.jpg", a:"RAD Services business card"},
+      {s:"work/design/business-cards/optimized/rad-services-profile-card.jpg", a:"RAD Services profile card"},
+      {s:"work/design/menus/optimized/pizza-dinner-menu.jpg", a:"Pizza dinner menu"},
+      {s:"work/design/social-media/optimized/election-voting-post.jpg", a:"Election voting post"}
+    ],
+    software: [
+      {s:"work/dev/cmc-hero.jpg", a:"CMC Africa website"},
+      {s:"work/dev/cmc-homepage.png", a:"CMC Africa homepage"}
+    ],
+    digitization: [],
+    ict: []
+  };
+  var LINKS = {design:"design.html", software:"software.html", digitization:"digitization.html", ict:"experience.html"};
+  function shuff(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  document.querySelectorAll(".offer-thumbs").forEach(function(c){
+    var svc=c.getAttribute("data-service");
+    var pool=POOLS[svc]||[];
+    if(!pool.length) return;
+    var pics=shuff(pool.slice()).slice(0,4);
+    var html="";
+    for(var i=0;i<pics.length;i++){
+      var it=pics[i];
+      html+='<a href="'+LINKS[svc]+'" aria-label="'+it.a+'"><img src="'+it.s+'" alt="'+it.a+'" loading="lazy"></a>';
+    }
+    c.innerHTML=html;
+  });
+})();
+</script>
 
 <section id="contact" class="contact auto-reveal">
   <div class="section-inner">
