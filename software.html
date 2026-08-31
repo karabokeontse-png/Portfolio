@@ -220,10 +220,6 @@
         <p class="p-tagline">A multi-page professional-services website for a consultancy operating across African markets — LAW · FINANCE · RISK · TAX · STRATEGY · AUDIT.</p>
         <p class="p-desc">Designed and built as a clean, editorial corporate site with a home page and 16 sector landing pages. Structured content, responsive layout and custom-generated sector imagery, hosted and shipped live on the web.</p>
 
-        <div class="p-links">
-          <a class="btn primary" href="https://karabokeontse-png.github.io/CMC-website-/" target="_blank" rel="noopener">Open Live Site &nearr;</a>
-          <a class="btn" href="https://github.com/karabokeontse-png/CMC-website-" target="_blank" rel="noopener">View Source &nearr;</a>
-        </div>
       </div>
 
       <div class="features">
@@ -243,15 +239,15 @@
 
       <div class="preview-wrap">
         <div class="preview-bar">
-          <span class="addr">CMC Africa — Live Site</span>
-          <button class="btn" id="previewToggle" style="padding:0.55rem 1rem; font-size:0.7rem;">&#9654; Load live preview</button>
+          <span class="addr">CMC Africa — Interactive Demo</span>
+          <button class="btn" id="previewToggle" style="padding:0.55rem 1rem; font-size:0.7rem;">&#9654; Play demo</button>
         </div>
         <div class="preview-frame" id="previewFrame">
           <div class="hint" id="previewHint">
-            <span>An interactive preview of the actual live site will load here.</span>
-            <span class="sm">Tap the button above, or open it in a new tab.</span>
+            <span>An interactive demo of the live site loads right here — no tab needed.</span>
+            <span class="sm">Tap the button above to play the demo.</span>
           </div>
-          <iframe id="cmcFrame" data-src="https://karabokeontse-png.github.io/CMC-website-/" title="Live preview of CMC Africa website" loading="lazy" style="opacity:0;" allow="fullscreen"></iframe>
+          <iframe id="cmcFrame" data-src="https://karabokeontse-png.github.io/CMC-website-/" title="Interactive demo of the CMC Africa website" loading="lazy" style="opacity:0;" allow="fullscreen"></iframe>
         </div>
       </div>
 
@@ -317,7 +313,7 @@
     frame.src = frame.dataset.src;
     frame.style.opacity = '1';
     if(hint) hint.style.display = 'none';
-    toggle.innerHTML = 'Live preview loaded &nearr;';
+    toggle.innerHTML = 'Demo playing &darr;';
   }
   if(toggle) toggle.addEventListener('click', loadPreview);
 </script>
