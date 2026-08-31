@@ -511,6 +511,52 @@
     text-align:center; padding:2.6rem 6vw; color:var(--ink-dim); font-size:0.76rem;
     border-top:1px solid var(--border);
   }
+  /* --- two-column layout --- */
+  .cols-wrap{display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; padding:3.5rem 6vw 5rem;}
+  .col{min-width:0;}
+  .col-head{border-bottom:1px solid var(--border); padding-bottom:1.1rem; margin-bottom:1.8rem; display:flex; align-items:center; gap:1rem;}
+  .col-head::before{content:attr(data-icon); font-size:2rem; line-height:1; color:var(--bronze);}
+  .col--bg .col-head::before{color:var(--steel);}
+  .col-head .col-title{font-family:"Fraunces",serif; font-weight:400; font-size:clamp(1.6rem,3vw,2.3rem); margin:0;}
+  .col--bg .col-head .eyebrow{color:var(--steel);}
+  .col--offer .col-head .eyebrow{color:var(--bronze);}
+  .col-body{display:flex; flex-direction:column; gap:1.4rem;}
+  .col-card{border:1px solid var(--border); background:var(--bg-2); padding:1.6rem 1.6rem 1.7rem;}
+  .col-card .mini-label{font-family:"IBM Plex Mono",monospace; font-size:0.74rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--bronze); margin-bottom:0.9rem;}
+  .col-card .summary{color:var(--ink-dim); font-size:0.96rem; line-height:1.7;}
+  .mini-stats{display:flex; gap:1.4rem; margin:1.1rem 0; flex-wrap:wrap;}
+  .mini-stats .ms{flex:1 1 auto;}
+  .mini-stats .ms b{display:block; font-family:"Fraunces",serif; font-weight:400; font-size:1.5rem; color:var(--ink);}
+  .mini-stats .ms span{font-size:0.74rem; color:var(--ink-dim); letter-spacing:0.03em;}
+  .mini-link{display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:0.74rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--steel); text-decoration:none; margin-top:0.5rem;}
+  .mini-link:hover{color:var(--ink);}
+  .col-card .skill-cols{grid-template-columns:1fr; gap:0.9rem;}
+  .col-card .skill-card{border-left:2px solid var(--border); border-top:none; background:transparent; padding:0.2rem 0 0.2rem 0.9rem;}
+  .offer-list{display:flex; flex-direction:column;}
+  .offer{padding:0.95rem 0; border-bottom:1px solid var(--border);}
+  .offer:last-of-type{border-bottom:none;}
+  .offer .o-top{display:flex; align-items:baseline; justify-content:space-between; gap:1rem;}
+  .offer .o-name{font-family:"Fraunces",serif; font-weight:500; font-size:1.12rem;}
+  .offer .o-price{font-family:"IBM Plex Mono",monospace; font-size:0.78rem; color:var(--bronze); white-space:nowrap;}
+  .offer .o-desc{color:var(--ink-dim); font-size:0.88rem; line-height:1.6; margin:0.4rem 0 0.2rem;}
+  .teaser{font-size:0.88rem; color:var(--ink-dim); line-height:1.7; padding:1rem 0 0; border-top:1px solid var(--border); margin-top:0.4rem;}
+  .teaser b{color:var(--ink); font-weight:500;}
+  .product-list{display:grid; gap:1rem;}
+  .product{display:flex; gap:1rem; align-items:center; border:1px solid var(--border); background:var(--bg-3); padding:0.7rem; text-decoration:none; transition:border-color .25s, transform .25s;}
+  .product:hover{border-color:var(--bronze-soft); transform:translateY(-2px);}
+  .product .p-thumb{flex:0 0 5.2rem; height:5.2rem; overflow:hidden;}
+  .product .p-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
+  .product .p-copy{min-width:0;}
+  .product .p-cat{font-family:"IBM Plex Mono",monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--steel);}
+  .product h4{font-family:"Fraunces",serif; font-weight:400; font-size:1.05rem; margin:0.3rem 0 0.1rem;}
+  .product .mini-link{margin-top:0.2rem;}
+  @media (max-width:900px){ .cols-wrap{grid-template-columns:1fr; gap:2rem;} }
+
+  /* --- featured shuffle strip --- */
+  .featured .section-head{max-width:1180px; margin:0 auto 1.6rem; display:block;}
+  .featured-foot{max-width:1180px; margin:1.4rem auto 0; text-align:center;}
+  .shuffle-btn{background:transparent; border:1px solid var(--bronze-soft); color:var(--ink); font-family:"IBM Plex Mono",monospace; font-size:0.74rem; letter-spacing:0.07em; text-transform:uppercase; padding:0.8rem 1.4rem; cursor:pointer; transition:border-color .25s, background .25s;}
+  .shuffle-btn:hover{background:rgba(176,141,87,0.1); border-color:var(--bronze);}
 </style>
 <noscript><style>
   .reveal{opacity:1 !important; transform:none !important;}
@@ -572,6 +618,53 @@
   </div>
 </section>
 
+<!-- Featured projects (random 4 of real work, refreshed) -->
+<section class="featured" id="featured">
+  <div class="section-head">
+    <div class="eyebrow">Selected Work</div>
+    <h2>Featured — freshly picked.</h2>
+  </div>
+  <div class="featured-strip" id="featuredStrip"></div>
+  <div class="featured-foot">
+    <button class="shuffle-btn" id="shuffleBtn" aria-label="Shuffle featured work">&#8635; Shuffle featured</button>
+  </div>
+</section>
+<script>
+(function(){
+  var strip = document.getElementById("featuredStrip");
+  var btn = document.getElementById("shuffleBtn");
+  if(!strip) return;
+  var POOL = [
+        {img:"work/dev/cmc-hero.jpg",cat:"Development · Live Site",title:"CMC Africa — Corporate Website",href:"software.html"},
+        {img:"work/design/logos/optimized/d-phet-logo.jpg",cat:"Design · Logo",title:"D-Phet Brand Mark",href:"design.html"},
+        {img:"work/design/flyers-posters/optimized/fast-food-flyer.jpg",cat:"Design · Flyer",title:"Fast-Food Restaurant Ad",href:"design.html"},
+        {img:"work/design/flyers-posters/optimized/molepolole-festival-flyer.jpg",cat:"Design · Event Flyer",title:"Molepolole Festival",href:"design.html"},
+        {img:"work/design/logos/optimized/rad-services-logo.jpg",cat:"Design · Logo",title:"RAD Services Logo",href:"design.html"},
+        {img:"work/design/business-cards/optimized/photographer-business-card.jpg",cat:"Design · Business Card",title:"Photographer Business Card",href:"design.html"},
+        {img:"work/design/logos/optimized/botswana-logo.jpg",cat:"Design · Logo",title:"Botswana Identity",href:"design.html"},
+        {img:"work/design/menus/optimized/pizza-dinner-menu.jpg",cat:"Design · Menu",title:"Pizza Dinner Menu",href:"design.html"},
+        {img:"work/design/logos/optimized/nl-monogram-logo.jpg",cat:"Design · Logo",title:"NL Monogram",href:"design.html"},
+        {img:"work/design/flyers-posters/optimized/promo-poster.jpg",cat:"Design · Poster",title:"Promotional Poster",href:"design.html"},
+        {img:"work/design/logos/optimized/botswana-stock-exchange.jpg",cat:"Design · Logo",title:"BSE Identity",href:"design.html"}
+      ];
+  function pick(n){
+    var a = POOL.slice();
+    for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}
+    return a.slice(0,n);
+  }
+  function render(cards){
+    var html="";
+    for(var i=0;i<cards.length;i++){
+      var it=cards[i];
+      html+='<a class="f-item" href="'+it.href+'"><div class="f-media"><img src="'+it.img+'" alt="'+it.title+'" loading="lazy"></div><div class="f-body"><div class="f-cat">'+it.cat+'</div><h3>'+it.title+'</h3><span class="f-cta">View work →</span></div></a>';
+    }
+    strip.innerHTML=html;
+  }
+  render(pick(4));
+  if(btn){ btn.addEventListener("click", function(){ render(pick(4)); }); }
+})();
+</script>
+
 <section id="about" class="auto-reveal">
   <div class="section-inner about-grid">
     <div class="about-visual">
@@ -596,225 +689,75 @@
 
 
 
-<!-- ================= WHO I AM -> PROFESSIONAL BACKGROUND ================= -->
-<section class="half-intro">
-  <div class="section-inner">
-    <div class="eyebrow">Who I Am</div>
-    <h2 class="half-title">Professional Background</h2>
-  </div>
-</section>
+<!-- ================= TWO-COLUMN: BACKGROUND | SERVICES & PRODUCTS ================= -->
+<div class="cols-wrap">
 
-<section id="experience">
-  <div class="section-inner">
-    <div class="section-head">
-      <div class="eyebrow">Experience</div>
-      <h2>A career built across critical infrastructure.</h2>
-    </div>
-    <a class="page-link reveal" href="experience.html">
-      <div class="page-link-head">
-        <div>
-          <div class="eyebrow">Work History</div>
-          <h3>Six years across government institutions.</h3>
+  <!-- COLUMN 1: Professional Background -->
+  <div class="col col--bg">
+    <div class="col-head" data-icon="&#128214;"><div class="eyebrow">Who I Am</div><h2 class="col-title">Professional Background</h2></div>
+    <div class="col-body">
+
+      <section class="col-card" id="experience">
+        <h3 class="mini-label">&#128337; Experience</h3>
+        <p class="summary">Six years keeping mission-critical government systems running — systems administration, data integrity, network security and internal audit.</p>
+        <div class="mini-stats">
+          <div class="ms"><b>4</b><span>Roles</span></div>
+          <div class="ms"><b>6+</b><span>Years</span></div>
+          <div class="ms"><b>4</b><span>Gov. institutions</span></div>
         </div>
-        <span class="link-arrow">View experience →</span>
-      </div>
-      <div class="page-counters">
-        <div class="page-counter"><div class="c-num" data-count="4">0</div><div class="c-label">Roles</div></div>
-        <div class="page-counter"><div class="c-num" data-count="6" data-suffix="+">0</div><div class="c-label">Years of Experience</div></div>
-        <div class="page-counter"><div class="c-num" data-count="4">0</div><div class="c-label">Government Institutions</div></div>
-      </div>
-    </a>
-  </div>
-</section>
+        <a class="mini-link" href="experience.html">See full experience →</a>
+      </section>
 
-
-
-<section id="skills" class="auto-reveal">
-  <div class="section-inner">
-    <div class="section-head">
-      <div class="eyebrow">Core Capabilities</div>
-      <h2>Where infrastructure meets governance.</h2>
-    </div>
-    <div class="skill-cols">
-      <div class="skill-card reveal">
-        <h3>Development</h3>
-        <ul>
-          <li>Java / C# / SQL</li>
-          <li>PowerShell Automation</li>
-          <li>System Integration &amp; API Support</li>
-          <li>Database Design &amp; Administration</li>
-        </ul>
-      </div>
-      <div class="skill-card reveal d1">
-        <h3>Design</h3>
-        <ul>
-          <li>Logo &amp; Brand Identity</li>
-          <li>Business Cards &amp; Graphics</li>
-          <li>Web &amp; UI Design</li>
-          <li>Marketing Collateral</li>
-        </ul>
-      </div>
-      <div class="skill-card reveal d2">
-        <h3>Governance &amp; Audit</h3>
-        <ul>
-          <li>IT Audit</li>
-          <li>Data Protection Act Compliance</li>
-          <li>Role-Based Access Control</li>
-          <li>Disaster Recovery &amp; Backup</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-<section id="certifications" class="tint auto-reveal">
-  <div class="section-inner">
-    <div class="section-head">
-      <div class="eyebrow">Certifications</div>
-      <h2>Continuously upskilled.</h2>
-    </div>
-    <a class="page-link reveal" href="qualifications.html">
-      <div class="page-link-head">
-        <div>
-          <div class="eyebrow">Qualification Summary</div>
-          <h3>Certificates, degrees &amp; credentialed skills.</h3>
+      <section class="col-card" id="qualifications">
+        <h3 class="mini-label">&#127891; Qualifications</h3>
+        <p class="summary">BSc Honours in Computing, plus certifications in security, data protection, governance and project management.</p>
+        <div class="mini-stats">
+          <div class="ms"><b>1</b><span>Degree</span></div>
+          <div class="ms"><b>17</b><span>Certificates</span></div>
+          <div class="ms"><b>32</b><span>Verified badges</span></div>
         </div>
-        <span class="link-arrow">View certifications →</span>
-      </div>
-      <div class="page-counters">
-        <div class="page-counter"><div class="c-num" data-count="17">0</div><div class="c-label">Certificates</div></div>
-        <div class="page-counter"><div class="c-num" data-count="32">0</div><div class="c-label">Badges</div></div>
-        <div class="page-counter"><div class="c-num" data-count="1">0</div><div class="c-label">Degree</div></div>
-      </div>
-    </a>
-  </div>
-</section>
+        <a class="mini-link" href="qualifications.html">View all qualifications →</a>
+      </section>
 
+      <section class="col-card" id="skills">
+        <h3 class="mini-label">&#9881; Skills</h3>
+        <div class="skill-cols">
+          <div class="skill-card"><h3>Development</h3><ul><li>Java / C# / SQL</li><li>PowerShell Automation</li><li>System Integration &amp; APIs</li><li>Database Design &amp; Admin</li></ul></div>
+          <div class="skill-card"><h3>Design</h3><ul><li>Logo &amp; Brand Identity</li><li>Business Cards &amp; Graphics</li><li>Web &amp; UI Design</li><li>Marketing Collateral</li></ul></div>
+          <div class="skill-card"><h3>Governance &amp; Audit</h3><ul><li>IT Audit</li><li>Data Protection Compliance</li><li>Role-Based Access Control</li><li>Disaster Recovery &amp; Backup</li></ul></div>
+        </div>
+      </section>
 
-
-
-<!-- ================= WHAT I OFFER -> SERVICES & PRODUCTS ================= -->
-<section class="half-intro">
-  <div class="section-inner">
-    <div class="eyebrow">What I Offer</div>
-    <h2 class="half-title">Services &amp; products I offer</h2>
-  </div>
-</section>
-
-<section id="services" class="tint auto-reveal">
-  <div class="section-inner">
-    <div class="section-head">
-      <div class="eyebrow">What I Offer</div>
-      <h2>Four ways I can help you ship.</h2>
-    </div>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="s-icon">&#9989;</div>
-        <h3>Software Development</h3>
-        <p>Backend logic, database design, system automation and integrations — writing maintainable code that keeps the lights on and the data clean.</p>
-      </div>
-      <div class="service-card">
-        <div class="s-icon">&#9998;</div>
-        <h3>Graphic Design</h3>
-        <p>Logos, branding, business cards and marketing collateral — plus flexible, tailor-made <b style="font-weight:500; color:var(--ink);">design packages</b> that bundle your logo, letterhead, cards, receipts, website and more into one cohesive identity.</p>
-      </div>
-      <div class="service-card">
-        <div class="s-icon">&#9881;</div>
-        <h3>ICT Systems &amp; Audit</h3>
-        <p>Network administration, data protection compliance and internal audit — keeping critical systems secure, stable and audit-ready.</p>
-      </div>
-      <div class="service-card">
-        <div class="s-icon">&#128247;</div>
-        <h3>Digitization</h3>
-        <p>Send me your drawings, sketches or physical art and I'll turn them into clean digital files — from tidy hi-res copies to full restoration or logo-ready vector rebuilds.</p>
-      </div>
     </div>
   </div>
-</section>
 
+  <!-- COLUMN 2: Services & Products I Offer -->
+  <div class="col col--offer">
+    <div class="col-head" data-icon="&#127775;"><div class="eyebrow">What I Do</div><h2 class="col-title">Services &amp; Products I Offer</h2></div>
+    <div class="col-body">
 
+      <section class="col-card" id="services">
+        <h3 class="mini-label">&#128736; Services</h3>
+        <div class="offer-list">
+          <div class="offer"><div class="o-top"><span class="o-name">Graphic Design</span><span class="o-price">from P150</span></div><p class="o-desc">Logos, flyers, menus, cards, social media &amp; brand packages.</p><a class="mini-link" href="design.html">Design work →</a></div>
+          <div class="offer"><div class="o-top"><span class="o-name">Software Development</span><span class="o-price">by quote</span></div><p class="o-desc">Websites, automation, integrations &amp; system support.</p><a class="mini-link" href="software.html">Dev work →</a></div>
+          <div class="offer"><div class="o-top"><span class="o-name">Digitization</span><span class="o-price">from P80</span></div><p class="o-desc">Clean copies, restoration &amp; vector rebuilds of your art.</p><a class="mini-link" href="digitization.html">Digitize →</a></div>
+          <div class="offer"><div class="o-top"><span class="o-name">ICT Systems &amp; Audit</span><span class="o-price">by quote</span></div><p class="o-desc">Network admin, data protection compliance &amp; internal audit.</p><a class="mini-link" href="experience.html">Learn more →</a></div>
+        </div>
+        <p class="teaser">Bundle services or digitize in bulk and unlock <b>discounts</b>. — <a href="pricing.html">See pricing &amp; build a package →</a></p>
+      </section>
 
+      <section class="col-card" id="products">
+        <h3 class="mini-label">&#128230; Products</h3>
+        <div class="product-list">
+          <a class="product" href="design.html"><div class="p-thumb"><img src="work/design/packages/ll-package-showcase.jpg" alt="Business design package" loading="lazy"></div><div class="p-copy"><span class="p-cat">Brand Package</span><h4>Business Design Package</h4><span class="mini-link">View gallery →</span></div></a>
+          <a class="product" href="software.html"><div class="p-thumb"><img src="work/dev/cmc-hero.jpg" alt="CMC Africa website" loading="lazy"></div><div class="p-copy"><span class="p-cat">Live Website</span><h4>CMC Africa — Corporate Site</h4><span class="mini-link">See the build →</span></div></a>
+        </div>
+      </section>
 
-<section class="half-intro sub">
-  <div class="section-inner">
-    <div class="eyebrow">Selected Work</div>
-    <h2 class="half-title">Featured &amp; portfolio</h2>
-  </div>
-</section>
-
-<!-- Featured projects (compact ad-banner cards) -->
-<section class="featured">
-  <div class="featured-strip">
-    <a class="f-item" href="software.html">
-      <span class="f-flag">Featured</span>
-      <div class="f-media"><img src="work/dev/cmc-hero.jpg" alt="Screenshot of the CMC Africa website" loading="lazy"></div>
-      <div class="f-body">
-        <div class="f-cat">Development &middot; Live Site</div>
-        <h3>CMC Africa — Corporate Website</h3>
-        <p>A multi-page consultancy website for CMC Africa, live on the web — 17 pages.</p>
-        <span class="f-cta">See the build →</span>
-      </div>
-    </a>
-    <a class="f-item" href="design.html">
-      <span class="f-flag">Featured</span>
-      <div class="f-media"><img src="work/design/packages/ll-package-showcase.jpg" alt="L&L Business Design Package — logo, business card, letterhead and payslip" loading="lazy"></div>
-      <div class="f-body">
-        <div class="f-cat">Design &middot; Brand Package</div>
-        <h3>Business Design Package</h3>
-        <p>A complete brand bundle — logo, card, letterhead and payslip — customisable to any business.</p>
-        <span class="f-cta">View the gallery →</span>
-      </div>
-    </a>
-    <a class="f-item" href="https://www.amazon.co.uk/dp/B0G4F7DC29" target="_blank" rel="noopener">
-      <span class="f-flag">Featured</span>
-      <div class="f-media f-media--contain"><img src="work/dev/book-dot-to-dot.jpg" alt="My Alphabet Dot-to-Dot and Coloring Book cover" loading="lazy"></div>
-      <div class="f-body">
-        <div class="f-cat">Side Hustle &middot; On Amazon</div>
-        <h3>My Alphabet Dot-to-Dot &amp; Coloring Book</h3>
-        <p>Keep the little ones busy with 100+ connect-the-dots and coloring pages from my other publishing venture — order a copy for your kids.</p>
-        <span class="f-cta">Order on Amazon · £5 →</span>
-      </div>
-    </a>
-  </div>
-</section>
-
-
-
-<section id="work" class="auto-reveal">
-  <div class="section-inner">
-    <div class="section-head">
-      <div class="eyebrow">My Work</div>
-      <h2>Built, designed &amp; shipped.</h2>
-    </div>
-    <div class="work-grid">
-      <a class="work-card reveal" href="design.html">
-        <div class="w-icon">&#9998;</div>
-        <h3>Graphic Design</h3>
-        <p>Logos, flyers, menus, business cards, social media and documents — plus flexible, tailor-made design packages that bundle a full brand identity.</p>
-        <div class="w-meta"><span><b>24</b> pieces</span><span><b>9</b> categories</span></div>
-        <span class="w-cta">View the gallery →</span>
-      </a>
-      <a class="work-card reveal d1" href="software.html">
-        <div class="w-icon">&#123;&#125;</div>
-        <h3>Software Development</h3>
-        <p>Websites, automation and integrations. Featured project: CMC Africa — a live multi-page corporate website.</p>
-        <div class="w-meta"><span><b>Live</b> preview</span><span><b>17</b> pages</span></div>
-        <span class="w-cta">Explore development →</span>
-      </a>
-      <a class="work-card reveal d2" href="pricing.html">
-        <div class="w-icon">&#36;</div>
-        <h3>Pricing &amp; Booking</h3>
-        <p>Clear, flat-rate packages for every service — plus big bundle and volume discounts. Pick a service, see the price, and book in one step.</p>
-        <div class="w-meta"><span><b>Flat</b> rates</span><span><b>Bundle</b> discounts</span></div>
-        <span class="w-cta">See what it costs →</span>
-      </a>
     </div>
   </div>
-</section>
-
-
+</div>
 
 <section id="contact" class="contact auto-reveal">
   <div class="section-inner">
