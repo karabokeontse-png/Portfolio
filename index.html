@@ -551,12 +551,6 @@
   .product h4{font-family:"Fraunces",serif; font-weight:400; font-size:1.05rem; margin:0.3rem 0 0.1rem;}
   .product .mini-link{margin-top:0.2rem;}
   @media (max-width:900px){ .cols-wrap{grid-template-columns:1fr; gap:2rem;} }
-
-  /* --- featured shuffle strip --- */
-  .featured .section-head{max-width:1180px; margin:0 auto 1.6rem; display:block;}
-  .featured-foot{max-width:1180px; margin:1.4rem auto 0; text-align:center;}
-  .shuffle-btn{background:transparent; border:1px solid var(--bronze-soft); color:var(--ink); font-family:"IBM Plex Mono",monospace; font-size:0.74rem; letter-spacing:0.07em; text-transform:uppercase; padding:0.8rem 1.4rem; cursor:pointer; transition:border-color .25s, background .25s;}
-  .shuffle-btn:hover{background:rgba(176,141,87,0.1); border-color:var(--bronze);}
 </style>
 <noscript><style>
   .reveal{opacity:1 !important; transform:none !important;}
@@ -619,51 +613,41 @@
 </section>
 
 <!-- Featured projects (random 4 of real work, refreshed) -->
+<!-- Featured projects (compact ad-banner cards) -->
 <section class="featured" id="featured">
-  <div class="section-head">
-    <div class="eyebrow">Selected Work</div>
-    <h2>Featured — freshly picked.</h2>
-  </div>
-  <div class="featured-strip" id="featuredStrip"></div>
-  <div class="featured-foot">
-    <button class="shuffle-btn" id="shuffleBtn" aria-label="Shuffle featured work">&#8635; Shuffle featured</button>
+  <div class="featured-strip">
+    <a class="f-item" href="software.html">
+      <span class="f-flag">Featured</span>
+      <div class="f-media"><img src="work/dev/cmc-hero.jpg" alt="Screenshot of the CMC Africa website" loading="lazy"></div>
+      <div class="f-body">
+        <div class="f-cat">Development &middot; Live Site</div>
+        <h3>CMC Africa — Corporate Website</h3>
+        <p>A multi-page consultancy website for CMC Africa, live on the web — 17 pages.</p>
+        <span class="f-cta">See the build →</span>
+      </div>
+    </a>
+    <a class="f-item" href="design.html">
+      <span class="f-flag">Featured</span>
+      <div class="f-media"><img src="work/design/packages/ll-package-showcase.jpg" alt="L&L Business Design Package — logo, business card, letterhead and payslip" loading="lazy"></div>
+      <div class="f-body">
+        <div class="f-cat">Design &middot; Brand Package</div>
+        <h3>Business Design Package</h3>
+        <p>A complete brand bundle — logo, card, letterhead and payslip — customisable to any business.</p>
+        <span class="f-cta">View the gallery →</span>
+      </div>
+    </a>
+    <a class="f-item" href="https://www.amazon.co.uk/dp/B0G4F7DC29" target="_blank" rel="noopener">
+      <span class="f-flag">Featured</span>
+      <div class="f-media f-media--contain"><img src="work/dev/book-dot-to-dot.jpg" alt="My Alphabet Dot-to-Dot and Coloring Book cover" loading="lazy"></div>
+      <div class="f-body">
+        <div class="f-cat">Side Hustle &middot; On Amazon</div>
+        <h3>My Alphabet Dot-to-Dot &amp; Coloring Book</h3>
+        <p>Keep the little ones busy with 100+ connect-the-dots and coloring pages from my other publishing venture — order a copy for your kids.</p>
+        <span class="f-cta">Order on Amazon · £5 →</span>
+      </div>
+    </a>
   </div>
 </section>
-<script>
-(function(){
-  var strip = document.getElementById("featuredStrip");
-  var btn = document.getElementById("shuffleBtn");
-  if(!strip) return;
-  var POOL = [
-        {img:"work/dev/cmc-hero.jpg",cat:"Development · Live Site",title:"CMC Africa — Corporate Website",href:"software.html"},
-        {img:"work/design/logos/optimized/d-phet-logo.jpg",cat:"Design · Logo",title:"D-Phet Brand Mark",href:"design.html"},
-        {img:"work/design/flyers-posters/optimized/fast-food-flyer.jpg",cat:"Design · Flyer",title:"Fast-Food Restaurant Ad",href:"design.html"},
-        {img:"work/design/flyers-posters/optimized/molepolole-festival-flyer.jpg",cat:"Design · Event Flyer",title:"Molepolole Festival",href:"design.html"},
-        {img:"work/design/logos/optimized/rad-services-logo.jpg",cat:"Design · Logo",title:"RAD Services Logo",href:"design.html"},
-        {img:"work/design/business-cards/optimized/photographer-business-card.jpg",cat:"Design · Business Card",title:"Photographer Business Card",href:"design.html"},
-        {img:"work/design/logos/optimized/botswana-logo.jpg",cat:"Design · Logo",title:"Botswana Identity",href:"design.html"},
-        {img:"work/design/menus/optimized/pizza-dinner-menu.jpg",cat:"Design · Menu",title:"Pizza Dinner Menu",href:"design.html"},
-        {img:"work/design/logos/optimized/nl-monogram-logo.jpg",cat:"Design · Logo",title:"NL Monogram",href:"design.html"},
-        {img:"work/design/flyers-posters/optimized/promo-poster.jpg",cat:"Design · Poster",title:"Promotional Poster",href:"design.html"},
-        {img:"work/design/logos/optimized/botswana-stock-exchange.jpg",cat:"Design · Logo",title:"BSE Identity",href:"design.html"}
-      ];
-  function pick(n){
-    var a = POOL.slice();
-    for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}
-    return a.slice(0,n);
-  }
-  function render(cards){
-    var html="";
-    for(var i=0;i<cards.length;i++){
-      var it=cards[i];
-      html+='<a class="f-item" href="'+it.href+'"><div class="f-media"><img src="'+it.img+'" alt="'+it.title+'" loading="lazy"></div><div class="f-body"><div class="f-cat">'+it.cat+'</div><h3>'+it.title+'</h3><span class="f-cta">View work →</span></div></a>';
-    }
-    strip.innerHTML=html;
-  }
-  render(pick(4));
-  if(btn){ btn.addEventListener("click", function(){ render(pick(4)); }); }
-})();
-</script>
 
 <section id="about" class="auto-reveal">
   <div class="section-inner about-grid">
