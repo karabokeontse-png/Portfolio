@@ -17,7 +17,23 @@
     --bronze: #b08d57;
     --bronze-soft: rgba(176,141,87,0.35);
     --steel: #7fa9c9;
+    --nav-bg: linear-gradient(to bottom, rgba(16,20,28,0.9), rgba(16,20,28,0.6));
   }
+  html[data-theme="light"]{
+    --bg: #f6f4ef;
+    --bg-2: #ffffff;
+    --bg-3: #eeeae2;
+    --ink: #1c212b;
+    --ink-dim: #5b6472;
+    --border: #ddd7cb;
+    --bronze: #9a7a45;
+    --bronze-soft: rgba(154,122,69,0.22);
+    --steel: #3f6f94;
+    --nav-bg: linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(255,255,255,0.7));
+  }
+  html[data-theme="light"] .slogan::before{background:radial-gradient(circle, rgba(127,169,201,0.35), transparent 60%);}
+  html[data-theme="light"] .slogan::after{background:radial-gradient(circle, rgba(176,141,87,0.35), transparent 60%);}
+  html[data-theme="light"] .tint{background:linear-gradient(180deg, transparent, rgba(154,122,69,0.06) 30%, rgba(63,111,148,0.06) 70%, transparent);}
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
@@ -47,15 +63,43 @@
   /* ---------- Nav ---------- */
   nav{
     position:fixed; top:0; left:0; right:0; z-index:50;
-    display:flex; align-items:center;
-    padding:1.6rem 4vw;
+    display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    padding:1.1rem 4vw;
     backdrop-filter:blur(10px);
-    background:linear-gradient(to bottom, rgba(16,20,28,0.85), transparent);
+    background:var(--nav-bg);
   }
-  .nav-links{display:flex; justify-content:space-between; width:100%; font-size:0.82rem; letter-spacing:0.03em;}
+  .nav-links{display:flex; gap:1.4rem; font-size:0.82rem; letter-spacing:0.03em; align-items:center;}
   .nav-links a{text-decoration:none; color:var(--ink-dim); transition:color .25s;}
   .nav-links a:hover{color:var(--ink);}
-  @media (max-width:720px){ .nav-links{display:none;} }
+  .nav-actions{display:flex; align-items:center; gap:0.6rem;}
+  .theme-toggle{
+    background:transparent; border:1px solid var(--border); color:var(--ink-dim);
+    width:40px; height:40px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    font-size:1.05rem; transition:border-color .25s, color .25s; border-radius:50%;
+  }
+  .theme-toggle:hover{border-color:var(--bronze); color:var(--ink);}
+  .hamburger{
+    display:none; background:transparent; border:1px solid var(--border); color:var(--ink);
+    width:44px; height:44px; cursor:pointer; border-radius:8px;
+    flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  }
+  .hamburger span{display:block; width:20px; height:2px; background:var(--ink); transition:transform .3s, opacity .3s;}
+  .hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.active span:nth-child(2){opacity:0;}
+  .hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  @media (max-width:860px){
+    .nav-actions .theme-toggle{display:inline-flex;}
+    .hamburger{display:flex;}
+    .nav-links{
+      position:fixed; top:0; right:0; height:100vh; width:min(78vw, 320px);
+      flex-direction:column; align-items:flex-start; justify-content:flex-start;
+      background:var(--bg-2); border-left:1px solid var(--border);
+      padding:6rem 2rem 2rem; gap:1.2rem; font-size:1rem;
+      transform:translateX(100%); transition:transform .35s ease;
+      box-shadow:-10px 0 30px rgba(0,0,0,0.25);
+    }
+    .nav-links.open{transform:translateX(0);}
+  }
 
   /* ---------- Jumbotron (scrolling strip under nav) ---------- */
   .jumbotron{
@@ -250,6 +294,21 @@
     margin-top:0.6rem;
   }
 
+  /* ---------- Half-section banners (Who I Am / What I Offer) ---------- */
+  .half-intro{
+    background:var(--bg-2);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    padding:2.6rem 6vw;
+  }
+  .half-intro.sub{border-top:none; padding:0 6vw 1.2rem;}
+  .half-intro .half-title{
+    font-family:'Fraunces',serif; font-weight:400;
+    font-size:clamp(1.6rem,3.2vw,2.2rem);
+    margin-top:0.6rem; color:var(--ink);
+  }
+  .half-intro.sub .half-title{font-size:clamp(1.2rem,2.4vw,1.6rem);}
+
   /* ---------- About ---------- */
   .about-grid{
     display:grid; grid-template-columns:0.9fr 1.1fr; gap:5vw; align-items:start;
@@ -386,8 +445,9 @@
   }
 
   /* ---------- Work grid (design / development) ---------- */
-  .work-grid{display:grid; grid-template-columns:1fr 1fr; gap:1.6rem;}
-  @media (max-width:860px){ .work-grid{grid-template-columns:1fr;} }
+  .work-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem;}
+  @media (max-width:980px){ .work-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:600px){ .work-grid{grid-template-columns:1fr;} }
   .work-card{
     position:relative; display:block; text-decoration:none;
     border:1px solid var(--border); background:linear-gradient(160deg, var(--bg-2), var(--bg));
@@ -460,7 +520,7 @@
 <body>
 
 <nav>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
     <a href="#about">About</a>
     <a href="#services">Services</a>
     <a href="design.html">Design</a>
@@ -471,6 +531,12 @@
     <a href="qualifications.html">Qualifications</a>
     <a href="pricing.html">Pricing</a>
     <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">&#9681;</button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -493,42 +559,6 @@
     </div>
   </div>
 </div>
-
-<!-- Featured projects (compact ad-banner cards) -->
-<section class="featured">
-  <div class="featured-strip">
-    <a class="f-item" href="software.html">
-      <span class="f-flag">Featured</span>
-      <div class="f-media"><img src="work/dev/cmc-hero.jpg" alt="Screenshot of the CMC Africa website" loading="lazy"></div>
-      <div class="f-body">
-        <div class="f-cat">Development &middot; Live Site</div>
-        <h3>CMC Africa — Corporate Website</h3>
-        <p>A multi-page consultancy website for CMC Africa, live on the web — 17 pages.</p>
-        <span class="f-cta">See the build →</span>
-      </div>
-    </a>
-    <a class="f-item" href="design.html">
-      <span class="f-flag">Featured</span>
-      <div class="f-media"><img src="work/design/packages/ll-package-showcase.jpg" alt="L&L Business Design Package — logo, business card, letterhead and payslip" loading="lazy"></div>
-      <div class="f-body">
-        <div class="f-cat">Design &middot; Brand Package</div>
-        <h3>Business Design Package</h3>
-        <p>A complete brand bundle — logo, card, letterhead and payslip — customisable to any business.</p>
-        <span class="f-cta">View the gallery →</span>
-      </div>
-    </a>
-    <a class="f-item" href="https://www.amazon.co.uk/dp/B0G4F7DC29" target="_blank" rel="noopener">
-      <span class="f-flag">Featured</span>
-      <div class="f-media f-media--contain"><img src="work/dev/book-dot-to-dot.jpg" alt="My Alphabet Dot-to-Dot and Coloring Book cover" loading="lazy"></div>
-      <div class="f-body">
-        <div class="f-cat">Side Hustle &middot; On Amazon</div>
-        <h3>My Alphabet Dot-to-Dot &amp; Coloring Book</h3>
-        <p>Keep the little ones busy with 100+ connect-the-dots and coloring pages from my other publishing venture — order a copy for your kids.</p>
-        <span class="f-cta">Order on Amazon · £5 →</span>
-      </div>
-    </a>
-  </div>
-</section>
 
 <!-- Slogan -->
 <section class="slogan">
@@ -563,6 +593,17 @@
   </div>
 </section>
 
+
+
+
+<!-- ================= WHO I AM -> PROFESSIONAL BACKGROUND ================= -->
+<section class="half-intro">
+  <div class="section-inner">
+    <div class="eyebrow">Who I Am</div>
+    <h2 class="half-title">Professional Background</h2>
+  </div>
+</section>
+
 <section id="experience">
   <div class="section-inner">
     <div class="section-head">
@@ -586,61 +627,7 @@
   </div>
 </section>
 
-<section id="services" class="tint auto-reveal">
-  <div class="section-inner">
-    <div class="section-head">
-      <div class="eyebrow">What I Offer</div>
-      <h2>Four ways I can help you ship.</h2>
-    </div>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="s-icon">&#9989;</div>
-        <h3>Software Development</h3>
-        <p>Backend logic, database design, system automation and integrations — writing maintainable code that keeps the lights on and the data clean.</p>
-      </div>
-      <div class="service-card">
-        <div class="s-icon">&#9998;</div>
-        <h3>Graphic Design</h3>
-        <p>Logos, branding, business cards and marketing collateral — plus flexible, tailor-made <b style="font-weight:500; color:var(--ink);">design packages</b> that bundle your logo, letterhead, cards, receipts, website and more into one cohesive identity.</p>
-      </div>
-      <div class="service-card">
-        <div class="s-icon">&#9881;</div>
-        <h3>ICT Systems &amp; Audit</h3>
-        <p>Network administration, data protection compliance and internal audit — keeping critical systems secure, stable and audit-ready.</p>
-      </div>
-      <div class="service-card">
-        <div class="s-icon">&#128247;</div>
-        <h3>Digitization</h3>
-        <p>Send me your drawings, sketches or physical art and I'll turn them into clean digital files — from tidy hi-res copies to full restoration or logo-ready vector rebuilds.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section id="work" class="auto-reveal">
-  <div class="section-inner">
-    <div class="section-head">
-      <div class="eyebrow">My Work</div>
-      <h2>Built, designed &amp; shipped.</h2>
-    </div>
-    <div class="work-grid">
-      <a class="work-card reveal" href="design.html">
-        <div class="w-icon">&#9998;</div>
-        <h3>Graphic Design</h3>
-        <p>Logos, flyers, menus, business cards, social media and documents — plus flexible, tailor-made design packages that bundle a full brand identity.</p>
-        <div class="w-meta"><span><b>24</b> pieces</span><span><b>9</b> categories</span></div>
-        <span class="w-cta">View the gallery →</span>
-      </a>
-      <a class="work-card reveal d1" href="software.html">
-        <div class="w-icon">&#123;&#125;</div>
-        <h3>Software Development</h3>
-        <p>Websites, automation and integrations. Featured project: CMC Africa — a live multi-page corporate website.</p>
-        <div class="w-meta"><span><b>Live</b> preview</span><span><b>17</b> pages</span></div>
-        <span class="w-cta">Explore development →</span>
-      </a>
-    </div>
-  </div>
-</section>
 
 <section id="skills" class="auto-reveal">
   <div class="section-inner">
@@ -680,6 +667,8 @@
   </div>
 </section>
 
+
+
 <section id="certifications" class="tint auto-reveal">
   <div class="section-inner">
     <div class="section-head">
@@ -702,6 +691,130 @@
     </a>
   </div>
 </section>
+
+
+
+
+<!-- ================= WHAT I OFFER -> SERVICES & PRODUCTS ================= -->
+<section class="half-intro">
+  <div class="section-inner">
+    <div class="eyebrow">What I Offer</div>
+    <h2 class="half-title">Services &amp; products I offer</h2>
+  </div>
+</section>
+
+<section id="services" class="tint auto-reveal">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="eyebrow">What I Offer</div>
+      <h2>Four ways I can help you ship.</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="s-icon">&#9989;</div>
+        <h3>Software Development</h3>
+        <p>Backend logic, database design, system automation and integrations — writing maintainable code that keeps the lights on and the data clean.</p>
+      </div>
+      <div class="service-card">
+        <div class="s-icon">&#9998;</div>
+        <h3>Graphic Design</h3>
+        <p>Logos, branding, business cards and marketing collateral — plus flexible, tailor-made <b style="font-weight:500; color:var(--ink);">design packages</b> that bundle your logo, letterhead, cards, receipts, website and more into one cohesive identity.</p>
+      </div>
+      <div class="service-card">
+        <div class="s-icon">&#9881;</div>
+        <h3>ICT Systems &amp; Audit</h3>
+        <p>Network administration, data protection compliance and internal audit — keeping critical systems secure, stable and audit-ready.</p>
+      </div>
+      <div class="service-card">
+        <div class="s-icon">&#128247;</div>
+        <h3>Digitization</h3>
+        <p>Send me your drawings, sketches or physical art and I'll turn them into clean digital files — from tidy hi-res copies to full restoration or logo-ready vector rebuilds.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="half-intro sub">
+  <div class="section-inner">
+    <div class="eyebrow">Selected Work</div>
+    <h2 class="half-title">Featured &amp; portfolio</h2>
+  </div>
+</section>
+
+<!-- Featured projects (compact ad-banner cards) -->
+<section class="featured">
+  <div class="featured-strip">
+    <a class="f-item" href="software.html">
+      <span class="f-flag">Featured</span>
+      <div class="f-media"><img src="work/dev/cmc-hero.jpg" alt="Screenshot of the CMC Africa website" loading="lazy"></div>
+      <div class="f-body">
+        <div class="f-cat">Development &middot; Live Site</div>
+        <h3>CMC Africa — Corporate Website</h3>
+        <p>A multi-page consultancy website for CMC Africa, live on the web — 17 pages.</p>
+        <span class="f-cta">See the build →</span>
+      </div>
+    </a>
+    <a class="f-item" href="design.html">
+      <span class="f-flag">Featured</span>
+      <div class="f-media"><img src="work/design/packages/ll-package-showcase.jpg" alt="L&L Business Design Package — logo, business card, letterhead and payslip" loading="lazy"></div>
+      <div class="f-body">
+        <div class="f-cat">Design &middot; Brand Package</div>
+        <h3>Business Design Package</h3>
+        <p>A complete brand bundle — logo, card, letterhead and payslip — customisable to any business.</p>
+        <span class="f-cta">View the gallery →</span>
+      </div>
+    </a>
+    <a class="f-item" href="https://www.amazon.co.uk/dp/B0G4F7DC29" target="_blank" rel="noopener">
+      <span class="f-flag">Featured</span>
+      <div class="f-media f-media--contain"><img src="work/dev/book-dot-to-dot.jpg" alt="My Alphabet Dot-to-Dot and Coloring Book cover" loading="lazy"></div>
+      <div class="f-body">
+        <div class="f-cat">Side Hustle &middot; On Amazon</div>
+        <h3>My Alphabet Dot-to-Dot &amp; Coloring Book</h3>
+        <p>Keep the little ones busy with 100+ connect-the-dots and coloring pages from my other publishing venture — order a copy for your kids.</p>
+        <span class="f-cta">Order on Amazon · £5 →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+
+
+<section id="work" class="auto-reveal">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="eyebrow">My Work</div>
+      <h2>Built, designed &amp; shipped.</h2>
+    </div>
+    <div class="work-grid">
+      <a class="work-card reveal" href="design.html">
+        <div class="w-icon">&#9998;</div>
+        <h3>Graphic Design</h3>
+        <p>Logos, flyers, menus, business cards, social media and documents — plus flexible, tailor-made design packages that bundle a full brand identity.</p>
+        <div class="w-meta"><span><b>24</b> pieces</span><span><b>9</b> categories</span></div>
+        <span class="w-cta">View the gallery →</span>
+      </a>
+      <a class="work-card reveal d1" href="software.html">
+        <div class="w-icon">&#123;&#125;</div>
+        <h3>Software Development</h3>
+        <p>Websites, automation and integrations. Featured project: CMC Africa — a live multi-page corporate website.</p>
+        <div class="w-meta"><span><b>Live</b> preview</span><span><b>17</b> pages</span></div>
+        <span class="w-cta">Explore development →</span>
+      </a>
+      <a class="work-card reveal d2" href="pricing.html">
+        <div class="w-icon">&#36;</div>
+        <h3>Pricing &amp; Booking</h3>
+        <p>Clear, flat-rate packages for every service — plus big bundle and volume discounts. Pick a service, see the price, and book in one step.</p>
+        <div class="w-meta"><span><b>Flat</b> rates</span><span><b>Bundle</b> discounts</span></div>
+        <span class="w-cta">See what it costs →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
 
 <section id="contact" class="contact auto-reveal">
   <div class="section-inner">
@@ -728,6 +841,42 @@
 
 <script>
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- Theme (dark/light) toggle ----------
+  (function(){
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    if(saved) root.setAttribute('data-theme', saved);
+    const btn = document.getElementById('themeToggle');
+    if(btn){
+      btn.innerHTML = root.getAttribute('data-theme') === 'light' ? '&#9680;' : '&#9681;';
+      btn.addEventListener('click', () => {
+        const next = root.getAttribute('data-theme') === 'light' ? null : 'light';
+        if(next) root.setAttribute('data-theme', next); else root.removeAttribute('data-theme');
+        localStorage.setItem('theme', next || 'dark');
+        btn.innerHTML = next ? '&#9680;' : '&#9681;';
+      });
+    }
+  })();
+
+  // ---------- Mobile hamburger ----------
+  (function(){
+    const ham = document.getElementById('hamburger');
+    const links = document.getElementById('navLinks');
+    if(!ham || !links) return;
+    ham.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      ham.classList.toggle('active', open);
+      ham.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        links.classList.remove('open');
+        ham.classList.remove('active');
+        ham.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
 
   // ---------- Jumbotron marquee (pixel-snapped rAF — jitter-free motion) ----------
   (function(){

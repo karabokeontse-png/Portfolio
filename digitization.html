@@ -18,8 +18,23 @@
     --bronze:#b08d57;
     --bronze-soft:rgba(176,141,87,0.35);
     --steel:#7fa9c9;
+    --nav-bg: linear-gradient(to bottom, rgba(16,20,28,0.9), rgba(16,20,28,0.6));
   }
-  *{box-sizing:border-box; margin:0; padding:0;}
+  html[data-theme="light"]{
+    --bg: #f6f4ef;
+    --bg-2: #ffffff;
+    --bg-3: #eeeae2;
+    --ink: #1c212b;
+    --ink-dim: #5b6472;
+    --border: #ddd7cb;
+    --bronze: #9a7a45;
+    --bronze-soft: rgba(154,122,69,0.22);
+    --steel: #3f6f94;
+    --nav-bg: linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(255,255,255,0.7));
+  }
+  html[data-theme="light"] .tint{background:linear-gradient(180deg, transparent, rgba(154,122,69,0.06) 30%, rgba(63,111,148,0.06) 70%, transparent);}
+
+*{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif; font-weight:300; overflow-x:hidden;}
   ::selection{background:var(--bronze-soft); color:var(--ink);}
@@ -27,12 +42,47 @@
   .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--bronze);}
   a{color:inherit;}
 
-  nav{position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; padding:1.5rem 4vw; backdrop-filter:blur(10px); background:linear-gradient(to bottom, rgba(16,20,28,0.85), transparent);}
-  .nav-links{display:flex; justify-content:space-between; width:100%; font-size:0.82rem; letter-spacing:0.03em;}
+  /* ---------- Nav ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    padding:1.1rem 4vw;
+    backdrop-filter:blur(10px);
+    background:var(--nav-bg);
+  }
+  .nav-links{display:flex; gap:1.4rem; font-size:0.82rem; letter-spacing:0.03em; align-items:center;}
   .nav-links a{text-decoration:none; color:var(--ink-dim); transition:color .25s;}
   .nav-links a:hover{color:var(--ink);}
   .nav-links a.active{color:var(--ink); border-bottom:1px solid var(--bronze); padding-bottom:0.2rem;}
-  @media (max-width:860px){ .nav-links{display:none;} }
+  .nav-actions{display:flex; align-items:center; gap:0.6rem;}
+  .theme-toggle{
+    background:transparent; border:1px solid var(--border); color:var(--ink-dim);
+    width:40px; height:40px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    font-size:1.05rem; transition:border-color .25s, color .25s; border-radius:50%;
+  }
+  .theme-toggle:hover{border-color:var(--bronze); color:var(--ink);}
+  .hamburger{
+    display:none; background:transparent; border:1px solid var(--border); color:var(--ink);
+    width:44px; height:44px; cursor:pointer; border-radius:8px;
+    flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  }
+  .hamburger span{display:block; width:20px; height:2px; background:var(--ink); transition:transform .3s, opacity .3s;}
+  .hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.active span:nth-child(2){opacity:0;}
+  .hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  @media (max-width:860px){
+    .nav-actions .theme-toggle{display:inline-flex;}
+    .hamburger{display:flex;}
+    .nav-links{
+      position:fixed; top:0; right:0; height:100vh; width:min(78vw, 320px);
+      flex-direction:column; align-items:flex-start; justify-content:flex-start;
+      background:var(--bg-2); border-left:1px solid var(--border);
+      padding:6rem 2rem 2rem; gap:1.2rem; font-size:1rem;
+      transform:translateX(100%); transition:transform .35s ease;
+      box-shadow:-10px 0 30px rgba(0,0,0,0.25);
+    }
+    .nav-links.open{transform:translateX(0);}
+  }
 
   .page-head{min-height:44vh; display:flex; flex-direction:column; justify-content:flex-end; padding:9rem 6vw 3rem;}
   .page-head .eyebrow{margin-bottom:1rem;}
@@ -81,6 +131,9 @@
   .gallery-placeholder h3{font-family:'Fraunces',serif; font-weight:500; font-size:1.3rem;}
   .gallery-placeholder p{margin:0.7rem auto 0; color:var(--ink-dim); font-size:0.9rem; max-width:46ch; line-height:1.7;}
   .gallery-placeholder .gp-tag{margin-top:1.1rem; display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--bronze); background:var(--bronze-soft); padding:0.4rem 0.8rem;}
+  .portfolio-split{display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center;}
+  .portfolio-split .section-head p{margin-top:1.2rem; color:var(--ink-dim); line-height:1.7; max-width:46ch;}
+  @media (max-width:860px){ .portfolio-split{grid-template-columns:1fr; gap:2.2rem;} }
 
   footer{text-align:center; padding:2.6rem 6vw; color:var(--ink-dim); font-size:0.76rem; border-top:1px solid var(--border);}
   footer a{color:var(--ink-dim); text-decoration:none; transition:color .25s;}
@@ -94,7 +147,7 @@
 <body>
 
 <nav>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
     <a href="index.html#about">About</a>
     <a href="index.html#services">Services</a>
     <a href="design.html">Design</a>
@@ -104,6 +157,12 @@
     <a href="qualifications.html">Qualifications</a>
     <a href="pricing.html">Pricing</a>
     <a href="#contact">Contact</a>
+    </div>
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">&#9681;</button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -184,16 +243,20 @@
 
 <section class="reveal">
   <div class="section-inner">
-    <div class="section-head">
-      <div class="eyebrow">Portfolio</div>
-      <h2>Recent digitization</h2>
-      <p>Before-and-after pieces from artwork and photo digitization. Samples are being added — check back soon.</p>
-    </div>
-    <div class="gallery-placeholder">
-      <div class="gp-icon">&#128247;</div>
-      <h3>Samples coming soon</h3>
-      <p>I'm building the gallery of digitized pieces. In the meantime, send me something of yours and I'll show you what it can become.</p>
-      <span class="gp-tag">Before &rarr; After</span>
+    <div class="portfolio-split">
+      <div class="portfolio-copy">
+        <div class="section-head">
+          <div class="eyebrow">Portfolio</div>
+          <h2>Recent digitization</h2>
+          <p>Before-and-after pieces from artwork and photo digitization. Samples are being added — check back soon.</p>
+        </div>
+      </div>
+      <div class="gallery-placeholder">
+        <div class="gp-icon">&#128247;</div>
+        <h3>Samples coming soon</h3>
+        <p>I'm building the gallery of digitized pieces. In the meantime, send me something of yours and I'll show you what it can become.</p>
+        <span class="gp-tag">Before &rarr; After</span>
+      </div>
     </div>
   </div>
 </section>

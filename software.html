@@ -18,8 +18,23 @@
     --bronze: #b08d57;
     --bronze-soft: rgba(176,141,87,0.35);
     --steel: #7fa9c9;
+    --nav-bg: linear-gradient(to bottom, rgba(16,20,28,0.9), rgba(16,20,28,0.6));
   }
-  *{box-sizing:border-box; margin:0; padding:0;}
+  html[data-theme="light"]{
+    --bg: #f6f4ef;
+    --bg-2: #ffffff;
+    --bg-3: #eeeae2;
+    --ink: #1c212b;
+    --ink-dim: #5b6472;
+    --border: #ddd7cb;
+    --bronze: #9a7a45;
+    --bronze-soft: rgba(154,122,69,0.22);
+    --steel: #3f6f94;
+    --nav-bg: linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(255,255,255,0.7));
+  }
+  html[data-theme="light"] .tint{background:linear-gradient(180deg, transparent, rgba(154,122,69,0.06) 30%, rgba(63,111,148,0.06) 70%, transparent);}
+
+*{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif; font-weight:300; overflow-x:hidden;}
   ::selection{background:var(--bronze-soft); color:var(--ink);}
@@ -27,12 +42,47 @@
   .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--bronze);}
   a{color:inherit;}
 
-  nav{position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; padding:1.5rem 4vw; backdrop-filter:blur(10px); background:linear-gradient(to bottom, rgba(16,20,28,0.85), transparent);}
-  .nav-links{display:flex; justify-content:space-between; width:100%; font-size:0.82rem; letter-spacing:0.03em;}
+  /* ---------- Nav ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    padding:1.1rem 4vw;
+    backdrop-filter:blur(10px);
+    background:var(--nav-bg);
+  }
+  .nav-links{display:flex; gap:1.4rem; font-size:0.82rem; letter-spacing:0.03em; align-items:center;}
   .nav-links a{text-decoration:none; color:var(--ink-dim); transition:color .25s;}
   .nav-links a:hover{color:var(--ink);}
   .nav-links a.active{color:var(--ink); border-bottom:1px solid var(--bronze); padding-bottom:0.2rem;}
-  @media (max-width:860px){ .nav-links{display:none;} }
+  .nav-actions{display:flex; align-items:center; gap:0.6rem;}
+  .theme-toggle{
+    background:transparent; border:1px solid var(--border); color:var(--ink-dim);
+    width:40px; height:40px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    font-size:1.05rem; transition:border-color .25s, color .25s; border-radius:50%;
+  }
+  .theme-toggle:hover{border-color:var(--bronze); color:var(--ink);}
+  .hamburger{
+    display:none; background:transparent; border:1px solid var(--border); color:var(--ink);
+    width:44px; height:44px; cursor:pointer; border-radius:8px;
+    flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  }
+  .hamburger span{display:block; width:20px; height:2px; background:var(--ink); transition:transform .3s, opacity .3s;}
+  .hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.active span:nth-child(2){opacity:0;}
+  .hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  @media (max-width:860px){
+    .nav-actions .theme-toggle{display:inline-flex;}
+    .hamburger{display:flex;}
+    .nav-links{
+      position:fixed; top:0; right:0; height:100vh; width:min(78vw, 320px);
+      flex-direction:column; align-items:flex-start; justify-content:flex-start;
+      background:var(--bg-2); border-left:1px solid var(--border);
+      padding:6rem 2rem 2rem; gap:1.2rem; font-size:1rem;
+      transform:translateX(100%); transition:transform .35s ease;
+      box-shadow:-10px 0 30px rgba(0,0,0,0.25);
+    }
+    .nav-links.open{transform:translateX(0);}
+  }
 
   .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);}
   .reveal.in{opacity:1; transform:none;}
@@ -51,15 +101,21 @@
   .stack span{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-dim); border:1px solid var(--border); padding:0.5rem 1rem;}
 
   /* Featured project */
-  .project{border:1px solid var(--border); background:var(--bg-2); overflow:hidden;}
-  .project .p-hero{position:relative; display:block;}
-  .project .p-hero img{width:100%; display:block;}
+  .project{border:1px solid var(--border); background:var(--bg-2); overflow:hidden; display:grid; grid-template-columns:1.05fr .95fr;}
+  .project .p-hero{position:relative; display:block; min-height:100%;}
+  .project .p-hero img{width:100%; height:100%; object-fit:cover; display:block;}
   .project .p-hero .badge{
     position:absolute; top:1rem; left:1rem;
     font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase;
     color:var(--ink); background:rgba(16,20,28,0.8); border:1px solid var(--bronze-soft); padding:0.45rem 0.9rem; backdrop-filter:blur(4px);
   }
-  .project .p-body{padding:2.6rem 2.6rem 2.4rem;}
+  .project .p-body{padding:2.6rem 2.6rem 1.8rem;}
+  .project .features, .project .preview-wrap{grid-column:1 / -1; margin-left:2.6rem; margin-right:2.6rem;}
+  @media (max-width:860px){
+    .project{grid-template-columns:1fr;}
+    .project .p-hero img{height:auto;}
+    .project .features, .project .preview-wrap{margin-left:0; margin-right:0;}
+  }
   .project .p-meta{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; letter-spacing:0.08em; color:var(--steel); text-transform:uppercase; margin-bottom:0.8rem;}
   .project h3{font-family:'Fraunces',serif; font-weight:400; font-size:clamp(1.7rem,3vw,2.2rem);}
   .project .p-tagline{color:var(--ink-dim); font-size:1.02rem; line-height:1.7; margin-top:1rem;}
@@ -112,7 +168,7 @@
 <body>
 
 <nav>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
     <a href="index.html#about">About</a>
     <a href="index.html#services">Services</a>
     <a href="design.html">Design</a>
@@ -122,6 +178,12 @@
     <a href="qualifications.html">Qualifications</a>
     <a href="pricing.html">Pricing</a>
     <a href="#contact">Contact</a>
+    </div>
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">&#9681;</button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -160,37 +222,37 @@
           <a class="btn primary" href="https://karabokeontse-png.github.io/CMC-website-/" target="_blank" rel="noopener">Open Live Site &nearr;</a>
           <a class="btn" href="https://github.com/karabokeontse-png/CMC-website-" target="_blank" rel="noopener">View Source &nearr;</a>
         </div>
-
-        <div class="features">
-          <div class="feature">
-            <div class="f-num">17</div>
-            <div class="f-desc">Pages — a home page plus 16 sector landing pages, all linked from the Our Sectors section.</div>
-          </div>
-          <div class="feature">
-            <div class="f-num">100%</div>
-            <div class="f-desc">Responsive — layout adapts cleanly across desktop, tablet and mobile.</div>
-          </div>
-          <div class="feature">
-            <div class="f-num">Live</div>
-            <div class="f-desc">Hosted live on the public web — visitors can reach it with no setup.</div>
-          </div>
-        </div>
-
-        <div class="preview-wrap">
-          <div class="preview-bar">
-            <span class="addr">CMC Africa — Live Site</span>
-            <button class="btn" id="previewToggle" style="padding:0.55rem 1rem; font-size:0.7rem;">&#9654; Load live preview</button>
-          </div>
-          <div class="preview-frame" id="previewFrame">
-            <div class="hint" id="previewHint">
-              <span>An interactive preview of the actual live site will load here.</span>
-              <span class="sm">Tap the button above, or open it in a new tab.</span>
-            </div>
-            <iframe id="cmcFrame" data-src="https://karabokeontse-png.github.io/CMC-website-/" title="Live preview of CMC Africa website" loading="lazy" style="opacity:0;" allow="fullscreen"></iframe>
-          </div>
-        </div>
-
       </div>
+
+      <div class="features">
+        <div class="feature">
+          <div class="f-num">17</div>
+          <div class="f-desc">Pages — a home page plus 16 sector landing pages, all linked from the Our Sectors section.</div>
+        </div>
+        <div class="feature">
+          <div class="f-num">100%</div>
+          <div class="f-desc">Responsive — layout adapts cleanly across desktop, tablet and mobile.</div>
+        </div>
+        <div class="feature">
+          <div class="f-num">Live</div>
+          <div class="f-desc">Hosted live on the public web — visitors can reach it with no setup.</div>
+        </div>
+      </div>
+
+      <div class="preview-wrap">
+        <div class="preview-bar">
+          <span class="addr">CMC Africa — Live Site</span>
+          <button class="btn" id="previewToggle" style="padding:0.55rem 1rem; font-size:0.7rem;">&#9654; Load live preview</button>
+        </div>
+        <div class="preview-frame" id="previewFrame">
+          <div class="hint" id="previewHint">
+            <span>An interactive preview of the actual live site will load here.</span>
+            <span class="sm">Tap the button above, or open it in a new tab.</span>
+          </div>
+          <iframe id="cmcFrame" data-src="https://karabokeontse-png.github.io/CMC-website-/" title="Live preview of CMC Africa website" loading="lazy" style="opacity:0;" allow="fullscreen"></iframe>
+        </div>
+      </div>
+
     </div>
 
     <div class="apps-section reveal">

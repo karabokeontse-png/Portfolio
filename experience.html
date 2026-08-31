@@ -17,8 +17,23 @@
     --bronze: #b08d57;
     --bronze-soft: rgba(176,141,87,0.35);
     --steel: #7fa9c9;
+    --nav-bg: linear-gradient(to bottom, rgba(16,20,28,0.9), rgba(16,20,28,0.6));
   }
-  *{box-sizing:border-box; margin:0; padding:0;}
+  html[data-theme="light"]{
+    --bg: #f6f4ef;
+    --bg-2: #ffffff;
+    --bg-3: #eeeae2;
+    --ink: #1c212b;
+    --ink-dim: #5b6472;
+    --border: #ddd7cb;
+    --bronze: #9a7a45;
+    --bronze-soft: rgba(154,122,69,0.22);
+    --steel: #3f6f94;
+    --nav-bg: linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(255,255,255,0.7));
+  }
+  html[data-theme="light"] .tint{background:linear-gradient(180deg, transparent, rgba(154,122,69,0.06) 30%, rgba(63,111,148,0.06) 70%, transparent);}
+
+*{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
     background:var(--bg);
@@ -142,7 +157,7 @@
 <body>
 
 <nav>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
     <a href="index.html#about">About</a>
     <a href="index.html#services">Services</a>
     <a href="design.html">Design</a>
@@ -153,6 +168,12 @@
     <a href="qualifications.html">Qualifications</a>
     <a href="pricing.html">Pricing</a>
     <a href="index.html#contact">Contact</a>
+    </div>
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">&#9681;</button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
