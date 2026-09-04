@@ -479,24 +479,54 @@
         <h2>Quoted separately per project</h2>
       </div>
     </div>
+    <div class="table-wrap">
+    <table class="price-table">
+      <thead>
+        <tr><th>Websites</th><th>Pages</th><th>Price (P)</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr class="item-row"><td class="item-name">Landing page</td><td>1</td><td class="price" data-bwp="2500"><small>BWP</small> 2,500</td><td class="item-hint">Single page, contact / WhatsApp, launch-ready.</td></tr>
+        <tr class="item-row"><td class="item-name">Basic business</td><td>3&ndash;5</td><td class="price" data-bwp="4500"><small>BWP</small> 4,500</td><td class="item-hint">Small business / NGO presence, mobile-first.</td></tr>
+        <tr class="item-row"><td class="item-name">Standard business</td><td>6&ndash;10</td><td class="price" data-bwp="7000"><small>BWP</small> 7,000</td><td class="item-hint">Multi-page, forms, blog / services, basic SEO.</td></tr>
+        <tr class="item-row"><td class="item-name">Corporate</td><td>10&ndash;20</td><td class="price" data-bwp="10000"><small>BWP</small> 10,000</td><td class="item-hint">Editorial multi-page build with sector pages.</td></tr>
+        <tr class="item-row"><td class="item-name">Custom / enterprise</td><td>20+</td><td class="price" data-from="1" data-bwp="15000"><small>BWP</small> 15,000</td><td class="item-hint">Custom layouts, portals, complex structure (from).</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="table-wrap">
+    <table class="price-table">
+      <thead>
+        <tr><th>Web Applications</th><th>Scope</th><th>Price (P)</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr class="item-row"><td class="item-name">Simple app / MVP</td><td>&mdash;</td><td class="price" data-from="1" data-bwp="10000"><small>BWP</small> 10,000</td><td class="item-hint">1&ndash;3 features, login, single user role.</td></tr>
+        <tr class="item-row"><td class="item-name">Medium app</td><td>&mdash;</td><td class="price" data-from="1" data-bwp="20000"><small>BWP</small> 20,000</td><td class="item-hint">Dashboards, integrations, 2&ndash;3 user roles.</td></tr>
+        <tr class="item-row"><td class="item-name">Advanced app</td><td>&mdash;</td><td class="price" data-from="1" data-bwp="35000"><small>BWP</small> 35,000</td><td class="item-hint">Real-time, payments, multi-tenant / scale.</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="table-wrap">
+    <table class="price-table">
+      <thead>
+        <tr><th>Ecommerce</th><th>Scope</th><th>Price (P)</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr class="item-row"><td class="item-name">Basic store</td><td>&mdash;</td><td class="price" data-bwp="6500"><small>BWP</small> 6,500</td><td class="item-hint">Few products, WhatsApp checkout.</td></tr>
+        <tr class="item-row"><td class="item-name">Full store</td><td>&mdash;</td><td class="price" data-from="1" data-bwp="15000"><small>BWP</small> 15,000</td><td class="item-hint">Payments, inventory, full cart.</td></tr>
+      </tbody>
+    </table>
+    </div>
+
     <div class="premium-grid">
-      <div class="premium-card">
-        <h4>Websites</h4>
-        <div class="from" data-bwp="4900"><small>BWP</small> 4,900</div>
-        <p>Business sites, landing pages and corporate websites — designed and launched on your own domain.</p>
-      </div>
-      <div class="premium-card">
-        <h4>Mobile Apps</h4>
-        <div class="from" data-bwp="13400"><small>BWP</small> 13,400</div>
-        <p>Custom applications built for your business needs. Ideal for international clients too.</p>
-      </div>
       <div class="premium-card">
         <h4>ICT &amp; Audit</h4>
         <div class="from" data-bwp="3000"><small>BWP</small> 3,000 / day</div>
         <p>Systems support, data protection compliance and internal audits — backed by years of hands-on IT operations.</p>
       </div>
     </div>
-    <p class="premium-note">These are assessed on scope — send a message for a free, no-obligation quote.</p>
+    <p class="premium-note">Websites, apps and ecommerce are assessed on scope — a 25% deposit confirms the order and the balance is due on delivery (apps/corporate may use milestone payments). Send a message for a free, no-obligation quote.</p>
   </div>
 </section>
 
@@ -630,7 +660,7 @@
   function refreshCurrencyUI(){
     // static price table
     document.querySelectorAll('.price[data-bwp]').forEach(el=>{
-      el.innerHTML = '<small>'+(cur==='BWP'?'BWP':SYM[cur])+'</small> ' + moneyNum(parseFloat(el.dataset.bwp));
+      el.innerHTML = '<small>'+(cur==='BWP'?'BWP':SYM[cur])+'</small> ' + (el.dataset.from ? 'from ' : '') + moneyNum(parseFloat(el.dataset.bwp));
     });
     // premium cards
     document.querySelectorAll('.premium-card .from[data-bwp]').forEach(el=>{
